@@ -39,11 +39,11 @@ jobs:
       - name: Sync content and site infrastructure
         run: |
           # Create targets
-          mkdir -p www/docs.zenc-lang.org/content/tour/
+          mkdir -p www/docs.zenc-lang.org/content/docs/tour/
           mkdir -p www/docs.zenc-lang.org/templates/
           
           # Sync docs content
-          cp -r reference/* www/docs.zenc-lang.org/content/tour/
+          cp -r reference/* www/docs.zenc-lang.org/content/docs/tour/
           
       - name: Commit and Push
         run: |

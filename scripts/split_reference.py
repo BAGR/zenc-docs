@@ -176,7 +176,7 @@ def fix_links(content, lang):
         else:
             ext = f".{lang}.md"
         anchor_part = f"#{new_anchor}" if new_anchor else ""
-        return f"[{text}](@/tour/{base_no_ext}{ext}{anchor_part})"
+        return f"[{text}](@/docs/tour/{base_no_ext}{ext}{anchor_part})"
 
     return re.sub(r"\[([^\]]+)\]\(#([^\)]+)\)", replacer, content)
 

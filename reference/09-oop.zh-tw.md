@@ -123,7 +123,7 @@ impl Drop for Resource {
 ```
 
 {% alert(type="note") %}
-如果一個變量被移動，則原始變量不會調用 `drop`。它遵循 [資源語義](@/tour/08-memory-management.zh-tw.md#zi-yuan-yu-yi-mo-ren-yi-dong)。
+如果一個變量被移動，則原始變量不會調用 `drop`。它遵循 [資源語義](@/docs/tour/08-memory-management.zh-tw.md#zi-yuan-yu-yi-mo-ren-yi-dong)。
 {% end %}
 
 **Copy**
