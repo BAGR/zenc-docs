@@ -60,7 +60,7 @@
 | **[docs](https://github.com/zenc-lang-ce/zenc-docs)** | Официальная техническая документация и спецификация языка. | Активен |
 | **[rfcs](https://github.com/zenc-lang-ce/zenc-rfcs)** | Репозиторий запросов на комментарии (RFC). Формируйте будущее языка. | Активен |
 | **[vscode-zenc](https://github.com/zenc-lang-ce/zenc-vscode)** | Официальное расширение VS Code (подсветка синтаксиса, сниппеты). | Alpha |
-| **[www](https://github.com/zenc-lang-ce/zenc-web)** | Исходный код `zenc-lang.org`. | Активен |
+| **[www](https://github.com/zenc-lang-ce/zenc-lang-ce.github.io)** | Исходный код `zenc-lang.org`. | Активен |
 | **[awesome-zenc](https://github.com/zenc-lang-ce/awesome-zenc)** | Курируемый список отличных примеров Zen C. | Растет |
 | **[zenc.vim](https://github.com/zenc-lang-ce/zenc-vim)** | Официальный плагин для Vim/Neovim (Синтаксис, Отступы). | Активен |
 

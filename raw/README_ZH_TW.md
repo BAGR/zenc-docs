@@ -60,7 +60,7 @@ Zen C 項目包含多個倉庫。下面是主要的倉庫列表：
 | **[docs](https://github.com/zenc-lang-ce/zenc-docs)** | 官方技術文檔與語言規範。 | 活躍 |
 | **[rfcs](https://github.com/zenc-lang-ce/zenc-rfcs)** | 徵求意見稿 (RFC) 倉庫。塑造語言的未來。 | 活躍 |
 | **[vscode-zenc](https://github.com/zenc-lang-ce/zenc-vscode)** | 官方 VS Code 擴充功能（語法高亮、程式碼片段）。 | Alpha |
-| **[www](https://github.com/zenc-lang-ce/zenc-web)** | `zenc-lang.org` 的源代碼。 | 活躍 |
+| **[www](https://github.com/zenc-lang-ce/zenc-lang-ce.github.io)** | `zenc-lang.org` 的源代碼。 | 活躍 |
 | **[awesome-zenc](https://github.com/zenc-lang-ce/awesome-zenc)** | 精選的 Zen C 範例列表。 | 不斷增加 |
 
 ## 展示

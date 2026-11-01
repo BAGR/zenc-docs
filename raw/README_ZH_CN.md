@@ -60,7 +60,7 @@ Zen C 项目包含多个仓库。下面是主要的仓库列表：
 | **[docs](https://github.com/zenc-lang-ce/zenc-docs)** | 官方技术文档与语言规范。 | 活跃 |
 | **[rfcs](https://github.com/zenc-lang-ce/zenc-rfcs)** | 征求意见稿 (RFC) 仓库。塑造语言的未来。 | 活跃 |
 | **[vscode-zenc](https://github.com/zenc-lang-ce/zenc-vscode)** | 官方 VS Code 扩展（语法高亮、代码片段）。 | Alpha |
-| **[www](https://github.com/zenc-lang-ce/zenc-web)** | `zenc-lang.org` 的源代码。 | 活跃 |
+| **[www](https://github.com/zenc-lang-ce/zenc-lang-ce.github.io)** | `zenc-lang.org` 的源代码。 | 活跃 |
 | **[awesome-zenc](https://github.com/zenc-lang-ce/awesome-zenc)** | 精选的 Zen C 示例列表。 | 不断增加 |
 | **[zenc.vim](https://github.com/zenc-lang-ce/zenc-vim)** | 官方 Vim/Neovim 插件（语法高亮、智能缩进）。 | 活跃 |
 
