@@ -61,11 +61,12 @@ fn main() {
 
 #### Lambdas (Fechamentos)
 
-Funções anônimas que podem capturar seu ambiente.
+Funções anônimas que podem capturar seu ambiente. Na sintaxe de bloco o tipo de retorno (`-> T`) pode ser omitido: ele passa a ser o tipo dos valores de `return` quando todos têm o mesmo, e `void` caso contrário. A sintaxe de seta sempre o infere.
 ```zc
 let factor = 2;
 let dobrar = x => x * factor;  // Sintaxe de seta
 let full = fn(x: int) -> int { return x * factor; }; // Sintaxe de bloco
+let inferido = fn(x: int) { return x * factor; };    // Sintaxe de bloco, tipo de retorno inferido
 
 // Captura por Referência (Sintaxe de Bloco)
 let val = 10;

@@ -60,11 +60,12 @@ fn main() {
 ```
 
 #### Lambdas (Closures)
-Anonyme Funktionen, die ihre Umgebung erfassen können.
+Anonyme Funktionen, die ihre Umgebung erfassen können. In der Block-Syntax kann der Rückgabetyp (`-> T`) entfallen: Er ist dann der Typ der `return`-Werte, wenn alle denselben haben, und sonst `void`. Die Pfeil-Syntax leitet ihn immer ab.
 ```zc
 let faktor = 2;
 let verdoppler = x => x * faktor;  // Pfeil-Syntax
 let komplett = fn(x: int) -> int { return x * faktor; }; // Block-Syntax
+let abgeleitet = fn(x: int) { return x * faktor; };     // Block-Syntax, Rückgabetyp abgeleitet
 
 // Erfassen per Referenz (Block-Syntax)
 let wert = 10;

@@ -58,11 +58,12 @@ fn main() {
 ```
 
 #### Lambda (Closure)
-Funzioni anonime che possono catturare il loro ambiente.
+Funzioni anonime che possono catturare il loro ambiente. Nella sintassi a blocco il tipo di ritorno (`-> T`) si può omettere: è allora il tipo dei valori di `return` quando hanno tutti lo stesso, altrimenti `void`. La sintassi con freccia lo deduce sempre.
 ```zc
 let fattore = 2;
 let raddoppia = x => x * fattore;  // Sintassi con freccia
 let pieno = fn(x: int) -> int { return x * fattore; }; // Sintassi a blocco
+let dedotto = fn(x: int) { return x * fattore; };     // Sintassi a blocco, tipo di ritorno dedotto
 
 // Cattura per Riferimento (Sintassi a Blocco)
 let val = 10;

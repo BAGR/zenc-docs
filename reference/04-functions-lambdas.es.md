@@ -58,11 +58,12 @@ fn main() {
 ```
 
 #### Lambdas (Clausuras)
-Funciones anónimas que pueden capturar su entorno.
+Funciones anónimas que pueden capturar su entorno. En la sintaxis de bloque se puede omitir el tipo de retorno (`-> T`): entonces es el tipo de los valores de `return` cuando todos tienen el mismo, y `void` en otro caso. La sintaxis de flecha siempre lo infiere.
 ```zc
 let factor = 2;
 let doble = x => x * factor;  // Sintaxis de flecha
 let completo = fn(x: int) -> int { return x * factor; }; // Sintaxis de bloque
+let inferido = fn(x: int) { return x * factor; };        // Sintaxis de bloque, tipo de retorno inferido
 
 // Captura por Referencia (Sintaxis de Bloque)
 let val = 10;
