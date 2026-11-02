@@ -458,7 +458,7 @@ fn main() {
 *   **[zc-ape](https://github.com/OEvgeny/zc-ape)** (MIT 许可证)：由 [Eugene Olonov](https://github.com/OEvgeny) 开发的原版 Zen-C 实际上便携的可执行文件 (APE) 端口。
 *   **[Cosmopolitan Libc](https://github.com/jart/cosmopolitan)** (ISC 许可证)：使 APE 成为可能的基础库。
 *   **[TRE](https://github.com/laurikari/tre)** (BSD 许可证): 用于标准库中的正则表达式引擎。
-*   **[zenc.vim](https://github.com/zenc-lang-ce/zenc-vim)** (MIT 许可证): 官方 Vim/Neovim 插件，主要作者为 **[davidscholberg](https://github.com/davidscholberg)**。
+*   **[zenc-vim](https://github.com/zenc-lang-ce/zenc-vim)** (MIT 许可证): 官方 Vim/Neovim 插件，主要作者为 **[davidscholberg](https://github.com/davidscholberg)**。
 
 ---
 
