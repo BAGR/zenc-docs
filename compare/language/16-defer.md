@@ -15,6 +15,10 @@ import "std/io.zc"
 
 fn process_file(path: char*) {
     let f = fopen(path, "r");
+    if f == NULL {
+        println(f"cannot open {path}");
+        return;
+    }
     defer fclose(f);
 
     println(f"processing {path}...");
@@ -45,7 +49,10 @@ fn main() {
 
 void process_file(const char* path) {
     FILE* f = fopen(path, "r");
-    if (!f) return;
+    if (!f) {
+        printf("cannot open %s\n", path);
+        return;
+    }
 
     printf("processing %s...\n", path);
     printf("done\n");
@@ -88,8 +95,8 @@ int main(void) {
 
 
 
-processing test.txt...
-done
+
+cannot open test.txt
 ---
 buffer allocated
 ---
