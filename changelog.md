@@ -31,7 +31,8 @@ Issues and pull requests marked `OG` are in [Zuhaitz-dev/zenc-lang](https://gith
   - lambdas can contain `for … in` loops and destructuring `let` ([OG PR #508](https://github.com/Zuhaitz-dev/zenc-lang/pull/508)), can be nested ([OG PR #510](https://github.com/Zuhaitz-dev/zenc-lang/pull/510)), and can capture fixed-size arrays ([OG PR #512](https://github.com/Zuhaitz-dev/zenc-lang/pull/512));
   - closures inside f-strings: a `:` in the closure no longer cuts the expression, the return type is inferred, and captures are read in f-strings used as expressions ([OG PR #509](https://github.com/Zuhaitz-dev/zenc-lang/pull/509));
   - lambdas inside generic functions get one definition per instance;
-  - closures that capture a function pointer compile ([OG #418](https://github.com/Zuhaitz-dev/zenc-lang/issues/418), [OG PR #469](https://github.com/Zuhaitz-dev/zenc-lang/pull/469)).
+  - closures that capture a function pointer compile ([OG #418](https://github.com/Zuhaitz-dev/zenc-lang/issues/418), [OG PR #469](https://github.com/Zuhaitz-dev/zenc-lang/pull/469));
+  - calling a closure with too few or too many arguments is an error, as for a function: the generated C did not compile; and a lambda parameter that is never used is warned about, as a function's is ([PR #100](https://github.com/zenc-lang-ce/zenc/pull/100)).
 - Traits:
   - a struct pointer converts to a trait object: `(Greeter)ptr`, `let g: Greeter = &h;` ([OG #343](https://github.com/Zuhaitz-dev/zenc-lang/issues/343));
   - a trait method returning a generic type (`-> Vec<char*>`) compiles ([OG #342](https://github.com/Zuhaitz-dev/zenc-lang/issues/342));
@@ -134,7 +135,8 @@ Issues and pull requests marked `OG` are in [Zuhaitz-dev/zenc-lang](https://gith
   - errors inside the standard library are not reported: the instances of `Vec<T>` with a `T` that implements `Drop` got false move errors, so every program that imports `std/io.zc` failed ([#45](https://github.com/zenc-lang-ce/zenc/issues/45), [PR #95](https://github.com/zenc-lang-ce/zenc/pull/95)).
 - Diagnostics:
   - no unknown-type warning for C type names like `uint32_t` ([OG #365](https://github.com/Zuhaitz-dev/zenc-lang/issues/365));
-  - errors inside lambdas and `match` point at the right line.
+  - errors inside lambdas and `match` point at the right line;
+  - warnings about a function parameter, such as an unused one, point at the parameter: they had no line, and editors showed them at the start of the file ([PR #98](https://github.com/zenc-lang-ce/zenc/pull/98)).
 - `--misra` reports Rule 16.4 once for a `match` without a default arm ([#29](https://github.com/zenc-lang-ce/zenc/issues/29), [PR #55](https://github.com/zenc-lang-ce/zenc/pull/55)), no longer reports Rule 17.7 for `return f();`, and builds a program end to end: every program used to fail with rule 5.10 on the compiler's own `true` and `false`, and the MISRA preamble lacked `ZC_FUNC`, `ZC_GLOBAL` and `string` ([OG PR #519](https://github.com/Zuhaitz-dev/zenc-lang/pull/519)).
 - `zc transpile -o FILE` no longer overwrites its output with a temporary file, and replaces an existing `FILE` on Windows too ([OG PR #519](https://github.com/Zuhaitz-dev/zenc-lang/pull/519)).
 - Platforms:
@@ -168,7 +170,8 @@ Issues and pull requests marked `OG` are in [Zuhaitz-dev/zenc-lang](https://gith
   - words inside comments and strings are no longer colored as keywords ([#32](https://github.com/zenc-lang-ce/zenc/issues/32), [PR #81](https://github.com/zenc-lang-ce/zenc/pull/81));
   - on Windows the server answers `initialize` ([PR #82](https://github.com/zenc-lang-ce/zenc/pull/82));
   - the server stops indexing when the editor has exited, instead of running on ([PR #79](https://github.com/zenc-lang-ce/zenc/pull/79));
-  - methods are offered after `value.` and `Type::`, also on generic instances, and a member being typed completes like the members ([#88](https://github.com/zenc-lang-ce/zenc/issues/88), [PR #89](https://github.com/zenc-lang-ce/zenc/pull/89)).
+  - methods are offered after `value.` and `Type::`, also on generic instances, and a member being typed completes like the members ([#88](https://github.com/zenc-lang-ce/zenc/issues/88), [PR #89](https://github.com/zenc-lang-ce/zenc/pull/89));
+  - completion and signature help show a function's signature as written, with its Zen C types and parameter names, as the hover does, not its C form (`fn abc(int8_t) -> Vec__int8_t`); signature help no longer splits a parameter at the commas inside its type ([PR #97](https://github.com/zenc-lang-ce/zenc/pull/97)).
 - REPL: Ctrl+C no longer locks multi-line input, crashes are fixed, `:c`, `:type` and `:run` work on Windows, APE builds and with the standalone `zc-repl`, and `:plot` compiles ([#43](https://github.com/zenc-lang-ce/zenc/issues/43), [PR #54](https://github.com/zenc-lang-ce/zenc/pull/54)).
 - `zc -h` lists only the options `zc` parses ([#21](https://github.com/zenc-lang-ce/zenc/issues/21), [PR #56](https://github.com/zenc-lang-ce/zenc/pull/56)), and `zc help doc` shows the options of `zc-doc` ([#31](https://github.com/zenc-lang-ce/zenc/issues/31), [PR #53](https://github.com/zenc-lang-ce/zenc/pull/53)).
 - The Forth and Befunge plugins accept CRLF line endings.
@@ -244,7 +247,8 @@ Issues and pull requests marked `OG` are in [Zuhaitz-dev/zenc-lang](https://gith
   - `shutdown` and `exit`;
   - `zenc.server.json` (include paths, `exclude`, `use_gitignore`) and `.gitignore` support when indexing ([OG PR #493](https://github.com/Zuhaitz-dev/zenc-lang/pull/493));
   - `--verbose` startup log: version, project root, and what the workspace indexing cost ([OG PR #525](https://github.com/Zuhaitz-dev/zenc-lang/pull/525));
-  - the progress of indexing the workspace, shown in the editor's status bar ([PR #78](https://github.com/zenc-lang-ce/zenc/pull/78)).
+  - the progress of indexing the workspace, shown in the editor's status bar ([PR #78](https://github.com/zenc-lang-ce/zenc/pull/78));
+  - completion of the fields of structs from C headers, through typedefs of another name and through fields (`camera.position.`), with each field's C type ([PR #99](https://github.com/zenc-lang-ce/zenc/pull/99)).
 - Build:
   - `make ZC_LSP=0 ZC_REPL=0 ZC_PLUGINS=0 ZC_BACKENDS=0` and the `core`, `lite` and `minimal` targets build a smaller compiler;
   - `make format`, `lint`, `bench`, fuzzing targets, and test targets for MISRA, backends, plugins, the LSP, TCC and Fil-C.
