@@ -2,6 +2,19 @@
 
 Every change in each release of Zen C. The [CHANGELOG.md](https://github.com/zenc-lang-ce/zenc/blob/main/CHANGELOG.md) of the compiler repository lists the most significant ones.
 
+## 0.5.1
+
+Issues and pull requests are in [zenc-lang-ce/zenc](https://github.com/zenc-lang-ce/zenc).
+
+### Fixed
+- Release downloads ([#109](https://github.com/zenc-lang-ce/zenc/issues/109), [PR #112](https://github.com/zenc-lang-ce/zenc/pull/112), [PR #113](https://github.com/zenc-lang-ce/zenc/pull/113)):
+  - `zc.com` finds its standard library in any directory, and `ZC_ROOT` works again;
+  - `zc-boot.com` installs the `zc.com` of this release;
+  - the tools come as portable executables too: `zc-lsp.com`, `zc-repl.com`, `zc-format.com` and `zc-doc.com`;
+  - native binaries for Linux, macOS and Windows: `zenc-<version>-<os>-<arch>.zip`;
+  - the version is `v0.5.1`, not `v0.5.1+ci.N`.
+- The language server no longer crashes when two files declare the same enum, one with a payload on a variant and one without, and calling a variant constructor without its payload is an error instead of a crash ([#110](https://github.com/zenc-lang-ce/zenc/issues/110), [PR #111](https://github.com/zenc-lang-ce/zenc/pull/111)).
+
 ## 0.5.0
 
 Issues and pull requests marked `OG` are in [Zuhaitz-dev/zenc-lang](https://github.com/Zuhaitz-dev/zenc-lang); the others are in [zenc-lang-ce/zenc](https://github.com/zenc-lang-ce/zenc).
