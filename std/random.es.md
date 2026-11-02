@@ -6,6 +6,7 @@ El módulo `std/random` proporciona un envoltorio de generador de números pseud
 
 ```zc
 import "std/random.zc"
+import "std/io.zc"
 
 fn main() {
     // Siembra automáticamente el generador con la hora actual del sistema
@@ -14,7 +15,7 @@ fn main() {
     // Generar números enteros aleatorios
     let acotado = rng.next_int_range(1, 100); // de 1 a 100 inclusive
     
-    println "Lanzamiento: {acotado}";
+    println(f"Lanzamiento: {acotado}");
 }
 ```
 

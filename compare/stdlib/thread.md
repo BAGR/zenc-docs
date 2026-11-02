@@ -15,16 +15,16 @@ import "std/thread.zc"
 import "std/io.zc"
 
 fn worker(id: int) {
-    println "thread {id} done";
+    println(f"thread {id} done");
 }
 
 fn main() {
-    println "spawning...";
+    println("spawning...");
     let t1 = Thread::spawn(fn() { worker(1); }).unwrap();
     let t2 = Thread::spawn(fn() { worker(2); }).unwrap();
     t1.join().unwrap();
     t2.join().unwrap();
-    println "done";
+    println("done");
 }
 ```
 

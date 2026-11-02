@@ -72,6 +72,7 @@ Zen C включает стандартные трейты, которые ин�
 
 ```zc
 import "std/iter.zc"
+import "std/io.zc"
 
 // Определите итератор
 struct MyIter {
@@ -98,7 +99,7 @@ impl MyRange {
 
 // Используйте в цикле
 for i in my_range {
-    println "{i}";
+    println(f"{i}");
 }
 ```
 

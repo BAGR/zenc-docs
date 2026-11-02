@@ -21,7 +21,7 @@ fn main() {
     
     let addr = Memory::mmap(size, prot, flags);
     if ((isize)addr == Z_MAP_FAILED) {
-        println "Mapeo fallido";
+        println("Mapeo fallido");
         return;
     }
     

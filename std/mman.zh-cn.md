@@ -21,7 +21,7 @@ fn main() {
     
     let addr = Memory::mmap(size, prot, flags);
     if ((isize)addr == Z_MAP_FAILED) {
-        println "映射失败";
+        println("映射失败");
         return;
     }
     

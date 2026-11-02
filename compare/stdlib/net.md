@@ -20,7 +20,7 @@ fn main() {
 
     conn.write("Hello, server!\n");
     let response = conn.read_line()?;
-    println "server response: {response}";
+    println(f"server response: {response}");
 }
 ```
 

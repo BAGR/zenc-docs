@@ -34,10 +34,10 @@ impl Rectangle {
 
 fn main() {
     let r = Rectangle::new(10, 5);
-    println "area: {r.area()}";
+    println(f"area: {r.area()}");
 
     let r2 = r.scale(2);
-    println "scaled area: {r2.area()}";
+    println(f"scaled area: {r2.area()}");
 }
 ```
 

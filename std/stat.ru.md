@@ -18,11 +18,11 @@ fn main() {
     let res = FileStat::stat("myfile.txt");
     if (res.is_some()) {
         let st = res.unwrap();
-        println "Размер: {st.size} байт";
-        println "Права доступа: {st.mode}";
+        println(f"Размер: {st.size} байт");
+        println(f"Права доступа: {st.mode}");
         
         if (FileStat::is_dir(st.mode)) {
-            println "Это директория.";
+            println("Это директория.");
         }
     }
 }

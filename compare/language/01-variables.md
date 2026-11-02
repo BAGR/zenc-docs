@@ -21,9 +21,9 @@ fn main() {
     let y = 3.14;
     let buffer: char[MAX_USERS];
 
-    println "name: {name}";
-    println "x: {x}, y: {y}";
-    println "buffer size: {sizeof(buffer)}";
+    println(f"name: {name}");
+    println(f"x: {x}, y: {y}");
+    println(f"buffer size: {sizeof(buffer)}");
 }
 ```
 

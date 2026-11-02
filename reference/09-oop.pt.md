@@ -72,6 +72,7 @@ Implemente `Iterable<T>` para habilitar loops `for-in` para seus tipos customiza
 
 ```zc
 import "std/iter.zc"
+import "std/io.zc"
 
 // Defina um Iterator
 struct MyIter {
@@ -98,7 +99,7 @@ impl MyRange {
 
 // Use no Loop
 for i in my_range {
-    println "{i}";
+    println(f"{i}");
 }
 ```
 

@@ -13,6 +13,7 @@
 
 ```zc
 import "std/set.zc"
+import "std/io.zc"
 
 fn main() {
     let s = Set<int>::new();
@@ -22,11 +23,11 @@ fn main() {
     s.add(10); // 重复，返回 false
     
     if (s.contains(10)) {
-        println "集合中包含 10";
+        println("集合中包含 10");
     }
     
     s.remove(20);
-    println "长度: {s.length()}";
+    println(f"长度: {s.length()}");
 } // s 会在此处自动释放
 ```
 

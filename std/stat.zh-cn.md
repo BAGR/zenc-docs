@@ -18,11 +18,11 @@ fn main() {
     let res = FileStat::stat("myfile.txt");
     if (res.is_some()) {
         let st = res.unwrap();
-        println "大小: {st.size} 字节";
-        println "权限: {st.mode}";
+        println(f"大小: {st.size} 字节");
+        println(f"权限: {st.mode}");
         
         if (FileStat::is_dir(st.mode)) {
-            println "这是一个目录。";
+            println("这是一个目录。");
         }
     }
 }

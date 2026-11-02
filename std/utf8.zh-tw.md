@@ -6,12 +6,13 @@
 
 ```zc
 import "std/utf8.zc"
+import "std/io.zc"
 
 fn main() {
     let r = 'ñ';
     
     if (Utf8::is_alpha(r)) {
-        println "{r} 是一個字母";
+        println(f"{r} 是一個字母");
     }
 }
 ```

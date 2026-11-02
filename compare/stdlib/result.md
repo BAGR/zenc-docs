@@ -25,7 +25,7 @@ fn safe_div(a: int, b: int) -> Result<int, char*> {
 
 fn main() {
     let r = safe_div(10, 2);
-    println "ok";
+    println("ok");
 }
 ```
 

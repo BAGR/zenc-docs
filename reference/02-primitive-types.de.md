@@ -45,22 +45,23 @@ Zen C bietet erstklassige Unterstützung für Unicode-Skalarwerte über den Typ 
 
 ```zc
 import "std.zc"
+import "std/io.zc"
 
 fn main() {
     let c = 'a';
-    println "Das Zeichen '{c}' hat den Code {(int)c} in ASCII/Unicode";
+    println(f"Das Zeichen '{c}' hat den Code {(int)c} in ASCII/Unicode");
 
     let code = 97;
-    println "Der Code {code} entspricht dem Zeichen {(char)code}";
+    println(f"Der Code {code} entspricht dem Zeichen {(char)code}");
 
     let r: rune = '🚀';
-    println "Die Rune '{r}' hat den Unicode-Code {(uint)r}";
+    println(f"Die Rune '{r}' hat den Unicode-Code {(uint)r}");
     
     let r_code: uint = 128640;
-    println "Der Code {r_code} entspricht der Rune '{(rune)r_code}'";
+    println(f"Der Code {r_code} entspricht der Rune '{(rune)r_code}'");
 
     let r_esc: rune = '\u{2764}';
-    println "Die Rune '{r_esc}' hat den Code {(uint)r_esc} (0x{(uint)r_esc:X})";
+    println(f"Die Rune '{r_esc}' hat den Code {(uint)r_esc} (0x{(uint)r_esc:X})");
 }
 ```
 

@@ -15,7 +15,7 @@ import "std/io.zc"
 
 fn main() {
     let s: Set<int> = Set::new();
-    println "set created, capacity: {s.cap}";
+    println(f"set created, capacity: {s.cap}");
 }
 ```
 

@@ -18,7 +18,7 @@ fn add_one(x: int) -> int { return x + 1; }
 
 fn main() {
     let result = 5 |> square |> add_one;
-    println "5 |> square |> add_one: {result}";
+    println(f"5 |> square |> add_one: {result}");
 }
 ```
 

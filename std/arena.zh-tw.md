@@ -13,6 +13,7 @@
 
 ```zc
 import "std/arena.zc"
+import "std/io.zc"
 
 struct Node {
     val: int;
@@ -29,7 +30,7 @@ fn main() {
     // 將字串複製到 arena 記憶體中
     let s = a.dup_str("Hello World");
     
-    println "Arena 已使用: {a.bytes_used()} 位元組";
+    println(f"Arena 已使用: {a.bytes_used()} 位元組");
     
     // 當 'a' 超出作用域時，所有內容都會自動釋放
 }

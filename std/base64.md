@@ -17,11 +17,11 @@ import "std/io.zc"
 fn main() {
     let data = (u8*)"foobar";
     let encoded = Base64::encode(data, strlen(data));
-    println "Encoded: {encoded.c_str()}";
+    println(f"Encoded: {encoded.c_str()}");
 
     let decoded = Base64::decode(encoded.c_str());
     if (decoded.is_ok()) {
-        println "Decoded back to {decoded.unwrap().len} bytes";
+        println(f"Decoded back to {decoded.unwrap().len} bytes");
     }
 }
 ```

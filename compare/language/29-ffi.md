@@ -21,13 +21,13 @@ include <stdlib.h>
 
 fn main() {
     let pi = c_math::cos(3.14159);
-    println "cos(pi): {pi}";
+    println(f"cos(pi): {pi}");
 
     printf("via C printf: %d, %s\n", 42, "Zen");
 
     let ptr = malloc(64);
     defer free(ptr);
-    println "malloc'd 64 bytes via C stdlib";
+    println("malloc'd 64 bytes via C stdlib");
 }
 ```
 

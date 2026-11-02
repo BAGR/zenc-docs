@@ -36,9 +36,9 @@ fn main() {
         name: "Zen",
     };
 
-    println "position: ({p.x}, {p.y})";
-    println "hp: {p.stats.hp}/{p.stats.max_hp}";
-    println "name: {p.name}";
+    println(f"position: ({p.x}, {p.y})");
+    println(f"hp: {p.stats.hp}/{p.stats.max_hp}");
+    println(f"name: {p.name}");
 }
 ```
 

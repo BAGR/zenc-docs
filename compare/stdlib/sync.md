@@ -17,10 +17,10 @@ fn main() {
     let mtx = Mutex::new();
 
     mtx.lock();
-    println "critical section";
+    println("critical section");
     mtx.unlock();
 
-    println "done";
+    println("done");
 }
 ```
 

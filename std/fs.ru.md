@@ -13,12 +13,13 @@
 
 ```zc
 import "std/fs.zc"
+import "std/io.zc"
 
 fn main() {
     // Базовое чтение файла с использованием RAII
     match File::read_all("config.txt") {
-        Ok(content) => println "Конфигурация: {content}",
-        Err(e) => println "Ошибка чтения конфигурации: {e}"
+        Ok(content) => println(f"Конфигурация: {content}"),
+        Err(e) => println(f"Ошибка чтения конфигурации: {e}")
     }
     
     // Явный дескриптор файла с автоматическим закрытием
@@ -27,7 +28,7 @@ fn main() {
             file.write_string("Запись лога\n");
             // файл закрывается автоматически здесь
         }
-        Err(e) => println "Не удалось открыть лог: {e}"
+        Err(e) => println(f"Не удалось открыть лог: {e}")
     }
 }
 ```

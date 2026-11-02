@@ -32,10 +32,10 @@ fn main() {
     let p2 = Point { x: 3, y: 4 };
     let p3 = p1 + p2;
 
-    println "p3: ({p3.x}, {p3.y})";
-    println "p1 == p2: {p1 == p2}";
+    println(f"p3: ({p3.x}, {p3.y})");
+    println(f"p1 == p2: {p1 == p2}");
     let expected = Point { x: 4, y: 6 };
-    println "p3 == expected: {p3 == expected}";
+    println(f"p3 == expected: {p3 == expected}");
 }
 ```
 

@@ -37,8 +37,8 @@ String interpolation in Zen C is **implicit**: if your string contains `{...}`, 
 ```zc
 let x = 42;
 let name = "Zen";
-println "Value: {x}, Name: {name}";
-"Value: {x}, Name: {name}"; // shorthand println
+println(f"Value: {x}, Name: {name}");
+println(f"Value: {x}, Name: {name}"); // shorthand println
 ```
 
 **Escaping Braces**: Use `{{` to produce a literal `{` and `}}` for a literal `}`:
@@ -92,5 +92,5 @@ Zen C supports a shorthand for prompting user input using the `?` prefix.
 ```zc
 let age: int;
 ? "How old are you? " (age);
-println "You are {age} years old.";
+println(f"You are {age} years old.");
 ```

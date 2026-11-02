@@ -17,25 +17,25 @@ fn main() {
     let name = "Zen";
     let count = 3;
 
-    println "Hello, {name}!";
-    println "Count: {count}";
+    println(f"Hello, {name}!");
+    println(f"Count: {count}");
 
-    println "JSON: {{key: value}}";
+    println(f"JSON: {{key: value}}");
 
     let path = r"C:\Users\{name}\docs";
-    println "raw path: {path}";
+    println(f"raw path: {path}");
 
     let story = """
     Once upon a time,
     in the land of {name},
     there were {count} warriors.
     """;
-    println "{story}";
+    println(f"{story}");
 
-    println "--- user input ---";
-    print "What is your name? ";
+    println("--- user input ---");
+    print("What is your name? ");
     let user_name = ? ">>> ";
-    println "Hello, {user_name}!";
+    println(f"Hello, {user_name}!");
 }
 ```
 

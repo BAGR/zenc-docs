@@ -15,10 +15,10 @@ Esegui codice al momento della compilazione per generare sorgente o stampare mes
 ```zc
 comptime {
     // Genera codice al momento della compilazione (scritto su stdout)
-    println "let data_compilazione = \"2024-01-01\";";
+    println("let data_compilazione = \"2024-01-01\";");
 }
 
-println "Data compilazione: {data_compilazione}";
+println(f"Data compilazione: {data_compilazione}");
 ```
 
 <details>
@@ -92,10 +92,10 @@ Accedi alle informazioni di build del compilatore al momento della compilazione:
 ```zc
 comptime {
     // Generazione codice specifico per piattaforma
-    println "let PLATFORM = \"{__COMPTIME_TARGET__}\";";
+    println(f"let PLATFORM = \"{__COMPTIME_TARGET__}\";");
 }
 
-println "In esecuzione su: {PLATFORM}";
+println(f"In esecuzione su: {PLATFORM}");
 ```
 </details>
 
@@ -153,10 +153,11 @@ import "opengl_backend.zc";
 
 @cfg(USE_VULKAN)
 import "vulkan_backend.zc";
+import "std/io.zc"
 
 @cfg(not(USE_OPENGL))
 @cfg(not(USE_VULKAN))
-fn fallback_init() { println "Nessun backend selezionato"; }
+fn fallback_init() { println("Nessun backend selezionato"); }
 ```
 
 | Forma | Significato |

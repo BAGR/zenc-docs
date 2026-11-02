@@ -13,16 +13,17 @@ Das Modul `std/path` bietet plattformübergreifende Hilfsprogramme zur Manipulat
 
 ```zc
 import "std/path.zc"
+import "std/io.zc"
 
 fn main() {
     let p = Path::new("/home/user");
     let full_path = p.join("docs/file.txt");
     
-    println "Vollständiger Pfad: {full_path.c_str()}";
+    println(f"Vollständiger Pfad: {full_path.c_str()}");
     
     match full_path.extension() {
-        Some(ext) => println "Dateiendung: {ext}",
-        None => println "Keine Endung gefunden"
+        Some(ext) => println(f"Dateiendung: {ext}"),
+        None => println("Keine Endung gefunden")
     }
 } // full_path und p werden hier automatisch freigegeben
 ```

@@ -27,13 +27,13 @@ struct Square {
 
 impl Drawable for Circle {
     fn draw(self) {
-        println "drawing circle r={.radius}";
+        println(f"drawing circle r={.radius}");
     }
 }
 
 impl Drawable for Square {
     fn draw(self) {
-        println "drawing square side={.side}";
+        println(f"drawing square side={.side}");
     }
 }
 

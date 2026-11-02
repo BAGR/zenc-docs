@@ -15,7 +15,7 @@ import "std/io.zc"
 
 fn process(ptr: int*) -> int {
     guard ptr != null else {
-        println "null pointer, aborting";
+        println("null pointer, aborting");
         return -1;
     }
     return *ptr * 2;
@@ -29,18 +29,18 @@ fn validate(age: int) -> bool {
 
 fn show_status(active: bool) {
     unless active {
-        println "inactive";
+        println("inactive");
         return;
     }
-    println "active and running";
+    println("active and running");
 }
 
 fn main() {
     let x = 21;
-    println "2x: {process(&x)}";
+    println(f"2x: {process(&x)}");
 
-    println "age 25 valid: {validate(25)}";
-    println "age -5 valid: {validate(-5)}";
+    println(f"age 25 valid: {validate(25)}");
+    println(f"age -5 valid: {validate(-5)}");
 
     show_status(true);
     show_status(false);

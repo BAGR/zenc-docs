@@ -12,7 +12,7 @@ comptime {
     yield("def build_date = \"2024-01-01\";");
 }
 
-println "Build Date: {build_date}";
+println(f"Build Date: {build_date}");
 ```
 
 ## 12.1 輔助函式

@@ -26,7 +26,7 @@ Function arguments can be marked as `const` to enforce read-only semantics. This
 ```zc
 fn print_val(v: const int) {
     // v = 10; // Error: Cannot assign to const variable
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -34,6 +34,7 @@ fn print_val(v: const int) {
 Functions can define default values for trailing arguments. These can be literals, expressions, or valid Zen C code (like struct constructors).
 ```zc
 // Simple default value
+import "std/io.zc"
 fn increment(val: int, amount: int = 1) -> int {
     return val + amount;
 }
@@ -46,7 +47,7 @@ fn offset(val: int, pad: int = 10 * 2) -> int {
 // Struct default value
 struct Config { debug: bool; }
 fn init(cfg: Config = Config { debug: true }) {
-    if cfg.debug { println "Debug Mode"; }
+    if cfg.debug { println("Debug Mode"); }
 }
 
 fn main() {

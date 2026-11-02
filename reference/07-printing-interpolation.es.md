@@ -37,8 +37,8 @@ La interpolación de cadenas en Zen C es **implícita**: si tu cadena contiene `
 ```zc
 let x = 42;
 let nombre = "Zen";
-println "Valor: {x}, Nombre: {nombre}";
-"Valor: {x}, Nombre: {nombre}"; // abreviatura println
+println(f"Valor: {x}, Nombre: {nombre}");
+println(f"Valor: {x}, Nombre: {nombre}"); // abreviatura println
 ```
 
 **Escapando Llaves**: Usa `{{` para producir una llave literal `{` y `}}` para una `}` literal:
@@ -92,5 +92,5 @@ Zen C soporta una abreviatura para solicitar entrada al usuario usando el prefij
 ```zc
 let edad: int;
 ? "¿Cuántos años tienes? " (edad);
-println "Tienes {edad} años.";
+println(f"Tienes {edad} años.");
 ```

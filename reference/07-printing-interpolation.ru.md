@@ -37,8 +37,8 @@ Zen C позволяет использовать строковые литер�
 ```zc
 let x = 42;
 let name = "Zen";
-println "Значение: {x}, Имя: {name}";
-"Значение: {x}, Имя: {name}"; // сокращение println
+println(f"Значение: {x}, Имя: {name}");
+println(f"Значение: {x}, Имя: {name}"); // сокращение println
 ```
 
 **Экранирование фигурных скобок**: Используйте `{{` для вывода литеральной `{` и `}}` для литеральной `}`:
@@ -92,5 +92,5 @@ Zen C поддерживает сокращение для запроса вво
 ```zc
 let age: int;
 ? "How old are you? " (age);
-println "You are {age} years old.";
+println(f"You are {age} years old.");
 ```

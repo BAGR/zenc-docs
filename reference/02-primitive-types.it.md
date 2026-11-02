@@ -39,22 +39,23 @@ Zen C fornisce supporto di prima classe per i valori scalari Unicode tramite il 
 
 ```zc
 import "std.zc"
+import "std/io.zc"
 
 fn main() {
     let c = 'a';
-    println "Il carattere '{c}' ha un codice di {(int)c} in ASCII/Unicode";
+    println(f"Il carattere '{c}' ha un codice di {(int)c} in ASCII/Unicode");
 
     let codice = 97;
-    println "Il codice {codice} corrisponde al carattere {(char)codice}";
+    println(f"Il codice {codice} corrisponde al carattere {(char)codice}");
 
     let r: rune = '🚀';
-    println "La runa '{r}' ha un codice di {(uint)r} in Unicode";
+    println(f"La runa '{r}' ha un codice di {(uint)r} in Unicode");
     
     let r_code: uint = 128640;
-    println "Il codice {r_code} corrisponde alla runa '{(rune)r_code}'";
+    println(f"Il codice {r_code} corrisponde alla runa '{(rune)r_code}'");
 
     let r_esc: rune = '\u{2764}';
-    println "La runa '{r_esc}' ha il codice {(uint)r_esc} (0x{(uint)r_esc:X})";
+    println(f"La runa '{r_esc}' ha il codice {(uint)r_esc} (0x{(uint)r_esc:X})");
 }
 ```
 

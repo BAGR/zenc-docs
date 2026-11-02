@@ -37,12 +37,12 @@ fn main() {
     let r = Shape::Rect(4.0, 5.0);
     let p = Shape::Point;
 
-    println "circle area: {area(c)}";
-    println "rect area:   {area(r)}";
-    println "point area:  {area(p)}";
+    println(f"circle area: {area(c)}");
+    println(f"rect area:   {area(r)}");
+    println(f"point area:  {area(p)}");
 
     let d = Data { i: 42 };
-    println "union int: {d.i}";
+    println(f"union int: {d.i}");
 }
 ```
 

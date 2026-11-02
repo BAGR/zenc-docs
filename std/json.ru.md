@@ -13,6 +13,7 @@
 
 ```zc
 import "std/json.zc"
+import "std/io.zc"
 
 fn main() {
     // Построение JSON
@@ -23,16 +24,16 @@ fn main() {
     
     // Сериализация
     let json_str = obj.to_string();
-    println "Сериализовано: {json_str}";
+    println(f"Сериализовано: {json_str}");
     
     // Парсинг
     let input = "{\"score\": 100}";
     match JsonValue::parse(input) {
         Ok(parsed) => {
-            println "Счет: {parsed.get(\"score\").unwrap().as_int().unwrap()}";
+            println(f"Счет: {parsed.get(\"score\").unwrap().as_int().unwrap()}");
             // parsed освобождается автоматически в конце этого блока
         }
-        Err(e) => println "Ошибка: {e}"
+        Err(e) => println(f"Ошибка: {e}")
     }
 } // obj освобождается здесь автоматически
 ```

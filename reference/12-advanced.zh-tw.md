@@ -15,10 +15,10 @@ weight = 12
 ```zc
 comptime {
     // 在編譯時生成程式碼(寫入 stdout)
-    println "let build_date = \"2024-01-01\";";
+    println("let build_date = \"2024-01-01\";");
 }
 
-println "Build Date: {build_date}";
+println(f"Build Date: {build_date}");
 ```
 
 **輔助函式**
@@ -37,7 +37,7 @@ comptime {
         compile_error("必須啟用功能!");
     }
     
-    println "let FEATURE_ENABLED = 1;";
+    println("let FEATURE_ENABLED = 1;");
 }
 ```
 
@@ -50,10 +50,10 @@ comptime {
 ```zc
 comptime {
     // 平台特定的程式碼生成
-    println "let PLATFORM = \"{__COMPTIME_TARGET__}\";";
+    println(f"let PLATFORM = \"{__COMPTIME_TARGET__}\";");
 }
 
-println "運行於: {PLATFORM}";
+println(f"運行於: {PLATFORM}");
 ```
 
 {% alert(type="tip") %}
@@ -110,10 +110,11 @@ import "opengl_backend.zc";
 
 @cfg(USE_VULKAN)
 import "vulkan_backend.zc";
+import "std/io.zc"
 
 @cfg(not(USE_OPENGL))
 @cfg(not(USE_VULKAN))
-fn fallback_init() { println "未選擇後端"; }
+fn fallback_init() { println("未選擇後端"); }
 ```
 
 | 形式 | 含義 |

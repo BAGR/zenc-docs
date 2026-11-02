@@ -72,6 +72,7 @@ Implementa `Iterable<T>` per abilitare loop `for-in` (lett. _per in_) nei tuoi t
 
 ```zc
 import "std/iter.zc"
+import "std/io.zc"
 
 // Definisci un Iteratore
 struct MioIteratore {
@@ -98,7 +99,7 @@ impl MioRange {
 
 // Usalo in un loop
 for i in mio_range {
-    println "{i}";
+    println(f"{i}");
 }
 ```
 

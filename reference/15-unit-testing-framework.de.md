@@ -13,13 +13,14 @@ Zen C bietet ein eingebautes Test-Framework, um Unit-Tests direkt in den Quellco
 Ein `test`-Block enthält einen beschreibenden Namen und einen Codeblock, der ausgeführt wird. Es wird keine `main`-Funktion benötigt.
 
 ```zc
+import "std/io.zc"
 test "unittest1" {
-    "Dies ist ein Unit-Test";
+    println("Dies ist ein Unit-Test");
 
     let a = 3;
     assert(a > 0, "a sollte eine positive Zahl sein");
 
-    "unittest1 erfolgreich.";
+    println("unittest1 erfolgreich.");
 }
 ```
 

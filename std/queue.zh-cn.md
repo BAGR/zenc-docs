@@ -6,6 +6,7 @@
 
 ```zc
 import "std/queue.zc"
+import "std/io.zc"
 
 fn main() {
     let q = Queue<int>::new();
@@ -16,7 +17,7 @@ fn main() {
     
     // Pop 返回一个 Option<T>
     if (q.pop().is_some()) {
-        println "弹出值: {q.pop().unwrap()}"; // 1
+        println(f"弹出值: {q.pop().unwrap()}"); // 1
     }
 }
 ```

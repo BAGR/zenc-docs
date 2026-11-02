@@ -73,17 +73,17 @@ enum Color { Red; Green; Blue; }
 // Bad -- missing Blue:
 fn describe(c: Color) {
     match c {
-        Color::Red => { println "red"; }
-        Color::Green => { println "green"; }
+        Color::Red => { println("red"); }
+        Color::Green => { println("green"); }
     }
 }
 
 // Good:
 fn describe(c: Color) {
     match c {
-        Color::Red => { println "red"; }
-        Color::Green => { println "green"; }
-        Color::Blue => { println "blue"; }
+        Color::Red => { println("red"); }
+        Color::Green => { println("green"); }
+        Color::Blue => { println("blue"); }
     }
 }
 ```

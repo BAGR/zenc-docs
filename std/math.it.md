@@ -13,11 +13,12 @@ Il modulo `Math` fornisce un insieme di costanti e funzioni matematiche standard
 
 ```zc
 import "std/math.zc"
+import "std/io.zc"
 
 fn main() {
     let radius = 5.0;
     let area = Math::PI() * Math::pow(radius, 2.0);
-    println "Area del cerchio: {area}";
+    println(f"Area del cerchio: {area}");
 }
 ```
 

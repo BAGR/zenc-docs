@@ -37,8 +37,8 @@ Zen C 中的字串插值是**隱式**的：如果你的字串包含 `{...}`，�
 ```zc
 let x = 42;
 let name = "Zen";
-println "值: {x}, 名稱: {name}";
-"值: {x}, 名稱: {name}"; // 簡寫形式的 println
+println(f"值: {x}, 名稱: {name}");
+println(f"值: {x}, 名稱: {name}"); // 簡寫形式的 println
 ```
 
 **轉義花括號**：使用 `{{` 輸出字面量 `{`，使用 `}}` 輸出字面量 `}`：
@@ -92,5 +92,5 @@ Zen C 支持使用 `?` 前綴進行用戶輸入提示的簡寫。
 ```zc
 let age: int;
 ? "你多大了？ " (age);
-println "你 {age} 歲了。";
+println(f"你 {age} 歲了。");
 ```

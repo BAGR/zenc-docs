@@ -9,11 +9,11 @@ weight = 5
 #### 条件语句
 ```zc
 if x > 10 {
-    print "Large";
+    print("Large");
 } else if x > 5 {
-    print "Medium";
+    print("Medium");
 } else {
-    print "Small";
+    print("Small");
 }
 
 // 三元運算符
@@ -27,21 +27,21 @@ let 類別 = if (x > 100) { "巨大" } else if (x > 10) { "大" } else { "小" }
 `switch` 的強大替代方案。
 ```zc
 match val {
-    1         => { print "One" },
-    2 || 3    => { print "Two or Three" },    // 使用 || 進行 或 操作
-    4 or 5    => { print "Four or Five" },    // 使用 'or' 進行 或 操作
-    6, 7, 8   => { print "Six to Eight" },    // 使用逗號進行 或 操作
-    10 .. 15  => { print "10 to 14" },        // 左閉右開區間 (舊語法)
-    10 ..< 15 => { print "10 to 14" },        // 左閉右開區間 (顯式)
-    20 ..= 25 => { print "20 to 25" },        // 全閉區間
-    _         => { print "Other" },
+    1         => { print("One") },
+    2 || 3    => { print("Two or Three") },    // 使用 || 進行 或 操作
+    4 or 5    => { print("Four or Five") },    // 使用 'or' 進行 或 操作
+    6, 7, 8   => { print("Six to Eight") },    // 使用逗號進行 或 操作
+    10 .. 15  => { print("10 to 14") },        // 左閉右開區間 (舊語法)
+    10 ..< 15 => { print("10 to 14") },        // 左閉右開區間 (顯式)
+    20 ..= 25 => { print("20 to 25") },        // 全閉區間
+    _         => { print("Other") },
 }
 
 // 解構枚舉
 match shape {
-    Shape::Circle(r)   => { println "半徑: {r}" },
-    Shape::Rect(w, h)  => { println "面積: {w*h}" },
-    Shape::Point       => { println "點" },
+    Shape::Circle(r)   => { println(f"半徑: {r}") },
+    Shape::Rect(w, h)  => { println(f"面積: {w*h}") },
+    Shape::Point       => { println("點") },
 }
 ```
 
@@ -54,7 +54,7 @@ match opt {
     Some(ref x) => {
         // 'x' 是指向 'opt' 內部值的指針
         // 'opt' 在此處不會被移動/消耗
-        println "{x.field}"; 
+        println(f"{x.field}"); 
     },
     None => {}
 }
@@ -80,7 +80,7 @@ for i, val in 0..10 step 2 { ... } // i = 0, 1, 2, ...; val = 0, 2, 4, ...
 let arr: int[5] = [1, 2, 3, 4, 5];
 for val in arr {
     // val 是 int
-    println "{val}";
+    println(f"{val}");
 }
 
 // While 循環

@@ -15,9 +15,9 @@ import "std/io.zc"
 
 fn main() {
     let info = SysInfo::get_uname();
-    println "操作系统 (OS): {info.sysname}";
-    println "内核: {info.release}";
-    println "架构: {info.machine}";
+    println(f"操作系统 (OS): {info.sysname}");
+    println(f"内核: {info.release}");
+    println(f"架构: {info.machine}");
 }
 ```
 

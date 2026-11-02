@@ -18,15 +18,15 @@ import "std/io.zc"
 @noinline fn slow_debug(a: int, b: int) -> int { return a + b; }
 
 @constructor fn init_library() {
-    println "library initialized";
+    println("library initialized");
 }
 
 @destructor fn cleanup_library() {
-    println "library cleaned up";
+    println("library cleaned up");
 }
 
 @noreturn fn fatal(msg: string) {
-    eprintln "FATAL: {msg}";
+    eprintln(f"FATAL: {msg}");
     exit(1);
 }
 
@@ -35,7 +35,7 @@ import "std/io.zc"
 }
 
 @unused fn maybe_unused() {
-    println "this might not be called";
+    println("this might not be called");
 }
 
 @packed struct Compact {
@@ -45,7 +45,7 @@ import "std/io.zc"
 }
 
 fn main() {
-    println "fast_add: {fast_add(3, 4)}";
+    println(f"fast_add: {fast_add(3, 4)}");
     init_library();
 }
 ```

@@ -13,6 +13,7 @@
 
 ```zc
 import "std/json.zc"
+import "std/io.zc"
 
 fn main() {
     // 构建 JSON
@@ -23,16 +24,16 @@ fn main() {
     
     // 序列化
     let json_str = obj.to_string();
-    println "序列化结果: {json_str}";
+    println(f"序列化结果: {json_str}");
     
     // 解析
     let input = "{\"score\": 100}";
     match JsonValue::parse(input) {
         Ok(parsed) => {
-            println "分数: {parsed.get(\"score\").unwrap().as_int().unwrap()}";
+            println(f"分数: {parsed.get(\"score\").unwrap().as_int().unwrap()}");
             // 'parsed' 在此代码块结束时会自动释放
         }
-        Err(e) => println "错误: {e}"
+        Err(e) => println(f"错误: {e}")
     }
 } // 'obj' 在此处会自动释放
 ```

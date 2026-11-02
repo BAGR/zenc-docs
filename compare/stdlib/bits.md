@@ -18,10 +18,10 @@ fn main() {
     let x: u32 = 0x80000001;
 
     let left = bits::rotl32(x, 1);
-    println "rotl(0x{x:08x}, 1) = 0x{left:08x}";
+    println(f"rotl(0x{x:08x}, 1) = 0x{left:08x}");
 
     let right = bits::rotr32(x, 1);
-    println "rotr(0x{x:08x}, 1) = 0x{right:08x}";
+    println(f"rotr(0x{x:08x}, 1) = 0x{right:08x}");
 }
 ```
 

@@ -21,11 +21,11 @@ fn main() {
     v.push(3);
 
     for val in v {
-        println "value: {val}";
+        println(f"value: {val}");
     }
 
     for i, val in v {
-        println "[{i}]: {val}";
+        println(f"[{i}]: {val}");
     }
 }
 ```

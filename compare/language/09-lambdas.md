@@ -21,23 +21,23 @@ fn main() {
     let factor = 3;
 
     let doubler = x => x * 2;
-    println "double 5: {doubler(5)}";
+    println(f"double 5: {doubler(5)}");
 
     let multiplier = fn(x: int) -> int {
         return x * factor;
     };
-    println "triple 5: {multiplier(5)}";
+    println(f"triple 5: {multiplier(5)}");
 
     let result = apply_twice(5, fn(x: int) -> int {
         return x + 1;
     });
-    println "apply_twice: {result}";
+    println(f"apply_twice: {result}");
 
     let val = 10;
     let inc = fn[&]() { val += 1; };
     inc();
     inc();
-    println "after inc: {val}";
+    println(f"after inc: {val}");
 }
 ```
 

@@ -13,6 +13,7 @@ Die `std/complex`-Bibliothek bietet die `Complex`-Struktur und wesentliche mathe
 
 ```zc
 import "std/complex.zc"
+import "std/io.zc"
 
 fn main() {
     let c1 = Complex::new(3.0, 4.0);
@@ -21,8 +22,8 @@ fn main() {
     let sum = c1 + c2;
     let prod = c1 * c2;
     
-    println "Summe: {sum}";       // Summe: 4.000000 + 6.000000i
-    println "Betrag: {c1.magnitude()}";
+    println(f"Summe: {sum}");       // Summe: 4.000000 + 6.000000i
+    println(f"Betrag: {c1.magnitude()}");
 }
 ```
 

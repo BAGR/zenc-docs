@@ -45,22 +45,23 @@ Zen C provides first-class support for Unicode scalar values via the `rune` type
 
 ```zc
 import "std.zc"
+import "std/io.zc"
 
 fn main() {
     let c = 'a';
-    println "The character '{c}' has a code of {(int)c} in ASCII/Unicode";
+    println(f"The character '{c}' has a code of {(int)c} in ASCII/Unicode");
 
     let code = 97;
-    println "The code {code} corresponds to the character {(char)code}";
+    println(f"The code {code} corresponds to the character {(char)code}");
 
     let r: rune = '🚀';
-    println "The rune '{r}' has a code of {(uint)r} in Unicode";
+    println(f"The rune '{r}' has a code of {(uint)r} in Unicode");
     
     let r_code: uint = 128640;
-    println "The code {r_code} corresponds to the rune '{(rune)r_code}'";
+    println(f"The code {r_code} corresponds to the rune '{(rune)r_code}'");
 
     let r_esc: rune = '\u{2764}';
-    println "The rune '{r_esc}' has code {(uint)r_esc} (0x{(uint)r_esc:X})";
+    println(f"The rune '{r_esc}' has code {(uint)r_esc} (0x{(uint)r_esc:X})");
 }
 ```
 

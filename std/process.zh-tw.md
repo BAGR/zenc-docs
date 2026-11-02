@@ -13,6 +13,7 @@
 
 ```zc
 import "std/process.zc"
+import "std/io.zc"
 
 fn main() {
     // 基本指令執行
@@ -21,10 +22,10 @@ fn main() {
         .output();
         
     if (output.exit_code == 0) {
-        println "捕捉到內容: {output.std_out}";
+        println(f"捕捉到內容: {output.std_out}");
         // output.std_out 是一個 String，會自動釋放
     } else {
-        println "指令失敗，結束代碼為 {output.exit_code}";
+        println(f"指令失敗，結束代碼為 {output.exit_code}");
     }
 }
 ```

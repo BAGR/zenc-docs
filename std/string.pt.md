@@ -6,6 +6,7 @@
 
 ```zc
 import "std/string.zc"
+import "std/io.zc"
 
 fn main() {
     let s = String::from("Hello");
@@ -16,11 +17,11 @@ fn main() {
     
     // Iteração (compatível com UTF-8)
     for c in s {
-        println "{c}";
+        println(f"{c}");
     }
 
     // Usar c_str() para imprimir
-    println "{s.c_str()}"; // Imprime "Hello World"
+    println(f"{s.c_str()}"); // Imprime "Hello World"
     
     if (s.starts_with("Hello")) {
         // ...

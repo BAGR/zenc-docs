@@ -19,15 +19,15 @@ fn main() {
     s.append_c("Hello, ");
     s.append_c("Zen!");
 
-    println "'{s}' (len: {s.length()})";
+    println(f"'{s}' (len: {s.length()})");
 
     s.append_c(" v");
-    println "'{s}' (len: {s.length()})";
+    println(f"'{s}' (len: {s.length()})");
 
     let search = "Zen";
-    println "contains '{search}': {s.contains_str(search)}";
+    println(f"contains '{search}': {s.contains_str(search)}");
 
-    println "cleared, len: {s.length()}";
+    println(f"cleared, len: {s.length()}");
 }
 ```
 

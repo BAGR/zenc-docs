@@ -37,13 +37,13 @@ fn read_timestamp() -> u64 {
 
 fn main() {
     let val = add_five(10);
-    println "add_five(10): {val}";
+    println(f"add_five(10): {val}");
 
     let ts = read_timestamp();
-    println "timestamp: {ts}";
+    println(f"timestamp: {ts}");
 
     asm { "nop" }
-    println "nop executed";
+    println("nop executed");
 }
 ```
 

@@ -13,6 +13,7 @@ O módulo `std/time` fornece utilitários para medição de tempo de alta precis
 
 ```zc
 import "std/time.zc"
+import "std/io.zc"
 
 fn main() {
     let start = Time::now();
@@ -21,7 +22,7 @@ fn main() {
     Time::sleep(Duration::from_ms(1500));
     
     let end = Time::now();
-    println "Decorrido: {end - start} ms";
+    println(f"Decorrido: {end - start} ms");
 }
 ```
 

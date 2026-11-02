@@ -6,6 +6,7 @@ Das Modul `std/random` bietet einen idiomatischen, objektorientierten Pseudozufa
 
 ```zc
 import "std/random.zc"
+import "std/io.zc"
 
 fn main() {
     // Initialisiert den Generator automatisch mit der aktuellen Zeit
@@ -14,7 +15,7 @@ fn main() {
     // Zufällige Ganzzahlen generieren
     let bounded = rng.next_int_range(1, 100); // 1 bis 100 einschließlich
     
-    println "Gewürfelt: {bounded}";
+    println(f"Gewürfelt: {bounded}");
 }
 ```
 

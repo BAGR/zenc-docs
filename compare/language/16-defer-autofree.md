@@ -17,22 +17,22 @@ fn process_file(path: char*) {
     let f = fopen(path, "r");
     defer fclose(f);
 
-    println "processing {path}...";
-    println "done";
+    println(f"processing {path}...");
+    println("done");
 }
 
 fn allocate_buffer() {
     autofree let buf = malloc(1024);
-    println "buffer allocated";
+    println("buffer allocated");
 }
 
 fn main() {
     process_file("test.txt");
-    println "---";
+    println("---");
 
     allocate_buffer();
-    println "---";
-    println "buffer automatically freed";
+    println("---");
+    println("buffer automatically freed");
 }
 ```
 

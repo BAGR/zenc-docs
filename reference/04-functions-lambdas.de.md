@@ -27,7 +27,7 @@ Dies ist ein Typqualifizierer, kein Konstantenwert.
 ```zc
 fn drucke_wert(v: const int) {
     // v = 10; // Fehler: Zuweisung zu einer const-Variablen nicht erlaubt
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -36,6 +36,7 @@ Funktionen können Standardwerte für nachgestellte Argumente definieren.
 Diese können Literale, Ausdrücke oder gültiger Zen C-Code sein (z. B. Struktur-Konstruktoren).
 ```zc
 // Einfacher Standardwert
+import "std/io.zc"
 fn inkrement(val: int, menge: int = 1) -> int {
     return val + menge;
 }
@@ -48,7 +49,7 @@ fn versatz(val: int, pad: int = 10 * 2) -> int {
 // Standardwert mit Struktur
 struct Konfig { debug: bool; }
 fn init(cfg: Konfig = Konfig { debug: true }) {
-    if cfg.debug { println "Debug-Modus"; }
+    if cfg.debug { println("Debug-Modus"); }
 }
 
 fn main() {

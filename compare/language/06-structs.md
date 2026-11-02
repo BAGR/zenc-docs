@@ -27,7 +27,7 @@ struct Flags {
 alias ID = int;
 
 fn print_point(p: Point) {
-    println "Point({p.x}, {p.y})";
+    println(f"Point({p.x}, {p.y})");
 }
 
 fn main() {
@@ -35,10 +35,10 @@ fn main() {
     print_point(p);
 
     let f = Flags { valid: 1, mode: 5, reserved: 0 };
-    println "valid: {f.valid}, mode: {f.mode}";
+    println(f"valid: {f.valid}, mode: {f.mode}");
 
     let id: ID = 42;
-    println "id: {id}";
+    println(f"id: {id}");
 }
 ```
 

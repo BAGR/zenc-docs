@@ -15,10 +15,10 @@ weight = 12
 ```zc
 comptime {
     // Генерирует код во время компиляции (выводится в stdout)
-    println "let build_date = \"2024-01-01\";";
+    println("let build_date = \"2024-01-01\";");
 }
 
-println "Build Date: {build_date}";
+println(f"Build Date: {build_date}");
 ```
 
 **Вспомогательные функции**
@@ -37,7 +37,7 @@ comptime {
         compile_error("Функция должна быть включена!");
     }
     
-    println "let FEATURE_ENABLED = 1;";
+    println("let FEATURE_ENABLED = 1;");
 }
 ```
 
@@ -50,10 +50,10 @@ comptime {
 ```zc
 comptime {
     // Генерация кода для конкретной платформы
-    println "let PLATFORM = \"{__COMPTIME_TARGET__}\";";
+    println(f"let PLATFORM = \"{__COMPTIME_TARGET__}\";");
 }
 
-println "Запуск на: {PLATFORM}";
+println(f"Запуск на: {PLATFORM}");
 ```
 
 {% alert(type="note") %}
@@ -110,10 +110,11 @@ import "opengl_backend.zc";
 
 @cfg(USE_VULKAN)
 import "vulkan_backend.zc";
+import "std/io.zc"
 
 @cfg(not(USE_OPENGL))
 @cfg(not(USE_VULKAN))
-fn fallback_init() { println "Бэкенд не выбран"; }
+fn fallback_init() { println("Бэкенд не выбран"); }
 ```
 
 | Форма | Значение |

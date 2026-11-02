@@ -37,8 +37,8 @@ L'interpolazione di stringhe in Zen C è **implicita**: se la tua stringa contie
 ```zc
 let x = 42;
 let nome = "Max";
-println "Valore: {x}, Nome: {name}";
-"Valore: {x}, Nome: {name}"; // scorciatoia per println
+println(f"Valore: {x}, Nome: {name}");
+println(f"Valore: {x}, Nome: {name}"); // scorciatoia per println
 ```
 
 **Escape delle Parentesi Graffe**: Usa `{{` per produrre una parentesi graffa letterale `{` e `}}` per una `}` letterale:
@@ -92,5 +92,5 @@ Zen C supporta una scorciatoia per richiedere input dall'utente utilizzando il p
 ```zc
 let età: int;
 ? "Inserisci la tua età: " (età);
-println "Hai {età} anni.";
+println(f"Hai {età} anni.");
 ```

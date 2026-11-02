@@ -13,6 +13,7 @@
 
 ```zc
 import "std/result.zc"
+import "std/io.zc"
 
 fn divide(a: int, b: int) -> Result<int> {
     if (b == 0) {
@@ -23,8 +24,8 @@ fn divide(a: int, b: int) -> Result<int> {
 
 fn main() {
     match divide(10, 0) {
-        Ok(val) => println "结果: {val}",
-        Err(e)  => println "错误: {e}"
+        Ok(val) => println(f"结果: {val}"),
+        Err(e)  => println(f"错误: {e}")
     }
 }
 ```

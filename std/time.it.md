@@ -13,6 +13,7 @@ Il modulo `std/time` fornisce utilità per la misurazione del tempo ad alta prec
 
 ```zc
 import "std/time.zc"
+import "std/io.zc"
 
 fn main() {
     let start = Time::now();
@@ -21,7 +22,7 @@ fn main() {
     Time::sleep(Duration::from_ms(1500));
     
     let end = Time::now();
-    println "Trascorso: {end - start} ms";
+    println(f"Trascorso: {end - start} ms");
 }
 ```
 

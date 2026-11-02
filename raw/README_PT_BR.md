@@ -274,22 +274,23 @@ O Zen C fornece suporte de primeira classe para valores escalares Unicode via o 
 
 ```zc
 import "std.zc"
+import "std/io.zc"
 
 fn main() {
     let c = 'a';
-    println "O caractere '{c}' tem um código de {(int)c} em ASCII/Unicode";
+    println(f"O caractere '{c}' tem um código de {(int)c} em ASCII/Unicode");
 
     let codigo = 97;
-    println "O código {codigo} corresponde ao caractere {(char)codigo}";
+    println(f"O código {codigo} corresponde ao caractere {(char)codigo}");
 
     let r: rune = '🚀';
-    println "A runa '{r}' tem um código de {(uint)r} em Unicode";
+    println(f"A runa '{r}' tem um código de {(uint)r} em Unicode");
     
     let r_code: uint = 128640;
-    println "O código {r_code} corresponde à runa '{(rune)r_code}'";
+    println(f"O código {r_code} corresponde à runa '{(rune)r_code}'");
 
     let r_esc: rune = '\u{2764}';
-    println "A runa '{r_esc}' tem código {(uint)r_esc} (0x{(uint)r_esc:X})";
+    println(f"A runa '{r_esc}' tem código {(uint)r_esc} (0x{(uint)r_esc:X})");
 }
 ```
 
@@ -471,7 +472,7 @@ Funções podem ser marcadas como `const` para impor semântica de apenas leitur
 ```zc
 fn print_val(v: const int) {
     // v = 10; // Erro: atribuição a const não permitida
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -480,6 +481,7 @@ fn print_val(v: const int) {
 Funções podem definir valores-padrão para argumentos trailing. Estes podem ser literais, expressões ou código Zen C válido (como construtores struct).
 ```zc
 // Valor padrão simples
+import "std/io.zc"
 fn increment(val: int, amount: int = 1) -> int {
     return val + amount;
 }
@@ -492,7 +494,7 @@ fn offset(val: int, pad: int = 10 * 2) -> int {
 // Valor padrão de struct
 struct Config { debug: bool; }
 fn init(cfg: Config = Config { debug: true }) {
-    if cfg.debug { println "Debug Mode"; }
+    if cfg.debug { println("Debug Mode"); }
 }
 
 fn main() {
@@ -567,11 +569,11 @@ fn log(lvl: int, fmt: char*, ...) {
 #### Condicionais
 ```zc
 if x > 10 {
-    print "Large";
+    print("Large");
 } else if x > 5 {
-    print "Medium";
+    print("Medium");
 } else {
-    print "Small";
+    print("Small");
 }
 
 // Condicional Ternária
@@ -586,21 +588,21 @@ let categoria = if (x > 100) { "enorme" } else if (x > 10) { "grande" } else { "
 Poderosa alternativa ao `switch`.
 ```zc
 match val {
-    1         => { print "One" },
-    2 || 3    => { print "Two or Three" },    // OR com ||
-    4 or 5    => { print "Four or Five" },    // OR com 'or'
-    6, 7, 8   => { print "Six to Eight" },    // OR com vírgula
-    10 .. 15  => { print "10 to 14" },        // Range excludente (Legado)
-    10 ..< 15 => { print "10 to 14" },        // Range excludente (Explícito)
-    20 ..= 25 => { print "20 to 25" },        // Range inclusivo
-    _         => { print "Other" },
+    1         => { print("One") },
+    2 || 3    => { print("Two or Three") },    // OR com ||
+    4 or 5    => { print("Four or Five") },    // OR com 'or'
+    6, 7, 8   => { print("Six to Eight") },    // OR com vírgula
+    10 .. 15  => { print("10 to 14") },        // Range excludente (Legado)
+    10 ..< 15 => { print("10 to 14") },        // Range excludente (Explícito)
+    20 ..= 25 => { print("20 to 25") },        // Range inclusivo
+    _         => { print("Other") },
 }
 
 // Desestruturando Enums
 match shape {
-    Shape::Circle(r)   => { println "Radius: {r}" },
-    Shape::Rect(w, h)  => { println "Area: {w*h}" },
-    Shape::Point       => { println "Point" }
+    Shape::Circle(r)   => { println(f"Radius: {r}") },
+    Shape::Rect(w, h)  => { println(f"Area: {w*h}") },
+    Shape::Point       => { println("Point") }
 }
 ```
 
@@ -614,7 +616,7 @@ match opt {
     Some(ref x) => {
         // 'x' é um ponteiro para o valor dentro de 'opt'
         // 'opt' NÃO É movido/consumido aqui
-        println "{x.field}"; 
+        println(f"{x.field}"); 
     },
     None => {}
 }
@@ -640,7 +642,7 @@ for i, val in 0..10 step 2 { ... } // i = 0, 1, 2, ...; val = 0, 2, 4, ...
 let arr: int[5] = [1, 2, 3, 4, 5];
 for val in arr {
     // val é um int
-    println "{val}";
+    println(f"{val}");
 }
 
 // While
@@ -768,8 +770,8 @@ Interpolação de strings em Zen C é **implícita**: se sua string contém `{..
 ```zc
 let x = 42;
 let name = "Zen";
-println "Value: {x}, Name: {name}";
-"Value: {x}, Name: {name}"; // abreviação de println
+println(f"Value: {x}, Name: {name}");
+println(f"Value: {x}, Name: {name}"); // abreviação de println
 ```
 
 **Escapando Chaves**: Use `{{` para produzir uma chave literal `{` e `}}` para uma `}` literal:
@@ -823,7 +825,7 @@ Zen C suporta uma abreviação para solicitar entrada do usuário usando o prefi
 ```zc
 let age: int;
 ? "How old are you? " (age);
-println "You are {age} years old.";
+println(f"You are {age} years old.");
 ```
 
 ### 8. Gerenciamento de Memória
@@ -964,6 +966,7 @@ Implemente `Iterable<T>` para habilitar loops `for-in` para seus tipos customiza
 
 ```zc
 import "std/iter.zc"
+import "std/io.zc"
 
 // Defina um Iterator
 struct MyIter {
@@ -990,7 +993,7 @@ impl MyRange {
 
 // Use no Loop
 for i in my_range {
-    println "{i}";
+    println(f"{i}");
 }
 ```
 
@@ -1120,10 +1123,10 @@ Execute código em tempo de compilação para gerar código ou imprimir mensagen
 ```zc
 comptime {
     // Gera código em tempo de compilação (escrito em stdout)
-    println "let data_compilacao = \"2024-01-01\";";
+    println("let data_compilacao = \"2024-01-01\";");
 }
 
-println "Data de compilação: {data_compilacao}";
+println(f"Data de compilação: {data_compilacao}");
 ```
 
 **Funções Auxiliares**
@@ -1142,7 +1145,7 @@ comptime {
         compile_error("O recurso deve estar habilitado!");
     }
     
-    println "let FEATURE_ENABLED = 1;";
+    println("let FEATURE_ENABLED = 1;");
 }
 ```
 
@@ -1155,10 +1158,10 @@ Acesse informações de build do compilador em tempo de compilação:
 ```zc
 comptime {
     // Geração de código específica da plataforma
-    println "let PLATFORM = \"{__COMPTIME_TARGET__}\";";
+    println(f"let PLATFORM = \"{__COMPTIME_TARGET__}\";");
 }
 
-println "Executando em: {PLATFORM}";
+println(f"Executando em: {PLATFORM}");
 ```
 
 > **Dica:** Use raw strings (`r"..."`) em comptime para evitar escapar chaves: `code(r"fn test() { return 42; }")`. De lo contrario, use `{{` e `}}` para escapar chaves em strings regulares.
@@ -1211,10 +1214,11 @@ import "opengl_backend.zc";
 
 @cfg(USE_VULKAN)
 import "vulkan_backend.zc";
+import "std/io.zc"
 
 @cfg(not(USE_OPENGL))
 @cfg(not(USE_VULKAN))
-fn fallback_init() { println "Nenhum backend selecionado"; }
+fn fallback_init() { println("Nenhum backend selecionado"); }
 ```
 
 | Forma | Significado |
@@ -1456,13 +1460,14 @@ Zen C inclui um framework de testes integrado que permite que você escreva test
 Um bloco `test` contém um nome descritivo e um corpo de código para execução. Testes não precisam de uma função `main` para rodar.
 
 ```zc
+import "std/io.zc"
 test "unittest1" {
-    "Isso é um teste unitário";
+    println("Isso é um teste unitário");
 
     let a = 3;
     assert(a > 0, "a deve ser um inteiro positivo");
 
-    "unittest1 passou.";
+    println("unittest1 passou.");
 }
 ```
 
@@ -1877,6 +1882,7 @@ Use `include` para headers e blocos `raw` para sintaxe Objective-C (`@interface`
 //> linux: cflags: -fconstant-string-class=NSConstantString -D_NATIVE_OBJC_EXCEPTIONS
 //> linux: link: -lgnustep-base -lobjc
 
+import "std/io.zc"
 include <Foundation/Foundation.h>
 
 fn main() {
@@ -1885,7 +1891,7 @@ fn main() {
         NSLog(@"Hello from Objective-C!");
         [pool drain];
     }
-    println "Zen C works too!";
+    println("Zen C works too!");
 }
 ```
 

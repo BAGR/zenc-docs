@@ -21,7 +21,7 @@ fn main() {
     
     let addr = Memory::mmap(size, prot, flags);
     if ((isize)addr == Z_MAP_FAILED) {
-        println "Mapping failed";
+        println("Mapping failed");
         return 0;
     }
     

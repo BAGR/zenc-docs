@@ -16,13 +16,13 @@ import "std/io.zc"
 
 fn main() {
     let logo = embed "assets/logo.png";
-    println "logo bytes: {logo.len}";
+    println(f"logo bytes: {logo.len}");
 
     let shader = embed "shader.glsl" as string;
-    println "shader: {shader}";
+    println(f"shader: {shader}");
 
     let bios = embed "bios.bin" as u8[1024];
-    println "bios[0]: {bios[0]}";
+    println(f"bios[0]: {bios[0]}");
 }
 ```
 
@@ -43,13 +43,14 @@ int main(void) {
 
 ```zc
 import plugin "plugins/lisp" as lisp;
+import "std/io.zc"
 
 fn main() {
     let result = lisp! {
         (defun square (x)
             (* x x))
     };
-    println "4 squared: {result(4)}";
+    println(f"4 squared: {result(4)}");
 }
 ```
 

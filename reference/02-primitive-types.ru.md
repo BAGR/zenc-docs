@@ -45,22 +45,23 @@ Zen C предоставляет полноценную поддержку ск�
 
 ```zc
 import "std.zc"
+import "std/io.zc"
 
 fn main() {
     let c = 'a';
-    println "Символ '{c}' имеет код {(int)c} в ASCII/Unicode";
+    println(f"Символ '{c}' имеет код {(int)c} в ASCII/Unicode");
 
     let code = 97;
-    println "Код {code} соответствует символу {(char)code}";
+    println(f"Код {code} соответствует символу {(char)code}");
 
     let r: rune = '🚀';
-    println "Руна '{r}' имеет код {(uint)r} в Unicode";
+    println(f"Руна '{r}' имеет код {(uint)r} в Unicode");
     
     let r_code: uint = 128640;
-    println "Код {r_code} соответствует руне '{(rune)r_code}'";
+    println(f"Код {r_code} соответствует руне '{(rune)r_code}'");
 
     let r_esc: rune = '\u{2764}';
-    println "Руна '{r_esc}' имеет код {(uint)r_esc} (0x{(uint)r_esc:X})";
+    println(f"Руна '{r_esc}' имеет код {(uint)r_esc} (0x{(uint)r_esc:X})");
 }
 ```
 

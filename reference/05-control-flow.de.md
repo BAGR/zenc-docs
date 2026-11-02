@@ -9,11 +9,11 @@ weight = 5
 #### Bedingte Anweisungen
 ```zc
 if x > 10 {
-    print "Groß";
+    print("Groß");
 } else if x > 5 {
-    print "Mittel";
+    print("Mittel");
 } else {
-    print "Klein";
+    print("Klein");
 }
 
 // Ternäroperator
@@ -28,21 +28,21 @@ Leistungsfähige Alternative zu `switch`.
 
 ```zc
 match wert {
-    1         => { print "Eins" },
-    2 || 3    => { print "Zwei oder Drei" },    // ODER mit ||
-    4 or 5    => { print "Vier oder Fünf" },    // ODER mit 'or'
-    6, 7, 8   => { print "Sechs bis Acht" },    // ODER mit Komma
-    10 .. 15  => { print "10 bis 14" },         // Exklusiver Bereich (Legacy)
-    10 ..< 15 => { print "10 bis 14" },         // Exklusiver Bereich (explizit)
-    20 ..= 25 => { print "20 bis 25" },         // Inklusiver Bereich
-    _         => { print "Andere" },
+    1         => { print("Eins") },
+    2 || 3    => { print("Zwei oder Drei") },    // ODER mit ||
+    4 or 5    => { print("Vier oder Fünf") },    // ODER mit 'or'
+    6, 7, 8   => { print("Sechs bis Acht") },    // ODER mit Komma
+    10 .. 15  => { print("10 bis 14") },         // Exklusiver Bereich (Legacy)
+    10 ..< 15 => { print("10 bis 14") },         // Exklusiver Bereich (explizit)
+    20 ..= 25 => { print("20 bis 25") },         // Inklusiver Bereich
+    _         => { print("Andere") },
 }
 
 // Destrukturierung von Enums
 match form {
-    Form::Kreis(r)       => { println "Radius: {r}" },
-    Form::Rechteck(w, h) => { println "Fläche: {w*h}" },
-    Form::Point          => { println "Point" },
+    Form::Kreis(r)       => { println(f"Radius: {r}") },
+    Form::Rechteck(w, h) => { println(f"Fläche: {w*h}") },
+    Form::Point          => { println("Point") },
 }
 ```
 
@@ -56,7 +56,7 @@ match opt {
     Some(ref x) => {
         // 'x' ist ein Zeiger auf den Wert innerhalb von 'opt'
         // 'opt' wird hier NICHT verschoben oder verbraucht
-        println "{x.feld}"; 
+        println(f"{x.feld}"); 
     },
     None => {}
 }
@@ -82,7 +82,7 @@ for i, wert in 0..10 step 2 { ... }  // i = 0, 1, 2, ...; wert = 0, 2, 4, ...
 let arr: int[5] = [1, 2, 3, 4, 5];
 for wert in arr {
     // wert ist int
-    println "{wert}";
+    println(f"{wert}");
 }
 
 // While-Schleife

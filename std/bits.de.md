@@ -13,16 +13,17 @@ Das Modul `std/bits` bietet Low-Level-Bitmanipulationsfunktionen, die oft direkt
 
 ```zc
 import "std/bits.zc"
+import "std/io.zc"
 
 fn main() {
     let x: u32 = 0x12345678;
     
     // Bits rotieren
     let y = Bits::rotl32(x, 8);
-    println "Rotiert: 0x{y:x}";
+    println(f"Rotiert: 0x{y:x}");
     
     // Gesetzte Bits zählen (Popcount)
-    println "Gesetzte Bits: {Bits::popcount32(x)}";
+    println(f"Gesetzte Bits: {Bits::popcount32(x)}");
 }
 ```
 

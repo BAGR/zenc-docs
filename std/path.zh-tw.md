@@ -13,16 +13,17 @@
 
 ```zc
 import "std/path.zc"
+import "std/io.zc"
 
 fn main() {
     let p = Path::new("/home/user");
     let full_path = p.join("docs/file.txt");
     
-    println "完整路徑: {full_path.c_str()}";
+    println(f"完整路徑: {full_path.c_str()}");
     
     match full_path.extension() {
-        Some(ext) => println "副檔名: {ext}",
-        None => println "找不到副檔名"
+        Some(ext) => println(f"副檔名: {ext}"),
+        None => println("找不到副檔名")
     }
 } // full_path 和 p 在此處自動釋放
 ```

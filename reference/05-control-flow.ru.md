@@ -9,11 +9,11 @@ weight = 5
 #### Условные операторы
 ```zc
 if x > 10 {
-    print "Large";
+    print("Large");
 } else if x > 5 {
-    print "Medium";
+    print("Medium");
 } else {
-    print "Small";
+    print("Small");
 }
 
 // Тернарно
@@ -27,21 +27,21 @@ let категория = if (x > 100) { "огромный" } else if (x > 10) { 
 Мощная альтернатива `switch`.
 ```zc
 match val {
-    1         => { print "One" },
-    2 || 3    => { print "Two or Three" },    // ИЛИ с ||
-    4 or 5    => { print "Four or Five" },    // ИЛИ с 'or'
-    6, 7, 8   => { print "Six to Eight" },    // ИЛИ с запятой
-    10 .. 15  => { print "10 to 14" },        // Исключающий диапазон (устаревший)
-    10 ..< 15 => { print "10 to 14" },        // Исключающий диапазон (явно)
-    20 ..= 25 => { print "20 to 25" },        // Включающий диапазон
-    _         => { print "Other" },
+    1         => { print("One") },
+    2 || 3    => { print("Two or Three") },    // ИЛИ с ||
+    4 or 5    => { print("Four or Five") },    // ИЛИ с 'or'
+    6, 7, 8   => { print("Six to Eight") },    // ИЛИ с запятой
+    10 .. 15  => { print("10 to 14") },        // Исключающий диапазон (устаревший)
+    10 ..< 15 => { print("10 to 14") },        // Исключающий диапазон (явно)
+    20 ..= 25 => { print("20 to 25") },        // Включающий диапазон
+    _         => { print("Other") },
 }
 
 // Деструктуризация перечислений
 match shape {
-    Shape::Circle(r)   => { println "Radius: {r}" },
-    Shape::Rect(w, h)  => { println "Area: {w*h}" },
-    Shape::Point       => { println "Point" },
+    Shape::Circle(r)   => { println(f"Radius: {r}") },
+    Shape::Rect(w, h)  => { println(f"Area: {w*h}") },
+    Shape::Point       => { println("Point") },
 }
 ```
 
@@ -54,7 +54,7 @@ match opt {
     Some(ref x) => {
         // 'x' - это указатель на значение внутри 'opt'
         // 'opt' НЕ перемещается/не потребляется здесь
-        println "{x.field}"; 
+        println(f"{x.field}"); 
     },
     None => {}
 }
@@ -80,7 +80,7 @@ for i, val in 0..10 step 2 { ... } // i = 0, 1, 2, ...; val = 0, 2, 4, ...
 let arr: int[5] = [1, 2, 3, 4, 5];
 for val in arr {
     // val - это int
-    println "{val}";
+    println(f"{val}");
 }
 
 // While

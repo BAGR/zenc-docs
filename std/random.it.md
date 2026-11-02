@@ -6,6 +6,7 @@ Il modulo `std/random` fornisce un wrapper idiomatico e orientato agli oggetti p
 
 ```zc
 import "std/random.zc"
+import "std/io.zc"
 
 fn main() {
     // Inizializza automaticamente il generatore con l'ora corrente
@@ -14,7 +15,7 @@ fn main() {
     // Genera interi casuali
     let bounded = rng.next_int_range(1, 100); // da 1 a 100 inclusi
     
-    println "Estratto: {bounded}";
+    println(f"Estratto: {bounded}");
 }
 ```
 

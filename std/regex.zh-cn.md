@@ -6,10 +6,11 @@
 
 ```zc
 import "std/regex.zc"
+import "std/io.zc"
 
 fn main() {
     if regex_match("^[a-z]+$", "hello") {
-        println "匹配成功!";
+        println("匹配成功!");
     }
     
     let re = Regex::compile("\\d+");

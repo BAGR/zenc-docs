@@ -18,11 +18,11 @@ fn main() {
     let res = FileStat::stat("myfile.txt");
     if (res.is_some()) {
         let st = res.unwrap();
-        println "Größe: {st.size} Bytes";
-        println "Berechtigungen: {st.mode}";
+        println(f"Größe: {st.size} Bytes");
+        println(f"Berechtigungen: {st.mode}");
         
         if (FileStat::is_dir(st.mode)) {
-            println "Es ist ein Verzeichnis.";
+            println("Es ist ein Verzeichnis.");
         }
     }
 }

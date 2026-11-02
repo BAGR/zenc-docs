@@ -18,11 +18,11 @@ import "std/io.zc"
 
 fn main() {
     let home = env::get("HOME").unwrap_or("unknown");
-    println "HOME: {home}";
+    println(f"HOME: {home}");
 
     env::set("ZC_MODE", "debug");
     let mode = env::get("ZC_MODE").unwrap_or("not set");
-    println "ZC_MODE: {mode}";
+    println(f"ZC_MODE: {mode}");
 }
 ```
 

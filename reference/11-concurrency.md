@@ -9,6 +9,7 @@ weight = 11
 Built on pthreads.
 
 ```zc
+import "std/io.zc"
 async fn fetch_data() -> string {
     // Runs in background
     return "Data";
@@ -16,6 +17,6 @@ async fn fetch_data() -> string {
 
 fn main() {
     let result = await fetch_data();
-    println "{result}";
+    println(f"{result}");
 }
 ```

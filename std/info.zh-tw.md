@@ -15,9 +15,9 @@ import "std/io.zc"
 
 fn main() {
     let info = SysInfo::get_uname();
-    println "OS: {info.sysname}";
-    println "核心版本: {info.release}";
-    println "架構: {info.machine}";
+    println(f"OS: {info.sysname}");
+    println(f"核心版本: {info.release}");
+    println(f"架構: {info.machine}");
 }
 ```
 

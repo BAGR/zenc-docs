@@ -13,12 +13,13 @@
 
 ```zc
 import "std/fs.zc"
+import "std/io.zc"
 
 fn main() {
     // 使用 RAII 进行基本文件读取
     match File::read_all("config.txt") {
-        Ok(content) => println "配置内容: {content}",
-        Err(e) => println "读取配置出错: {e}"
+        Ok(content) => println(f"配置内容: {content}"),
+        Err(e) => println(f"读取配置出错: {e}")
     }
     
     // 显式文件句柄，自动关闭
@@ -27,7 +28,7 @@ fn main() {
             file.write_string("日志条目\n");
             // 文件在此处自动关闭
         }
-        Err(e) => println "打开日志失败: {e}"
+        Err(e) => println(f"打开日志失败: {e}")
     }
 }
 ```

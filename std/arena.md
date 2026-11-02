@@ -13,6 +13,7 @@ The `std/arena` module provides a fast "bump" allocator for bulk memory allocati
 
 ```zc
 import "std/arena.zc"
+import "std/io.zc"
 
 struct Node {
     val: int;
@@ -29,7 +30,7 @@ fn main() {
     // Duplicate string into arena memory
     let s = a.dup_str("Hello World");
     
-    println "Arena used: {a.bytes_used()} bytes";
+    println(f"Arena used: {a.bytes_used()} bytes");
     
     // Everything is freed automatically when 'a' goes out of scope
 }

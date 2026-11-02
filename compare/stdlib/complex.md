@@ -17,7 +17,7 @@ fn main() {
     let a = Complex::new(3.0, 4.0);
     let b = Complex::new(1.0, 2.0);
 
-    println "magnitude: {a.magnitude()}";
+    println(f"magnitude: {a.magnitude()}");
 }
 ```
 

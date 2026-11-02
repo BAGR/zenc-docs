@@ -38,8 +38,8 @@ Die Interpolation in Zen C ist **implizit**: enthält ein String `{...}`, wird e
 ```zc
 let x = 42;
 let name = "Zen";
-println "Wert: {x}, Name: {name}";
-"Wert: {x}, Name: {name}"; // Kurzschreibweise für println
+println(f"Wert: {x}, Name: {name}");
+println(f"Wert: {x}, Name: {name}"); // Kurzschreibweise für println
 ```
 
 **Escape für geschweifte Klammern**:  `{{` erzeugt `{`, `}}` erzeugt `}`:
@@ -93,5 +93,5 @@ Zen C unterstützt eine Kurzschreibweise für Benutzereingaben mit dem `?`-Präf
 ```zc
 let alter: int;
 ? "Wie alt bist du? " (alter);
-println "Du bist {alter} Jahre alt.";
+println(f"Du bist {alter} Jahre alt.");
 ```

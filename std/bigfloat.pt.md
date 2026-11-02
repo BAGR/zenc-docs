@@ -13,6 +13,7 @@
 
 ```zc
 import "std/bigfloat.zc"
+import "std/io.zc"
 
 fn main() {
     let a = BigFloat::from_int(123);
@@ -24,7 +25,7 @@ fn main() {
     let sum = a.add(b);
     
     let s = sum.to_string();
-    println "Soma: {s}"; // Soma: 5.797
+    println(f"Soma: {s}"); // Soma: 5.797
     free(s);
 } // a, b, e sum são libertados automaticamente aqui
 ```

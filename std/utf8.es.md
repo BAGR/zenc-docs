@@ -6,12 +6,13 @@ El módulo `std/utf8` proporciona utilidades para trabajar con puntos de código
 
 ```zc
 import "std/utf8.zc"
+import "std/io.zc"
 
 fn main() {
     let r = 'ñ';
     
     if (Utf8::is_alpha(r)) {
-        println "{r} es una letra";
+        println(f"{r} es una letra");
     }
 }
 ```

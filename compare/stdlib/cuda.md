@@ -41,7 +41,7 @@ fn main() {
 
     cuda::copy_to_host(d_c, c, n);
 
-    println "c[0]: {c[0]}, c[1]: {c[1]}, c[255]: {c[255]}";
+    println(f"c[0]: {c[0]}, c[1]: {c[1]}, c[255]: {c[255]}");
 
     cuda::free_device(d_a);
     cuda::free_device(d_b);

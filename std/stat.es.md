@@ -18,11 +18,11 @@ fn main() {
     let res = FileStat::stat("mi_archivo.txt");
     if (res.is_some()) {
         let st = res.unwrap();
-        println "Tamaño: {st.size} bytes";
-        println "Permisos: {st.mode}";
+        println(f"Tamaño: {st.size} bytes");
+        println(f"Permisos: {st.mode}");
         
         if (FileStat::is_dir(st.mode)) {
-            println "Es un directorio.";
+            println("Es un directorio.");
         }
     }
 }

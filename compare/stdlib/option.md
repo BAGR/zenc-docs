@@ -24,7 +24,7 @@ fn safe_divide(a: int, b: int) -> Option<int> {
 
 fn main() {
     let r = safe_divide(10, 2);
-    println "ok";
+    println("ok");
 }
 ```
 

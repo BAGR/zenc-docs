@@ -13,6 +13,7 @@
 
 ```zc
 import "std/sync.zc"
+import "std/io.zc"
 
 fn main() {
     let m = Mutex::new();
@@ -27,7 +28,7 @@ fn main() {
     // Однократная инициализация
     let once = Once::new();
     once.call(|| {
-        println "Инициализировано!";
+        println("Инициализировано!");
     });
 }
 ```

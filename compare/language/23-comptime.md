@@ -15,10 +15,10 @@ and compile-time assertions.
 import "std/io.zc"
 
 fn main() {
-    println "Comptime is a Zen C compile-time feature.";
-    println "At build time, comptime blocks run and emit C code.";
-    println "Target platform detection and code generation happen there.";
-    println "Hello from runtime!";
+    println("Comptime is a Zen C compile-time feature.");
+    println("At build time, comptime blocks run and emit C code.");
+    println("Target platform detection and code generation happen there.");
+    println("Hello from runtime!");
 }
 ```
 

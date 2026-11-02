@@ -24,8 +24,8 @@ import "std/io.zc"
 //> define: VERSION=2
 
 fn main() {
-    println "Build configured with VERSION={VERSION}";
-    println "Libraries linked via directives";
+    println(f"Build configured with VERSION={VERSION}");
+    println("Libraries linked via directives");
 }
 ```
 

@@ -23,38 +23,38 @@ fn classify(x: int) -> string {
 }
 
 fn main() {
-    println "--- while loop ---";
+    println("--- while loop ---");
     let i = 0;
     while i < 3 {
-        println "i: {i}";
+        println(f"i: {i}");
         i += 1;
     }
 
-    println "--- for range ---";
+    println("--- for range ---");
     for n in 0..5 {
-        println "n: {n}";
+        println(f"n: {n}");
     }
 
-    println "--- inclusive range ---";
+    println("--- inclusive range ---");
     for n in 0..=3 {
-        println "n: {n}";
+        println(f"n: {n}");
     }
 
-    println "--- step ---";
+    println("--- step ---");
     for n in 0..10 step 2 {
-        println "n: {n}";
+        println(f"n: {n}");
     }
 
-    println "--- do-while ---";
+    println("--- do-while ---");
     let j = 0;
     do {
-        println "j: {j}";
+        println(f"j: {j}");
         j += 1;
     } while j < 2;
 
-    println "--- classify ---";
-    println "50: {classify(50)}";
-    println "200: {classify(200)}";
+    println("--- classify ---");
+    println(f"50: {classify(50)}");
+    println(f"200: {classify(200)}");
 }
 ```
 

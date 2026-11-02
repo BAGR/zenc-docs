@@ -277,22 +277,23 @@ Zen C 通過 `rune` 類型提供對 Unicode 標量值的一等支持。一個 `r
 
 ```zc
 import "std.zc"
+import "std/io.zc"
 
 fn main() {
     let c = 'a';
-    println "字符 '{c}' 的 ASCII/Unicode 編碼為 {(int)c}";
+    println(f"字符 '{c}' 的 ASCII/Unicode 編碼為 {(int)c}");
 
     let code = 97;
-    println "編碼 {code} 對應的字符為 {(char)code}";
+    println(f"編碼 {code} 對應的字符為 {(char)code}");
 
     let r: rune = '🚀';
-    println "Rune '{r}' 的 Unicode 編碼為 {(uint)r}";
+    println(f"Rune '{r}' 的 Unicode 編碼為 {(uint)r}");
     
     let r_code: uint = 128640;
-    println "編碼 {r_code} 對應的 Rune 為 '{(rune)r_code}'";
+    println(f"編碼 {r_code} 對應的 Rune 為 '{(rune)r_code}'");
 
     let r_esc: rune = '\u{2764}';
-    println "Rune '{r_esc}' 的編碼為 {(uint)r_esc} (0x{(uint)r_esc:X})";
+    println(f"Rune '{r_esc}' 的編碼為 {(uint)r_esc} (0x{(uint)r_esc:X})");
 }
 ```
 
@@ -476,7 +477,7 @@ add(a: 10, b: 20);
 ```zc
 fn print_val(v: const int) {
     // v = 10; // 錯誤：無法賦值給 const 變量
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -484,6 +485,7 @@ fn print_val(v: const int) {
 函數可以為尾部參數定義默認值。這些值可以是字面量、表達式或有效的 Zen C 代碼（如結構體構造函數）。
 ```zc
 // 簡單默認值
+import "std/io.zc"
 fn increment(val: int, amount: int = 1) -> int {
     return val + amount;
 }
@@ -496,7 +498,7 @@ fn offset(val: int, pad: int = 10 * 2) -> int {
 // 結構體默認值
 struct Config { debug: bool; }
 fn init(cfg: Config = Config { debug: true }) {
-    if cfg.debug { println "調試模式"; }
+    if cfg.debug { println("調試模式"); }
 }
 
 fn main() {
@@ -568,11 +570,11 @@ fn log(lvl: int, fmt: char*, ...) {
 #### 条件语句
 ```zc
 if x > 10 {
-    print "Large";
+    print("Large");
 } else if x > 5 {
-    print "Medium";
+    print("Medium");
 } else {
-    print "Small";
+    print("Small");
 }
 
 // 三元運算符
@@ -586,21 +588,21 @@ let 類別 = if (x > 100) { "巨大" } else if (x > 10) { "大" } else { "小" }
 `switch` 的強大替代方案。
 ```zc
 match val {
-    1         => { print "One" },
-    2 || 3    => { print "Two or Three" },    // 使用 || 進行 或 操作
-    4 or 5    => { print "Four or Five" },    // 使用 'or' 進行 或 操作
-    6, 7, 8   => { print "Six to Eight" },    // 使用逗號進行 或 操作
-    10 .. 15  => { print "10 to 14" },        // 左閉右開區間 (舊語法)
-    10 ..< 15 => { print "10 to 14" },        // 左閉右開區間 (顯式)
-    20 ..= 25 => { print "20 to 25" },        // 全閉區間
-    _         => { print "Other" },
+    1         => { print("One") },
+    2 || 3    => { print("Two or Three") },    // 使用 || 進行 或 操作
+    4 or 5    => { print("Four or Five") },    // 使用 'or' 進行 或 操作
+    6, 7, 8   => { print("Six to Eight") },    // 使用逗號進行 或 操作
+    10 .. 15  => { print("10 to 14") },        // 左閉右開區間 (舊語法)
+    10 ..< 15 => { print("10 to 14") },        // 左閉右開區間 (顯式)
+    20 ..= 25 => { print("20 to 25") },        // 全閉區間
+    _         => { print("Other") },
 }
 
 // 解構枚舉
 match shape {
-    Shape::Circle(r)   => { println "半徑: {r}" },
-    Shape::Rect(w, h)  => { println "面積: {w*h}" },
-    Shape::Point       => { println "點" },
+    Shape::Circle(r)   => { println(f"半徑: {r}") },
+    Shape::Rect(w, h)  => { println(f"面積: {w*h}") },
+    Shape::Point       => { println("點") },
 }
 ```
 
@@ -613,7 +615,7 @@ match opt {
     Some(ref x) => {
         // 'x' 是指向 'opt' 內部值的指針
         // 'opt' 在此處不會被移動/消耗
-        println "{x.field}"; 
+        println(f"{x.field}"); 
     },
     None => {}
 }
@@ -639,7 +641,7 @@ for i, val in 0..10 step 2 { ... } // i = 0, 1, 2, ...; val = 0, 2, 4, ...
 let arr: int[5] = [1, 2, 3, 4, 5];
 for val in arr {
     // val 是 int
-    println "{val}";
+    println(f"{val}");
 }
 
 // While 循環
@@ -767,8 +769,8 @@ Zen C 中的字串插值是**隱式**的：如果你的字串包含 `{...}`，�
 ```zc
 let x = 42;
 let name = "Zen";
-println "值: {x}, 名稱: {name}";
-"值: {x}, 名稱: {name}"; // 簡寫形式的 println
+println(f"值: {x}, 名稱: {name}");
+println(f"值: {x}, 名稱: {name}"); // 簡寫形式的 println
 ```
 
 **轉義花括號**：使用 `{{` 輸出字面量 `{`，使用 `}}` 輸出字面量 `}`：
@@ -822,7 +824,7 @@ Zen C 支持使用 `?` 前綴進行用戶輸入提示的簡寫。
 ```zc
 let age: int;
 ? "你多大了？ " (age);
-println "你 {age} 歲了。";
+println(f"你 {age} 歲了。");
 ```
 
 ### 8. 內存管理
@@ -963,6 +965,7 @@ Zen C 包含與語言語法集成的標準 Trait。
 
 ```zc
 import "std/iter.zc"
+import "std/io.zc"
 
 // 定義一個迭代器
 struct MyIter {
@@ -989,7 +992,7 @@ impl MyRange {
 
 // 在循環中使用
 for i in my_range {
-    println "{i}";
+    println(f"{i}");
 }
 ```
 
@@ -1120,10 +1123,10 @@ fn main() {
 ```zc
 comptime {
     // 在編譯時生成程式碼(寫入 stdout)
-    println "let build_date = \"2024-01-01\";";
+    println("let build_date = \"2024-01-01\";");
 }
 
-println "Build Date: {build_date}";
+println(f"Build Date: {build_date}");
 ```
 
 **輔助函式**
@@ -1142,7 +1145,7 @@ comptime {
         compile_error("必須啟用功能!");
     }
     
-    println "let FEATURE_ENABLED = 1;";
+    println("let FEATURE_ENABLED = 1;");
 }
 ```
 
@@ -1155,10 +1158,10 @@ comptime {
 ```zc
 comptime {
     // 平台特定的程式碼生成
-    println "let PLATFORM = \"{__COMPTIME_TARGET__}\";";
+    println(f"let PLATFORM = \"{__COMPTIME_TARGET__}\";");
 }
 
-println "運行於: {PLATFORM}";
+println(f"運行於: {PLATFORM}");
 ```
 
 > [!TIP]
@@ -1213,10 +1216,11 @@ import "opengl_backend.zc";
 
 @cfg(USE_VULKAN)
 import "vulkan_backend.zc";
+import "std/io.zc"
 
 @cfg(not(USE_OPENGL))
 @cfg(not(USE_VULKAN))
-fn fallback_init() { println "未選擇後端"; }
+fn fallback_init() { println("未選擇後端"); }
 ```
 
 | 形式 | 含義 |
@@ -1463,13 +1467,14 @@ Zen C 包含一個內置測試框架，允許你使用 `test` 關鍵字直接在
 `test` 塊包含一個描述性名稱和要執行代碼的主體。測試不需要 `main` 函數即可運行。
 
 ```zc
+import "std/io.zc"
 test "unittest1" {
-    "這是一個單元測試";
+    println("這是一個單元測試");
 
     let a = 3;
     assert(a > 0, "a 應該是一個正整數");
 
-    "unittest1 通過。";
+    println("unittest1 通過。");
 }
 ```
 
@@ -1890,6 +1895,7 @@ zc app.zc --objc --cc clang
 //> linux: cflags: -fconstant-string-class=NSConstantString -D_NATIVE_OBJC_EXCEPTIONS
 //> linux: link: -lgnustep-base -lobjc
 
+import "std/io.zc"
 include <Foundation/Foundation.h>
 
 fn main() {
@@ -1898,7 +1904,7 @@ fn main() {
         NSLog(@"來自 Objective-C 的問候！");
         [pool drain];
     }
-    println "Zen C 也能正常工作！";
+    println("Zen C 也能正常工作！");
 }
 ```
 

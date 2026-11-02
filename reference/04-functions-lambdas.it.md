@@ -26,7 +26,7 @@ Gli argomenti di una funzione possono essere marcati come `const` (lett. _costan
 ```zc
 fn stampa_valore(v: const int) {
     // v = 10; // Errore: Impossibile assegnare un valore ad una variabile costante
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -34,6 +34,7 @@ fn stampa_valore(v: const int) {
 Le funzioni posso definire dei valori default per gli argomenti in caso che questi non vengano specificati durante la chiamata. Questi valori possono essere letterali, espressioni, o codice Zen C valido (come il costruttore di uno struct).
 ```zc
 // Valore default semplice
+import "std/io.zc"
 fn incrementa(val: int, quantità: int = 1) -> int {
     return val + quantità;
 }
@@ -46,7 +47,7 @@ fn offset(val: int, pad: int = 10 * 2) -> int {
 // Struct come valore default
 struct Config { debug: bool; }
 fn init(cfg: Config = Config { debug: true }) {
-    if cfg.debug { println "Modalità Debug"; }
+    if cfg.debug { println("Modalità Debug"); }
 }
 
 fn main() {

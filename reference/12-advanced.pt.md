@@ -15,10 +15,10 @@ Execute código em tempo de compilação para gerar código ou imprimir mensagen
 ```zc
 comptime {
     // Gera código em tempo de compilação (escrito em stdout)
-    println "let data_compilacao = \"2024-01-01\";";
+    println("let data_compilacao = \"2024-01-01\";");
 }
 
-println "Data de compilação: {data_compilacao}";
+println(f"Data de compilação: {data_compilacao}");
 ```
 
 **Funções Auxiliares**
@@ -37,7 +37,7 @@ comptime {
         compile_error("O recurso deve estar habilitado!");
     }
     
-    println "let FEATURE_ENABLED = 1;";
+    println("let FEATURE_ENABLED = 1;");
 }
 ```
 
@@ -50,10 +50,10 @@ Acesse informações de build do compilador em tempo de compilação:
 ```zc
 comptime {
     // Geração de código específica da plataforma
-    println "let PLATFORM = \"{__COMPTIME_TARGET__}\";";
+    println(f"let PLATFORM = \"{__COMPTIME_TARGET__}\";");
 }
 
-println "Executando em: {PLATFORM}";
+println(f"Executando em: {PLATFORM}");
 ```
 
 > **Dica:** Use raw strings (`r"..."`) em comptime para evitar escapar chaves: `code(r"fn test() { return 42; }")`. De lo contrario, use `{{` e `}}` para escapar chaves em strings regulares.
@@ -106,10 +106,11 @@ import "opengl_backend.zc";
 
 @cfg(USE_VULKAN)
 import "vulkan_backend.zc";
+import "std/io.zc"
 
 @cfg(not(USE_OPENGL))
 @cfg(not(USE_VULKAN))
-fn fallback_init() { println "Nenhum backend selecionado"; }
+fn fallback_init() { println("Nenhum backend selecionado"); }
 ```
 
 | Forma | Significado |

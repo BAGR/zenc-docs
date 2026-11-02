@@ -14,9 +14,9 @@ format strings.
 import "std/io.zc"
 
 fn main() {
-    print "Enter your name: ";
+    print("Enter your name: ");
     let name = ? "> ";
-    println "Hello, {name}!";
+    println(f"Hello, {name}!");
 }
 ```
 

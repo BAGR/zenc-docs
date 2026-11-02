@@ -23,7 +23,7 @@ fn main() {
 
     let inf = fs::open("output.txt", "r").expect("failed to open");
     let content = fs::read_all("output.txt").expect("failed to read");
-    println "file content:\n{content}";
+    println(f"file content:\n{content}");
     inf.close();
 }
 ```

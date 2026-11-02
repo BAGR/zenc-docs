@@ -26,7 +26,7 @@ add(a: 10, b: 20);
 ```zc
 fn print_val(v: const int) {
     // v = 10; // Ошибка: невозможно присвоить const переменной
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -34,6 +34,7 @@ fn print_val(v: const int) {
 Функции могут определять значения по умолчанию для завершающих аргументов. Это могут быть литералы, выражения или допустимый код Zen C (например, конструкторы структур).
 ```zc
 // Простое значение по умолчанию
+import "std/io.zc"
 fn increment(val: int, amount: int = 1) -> int {
     return val + amount;
 }
@@ -46,7 +47,7 @@ fn offset(val: int, pad: int = 10 * 2) -> int {
 // Значение по умолчанию для структуры
 struct Config { debug: bool; }
 fn init(cfg: Config = Config { debug: true }) {
-    if cfg.debug { println "Debug Mode"; }
+    if cfg.debug { println("Debug Mode"); }
 }
 
 fn main() {

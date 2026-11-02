@@ -265,22 +265,23 @@ Zen C предоставляет полноценную поддержку ск�
 
 ```zc
 import "std.zc"
+import "std/io.zc"
 
 fn main() {
     let c = 'a';
-    println "Символ '{c}' имеет код {(int)c} в ASCII/Unicode";
+    println(f"Символ '{c}' имеет код {(int)c} в ASCII/Unicode");
 
     let code = 97;
-    println "Код {code} соответствует символу {(char)code}";
+    println(f"Код {code} соответствует символу {(char)code}");
 
     let r: rune = '🚀';
-    println "Руна '{r}' имеет код {(uint)r} в Unicode";
+    println(f"Руна '{r}' имеет код {(uint)r} в Unicode");
     
     let r_code: uint = 128640;
-    println "Код {r_code} соответствует руне '{(rune)r_code}'";
+    println(f"Код {r_code} соответствует руне '{(rune)r_code}'");
 
     let r_esc: rune = '\u{2764}';
-    println "Руна '{r_esc}' имеет код {(uint)r_esc} (0x{(uint)r_esc:X})";
+    println(f"Руна '{r_esc}' имеет код {(uint)r_esc} (0x{(uint)r_esc:X})");
 }
 ```
 
@@ -464,7 +465,7 @@ add(a: 10, b: 20);
 ```zc
 fn print_val(v: const int) {
     // v = 10; // Ошибка: невозможно присвоить const переменной
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -472,6 +473,7 @@ fn print_val(v: const int) {
 Функции могут определять значения по умолчанию для завершающих аргументов. Это могут быть литералы, выражения или допустимый код Zen C (например, конструкторы структур).
 ```zc
 // Простое значение по умолчанию
+import "std/io.zc"
 fn increment(val: int, amount: int = 1) -> int {
     return val + amount;
 }
@@ -484,7 +486,7 @@ fn offset(val: int, pad: int = 10 * 2) -> int {
 // Значение по умолчанию для структуры
 struct Config { debug: bool; }
 fn init(cfg: Config = Config { debug: true }) {
-    if cfg.debug { println "Debug Mode"; }
+    if cfg.debug { println("Debug Mode"); }
 }
 
 fn main() {
@@ -556,11 +558,11 @@ fn log(lvl: int, fmt: char*, ...) {
 #### Условные операторы
 ```zc
 if x > 10 {
-    print "Large";
+    print("Large");
 } else if x > 5 {
-    print "Medium";
+    print("Medium");
 } else {
-    print "Small";
+    print("Small");
 }
 
 // Тернарно
@@ -574,21 +576,21 @@ let категория = if (x > 100) { "огромный" } else if (x > 10) { 
 Мощная альтернатива `switch`.
 ```zc
 match val {
-    1         => { print "One" },
-    2 || 3    => { print "Two or Three" },    // ИЛИ с ||
-    4 or 5    => { print "Four or Five" },    // ИЛИ с 'or'
-    6, 7, 8   => { print "Six to Eight" },    // ИЛИ с запятой
-    10 .. 15  => { print "10 to 14" },        // Исключающий диапазон (устаревший)
-    10 ..< 15 => { print "10 to 14" },        // Исключающий диапазон (явно)
-    20 ..= 25 => { print "20 to 25" },        // Включающий диапазон
-    _         => { print "Other" },
+    1         => { print("One") },
+    2 || 3    => { print("Two or Three") },    // ИЛИ с ||
+    4 or 5    => { print("Four or Five") },    // ИЛИ с 'or'
+    6, 7, 8   => { print("Six to Eight") },    // ИЛИ с запятой
+    10 .. 15  => { print("10 to 14") },        // Исключающий диапазон (устаревший)
+    10 ..< 15 => { print("10 to 14") },        // Исключающий диапазон (явно)
+    20 ..= 25 => { print("20 to 25") },        // Включающий диапазон
+    _         => { print("Other") },
 }
 
 // Деструктуризация перечислений
 match shape {
-    Shape::Circle(r)   => { println "Radius: {r}" },
-    Shape::Rect(w, h)  => { println "Area: {w*h}" },
-    Shape::Point       => { println "Point" },
+    Shape::Circle(r)   => { println(f"Radius: {r}") },
+    Shape::Rect(w, h)  => { println(f"Area: {w*h}") },
+    Shape::Point       => { println("Point") },
 }
 ```
 
@@ -601,7 +603,7 @@ match opt {
     Some(ref x) => {
         // 'x' - это указатель на значение внутри 'opt'
         // 'opt' НЕ перемещается/не потребляется здесь
-        println "{x.field}"; 
+        println(f"{x.field}"); 
     },
     None => {}
 }
@@ -627,7 +629,7 @@ for i, val in 0..10 step 2 { ... } // i = 0, 1, 2, ...; val = 0, 2, 4, ...
 let arr: int[5] = [1, 2, 3, 4, 5];
 for val in arr {
     // val - это int
-    println "{val}";
+    println(f"{val}");
 }
 
 // While
@@ -746,8 +748,8 @@ Zen C позволяет использовать строковые литер�
 ```zc
 let x = 42;
 let name = "Zen";
-println "Значение: {x}, Имя: {name}";
-"Значение: {x}, Имя: {name}"; // сокращение println
+println(f"Значение: {x}, Имя: {name}");
+println(f"Значение: {x}, Имя: {name}"); // сокращение println
 ```
 
 **Экранирование фигурных скобок**: Используйте `{{` для вывода литеральной `{` и `}}` для литеральной `}`:
@@ -801,7 +803,7 @@ Zen C поддерживает сокращение для запроса вво
 ```zc
 let age: int;
 ? "How old are you? " (age);
-println "You are {age} years old.";
+println(f"You are {age} years old.");
 ```
 
 ### 8. Управление памятью
@@ -940,6 +942,7 @@ Zen C включает стандартные трейты, которые ин�
 
 ```zc
 import "std/iter.zc"
+import "std/io.zc"
 
 // Определите итератор
 struct MyIter {
@@ -966,7 +969,7 @@ impl MyRange {
 
 // Используйте в цикле
 for i in my_range {
-    println "{i}";
+    println(f"{i}");
 }
 ```
 
@@ -1097,10 +1100,10 @@ fn main() {
 ```zc
 comptime {
     // Генерирует код во время компиляции (выводится в stdout)
-    println "let build_date = \"2024-01-01\";";
+    println("let build_date = \"2024-01-01\";");
 }
 
-println "Build Date: {build_date}";
+println(f"Build Date: {build_date}");
 ```
 
 **Вспомогательные функции**
@@ -1119,7 +1122,7 @@ comptime {
         compile_error("Функция должна быть включена!");
     }
     
-    println "let FEATURE_ENABLED = 1;";
+    println("let FEATURE_ENABLED = 1;");
 }
 ```
 
@@ -1132,10 +1135,10 @@ comptime {
 ```zc
 comptime {
     // Генерация кода для конкретной платформы
-    println "let PLATFORM = \"{__COMPTIME_TARGET__}\";";
+    println(f"let PLATFORM = \"{__COMPTIME_TARGET__}\";");
 }
 
-println "Запуск на: {PLATFORM}";
+println(f"Запуск на: {PLATFORM}");
 ```
 
 > [!NOTE]
@@ -1190,10 +1193,11 @@ import "opengl_backend.zc";
 
 @cfg(USE_VULKAN)
 import "vulkan_backend.zc";
+import "std/io.zc"
 
 @cfg(not(USE_OPENGL))
 @cfg(not(USE_VULKAN))
-fn fallback_init() { println "Бэкенд не выбран"; }
+fn fallback_init() { println("Бэкенд не выбран"); }
 ```
 
 | Форма | Значение |
@@ -1437,13 +1441,14 @@ fn main() {
 Блок `test` содержит описательное имя и тело кода для выполнения. Тесты не требуют функции `main` для запуска.
 
 ```zc
+import "std/io.zc"
 test "unittest1" {
-    "Это юнит-тест";
+    println("Это юнит-тест");
 
     let a = 3;
     assert(a > 0, "a должно быть положительным целым числом");
 
-    "unittest1 пройден.";
+    println("unittest1 пройден.");
 }
 ```
 
@@ -1858,6 +1863,7 @@ zc app.zc --objc --cc clang
 //> linux: cflags: -fconstant-string-class=NSConstantString -D_NATIVE_OBJC_EXCEPTIONS
 //> linux: link: -lgnustep-base -lobjc
 
+import "std/io.zc"
 include <Foundation/Foundation.h>
 
 fn main() {
@@ -1866,7 +1872,7 @@ fn main() {
         NSLog(@"Hello from Objective-C!");
         [pool drain];
     }
-    println "Zen C works too!";
+    println("Zen C works too!");
 }
 ```
 

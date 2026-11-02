@@ -6,6 +6,7 @@
 
 ```zc
 import "std/random.zc"
+import "std/io.zc"
 
 fn main() {
     // 自动使用当前时间作为种子初始化生成器
@@ -14,7 +15,7 @@ fn main() {
     // 生成随机整数
     let bounded = rng.next_int_range(1, 100); // 1 到 100 之间（含）
     
-    println "摇出的点数: {bounded}";
+    println(f"摇出的点数: {bounded}");
 }
 ```
 

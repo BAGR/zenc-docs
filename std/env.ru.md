@@ -12,6 +12,7 @@
 
 ```zc
 import "std/env.zc"
+import "std/io.zc"
 
 fn main() {
     // Установка переменной окружения
@@ -19,17 +20,17 @@ fn main() {
 
     // Получение (заимствованное)
     match Env::get("MY_APP_MODE") {
-        Some(val) => println "Mode: {val}",
-        None => println "Mode not set"
+        Some(val) => println(f"Mode: {val}"),
+        None => println("Mode not set")
     }
 
     // Получение (собственная строка String для RAII)
     match Env::get_dup("HOME") {
         Some(home) => {
-            println "Home: {home}";
+            println(f"Home: {home}");
             // home освобождается автоматически
         }
-        None => println "HOME not found"
+        None => println("HOME not found")
     }
 }
 ```

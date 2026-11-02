@@ -26,7 +26,7 @@ add(a: 10, b: 20);
 ```zc
 fn print_val(v: const int) {
     // v = 10; // 错误：无法赋值给 const 变量
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -34,6 +34,7 @@ fn print_val(v: const int) {
 函数可以为尾部参数定义默认值。这些值可以是字面量、表达式或有效的 Zen C 代码（如结构体构造函数）。
 ```zc
 // 简单默认值
+import "std/io.zc"
 fn increment(val: int, amount: int = 1) -> int {
     return val + amount;
 }
@@ -46,7 +47,7 @@ fn offset(val: int, pad: int = 10 * 2) -> int {
 // 结构体默认值
 struct Config { debug: bool; }
 fn init(cfg: Config = Config { debug: true }) {
-    if cfg.debug { println "调试模式"; }
+    if cfg.debug { println("调试模式"); }
 }
 
 fn main() {
