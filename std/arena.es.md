@@ -13,6 +13,7 @@ El módulo `std/arena` proporciona un asignador "bump" rápido para asignaciones
 
 ```zc
 import "std/arena.zc"
+import "std/io.zc"
 
 struct Node {
     val: int;
@@ -29,7 +30,7 @@ fn main() {
     // Duplicar cadena en la memoria de la arena
     let s = a.dup_str("Hola Mundo");
     
-    println "Arena usada: {a.bytes_used()} bytes";
+    println(f"Arena usada: {a.bytes_used()} bytes");
     
     // Todo se libera automáticamente cuando 'a' sale del alcance
 }

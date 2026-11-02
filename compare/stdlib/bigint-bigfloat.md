@@ -19,7 +19,7 @@ fn main() {
     let b = BigInt::from_int(456);
 
     let sum = a.add(&b);
-    println "sum: {sum}";
+    println(f"sum: {sum}");
 }
 ```
 

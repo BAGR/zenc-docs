@@ -15,7 +15,7 @@ import "std/io.zc"
 
 fn greet(name: string, times: int = 1) {
     for _ in 0..times {
-        println "Hello, {name}!";
+        println(f"Hello, {name}!");
     }
 }
 
@@ -24,13 +24,13 @@ fn add(a: int, b: int) -> int {
 }
 
 fn print_val(v: const int) {
-    println "value: {v}";
+    println(f"value: {v}");
 }
 
 fn log(fmt: char*, ...) {
     let ap: va_list;
     va_start(ap, fmt);
-    print "[LOG] ";
+    print("[LOG] ");
     vprintf(fmt, ap);
     va_end(ap);
 }
@@ -40,7 +40,7 @@ fn main() {
     greet("World", times: 3);
 
     let result = add(10, 20);
-    println "add: {result}";
+    println(f"add: {result}");
 
     print_val(42);
 

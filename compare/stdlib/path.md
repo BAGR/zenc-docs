@@ -17,10 +17,10 @@ import "std/io.zc"
 fn main() {
     let base = Path::new("/home/user");
     let full = base.join("docs/readme.txt");
-    println "full path: {full}";
+    println(f"full path: {full}");
 
     let ext = full.extension();
-    println "extension: {ext}";
+    println(f"extension: {ext}");
 }
 ```
 

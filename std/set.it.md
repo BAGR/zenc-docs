@@ -13,6 +13,7 @@
 
 ```zc
 import "std/set.zc"
+import "std/io.zc"
 
 fn main() {
     let s = Set<int>::new();
@@ -22,11 +23,11 @@ fn main() {
     s.add(10); // Duplicato, restituisce false
     
     if (s.contains(10)) {
-        println "L'insieme contiene 10";
+        println("L'insieme contiene 10");
     }
     
     s.remove(20);
-    println "Lunghezza: {s.length()}";
+    println(f"Lunghezza: {s.length()}");
 } // s viene liberata automaticamente qui
 ```
 

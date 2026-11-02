@@ -12,13 +12,14 @@ Zen C 包含一個內置測試框架，允許你使用 `test` 關鍵字直接在
 `test` 塊包含一個描述性名稱和要執行代碼的主體。測試不需要 `main` 函數即可運行。
 
 ```zc
+import "std/io.zc"
 test "unittest1" {
-    "這是一個單元測試";
+    println("這是一個單元測試");
 
     let a = 3;
     assert(a > 0, "a 應該是一個正整數");
 
-    "unittest1 通過。";
+    println("unittest1 通過。");
 }
 ```
 

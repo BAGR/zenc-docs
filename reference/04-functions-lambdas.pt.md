@@ -27,7 +27,7 @@ Funções podem ser marcadas como `const` para impor semântica de apenas leitur
 ```zc
 fn print_val(v: const int) {
     // v = 10; // Erro: atribuição a const não permitida
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -36,6 +36,7 @@ fn print_val(v: const int) {
 Funções podem definir valores-padrão para argumentos trailing. Estes podem ser literais, expressões ou código Zen C válido (como construtores struct).
 ```zc
 // Valor padrão simples
+import "std/io.zc"
 fn increment(val: int, amount: int = 1) -> int {
     return val + amount;
 }
@@ -48,7 +49,7 @@ fn offset(val: int, pad: int = 10 * 2) -> int {
 // Valor padrão de struct
 struct Config { debug: bool; }
 fn init(cfg: Config = Config { debug: true }) {
-    if cfg.debug { println "Debug Mode"; }
+    if cfg.debug { println("Debug Mode"); }
 }
 
 fn main() {

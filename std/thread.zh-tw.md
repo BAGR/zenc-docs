@@ -13,9 +13,10 @@
 
 ```zc
 import "std/thread.zc"
+import "std/io.zc"
 
 fn worker(id: int) {
-    println "來自 worker {id} 的問候";
+    println(f"來自 worker {id} 的問候");
 }
 
 fn main() {

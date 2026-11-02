@@ -13,6 +13,7 @@ Il modulo `std/process` fornisce un'API di alto livello per la creazione di proc
 
 ```zc
 import "std/process.zc"
+import "std/io.zc"
 
 fn main() {
     // Esecuzione di base di un comando
@@ -21,10 +22,10 @@ fn main() {
         .output();
         
     if (output.exit_code == 0) {
-        println "Catturato: {output.std_out}";
+        println(f"Catturato: {output.std_out}");
         // output.std_out è una String, liberata automaticamente
     } else {
-        println "Comando fallito con il codice {output.exit_code}";
+        println(f"Comando fallito con il codice {output.exit_code}");
     }
 }
 ```

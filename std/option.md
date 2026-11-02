@@ -13,12 +13,13 @@
 
 ```zc
 import "std/option.zc"
+import "std/io.zc"
 
 fn main() {
     let val = Option<int>::Some(10);
     
     if (val.is_some()) {
-        println "Value is {val.unwrap()}";
+        println(f"Value is {val.unwrap()}");
     }
     
     let empty = Option<int>::None();

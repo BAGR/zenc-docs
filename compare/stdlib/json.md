@@ -16,7 +16,7 @@ import "std/io.zc"
 fn main() {
     let data = r'{"name": "Zen", "value": 42}';
     let doc = json::parse(data);
-    println "parsed ok";
+    println("parsed ok");
 }
 ```
 

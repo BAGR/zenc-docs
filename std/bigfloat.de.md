@@ -13,6 +13,7 @@ Das Modul `std/bigfloat` bietet Gleitkomma-Arithmetik mit beliebiger Präzision.
 
 ```zc
 import "std/bigfloat.zc"
+import "std/io.zc"
 
 fn main() {
     // BigFloat mit 256-Bit Präzision erstellen
@@ -21,7 +22,7 @@ fn main() {
     let radius = BigFloat::from_f64(10.5);
     let area = pi * (radius * radius);
     
-    println "Fläche mit hoher Präzision: {area.to_string(20)}";
+    println(f"Fläche mit hoher Präzision: {area.to_string(20)}");
 }
 ```
 

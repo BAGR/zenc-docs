@@ -4,7 +4,7 @@ Il modulo `std/io` fornisce funzionalità di input/output standard, inclusa la s
 
 ## Panoramica
 
-- **Output Formattato**: Fornisce `print` e `println` con supporto per gli specificatori di formato in stile C (`%s`, `%d`, ecc.).
+- **Output**: `print`, `println`, `eprint` ed `eprintln` scrivono una stringa su stdout o stderr; `f"..."` e `format()` costruiscono le stringhe formattate.
 - **Formattazione delle Stringhe**: Molteplici opzioni per la formattazione in buffer statici, forniti dall'utente o allocati nell'heap.
 - **Consapevolezza di Unicode**: Include `read_rune` per la lettura di singoli caratteri UTF-8 da stdin.
 - **Utilità di Conversione**: Semplici metodi per convertire interi e rune in stringhe.
@@ -16,14 +16,15 @@ import "std/io.zc"
 
 fn main() {
     // Stampa di base
-    println("Hello, %s!", "Zen-C");
+    println("Hello, Zen-C!");
     
     // Lettura di una riga di input
     print("Inserisci il tuo nome: ");
-    autofree let name = readln();
+    let name = readln();
     
     if name != NULL {
-        println("Saluti, %s", name);
+        println(f"Saluti, {name}");
+        free(name);
     }
 }
 ```
@@ -34,8 +35,10 @@ fn main() {
 
 | Metodo | Firma | Descrizione |
 | :--- | :--- | :--- |
-| **print** | `print(fmt: char*, ...) -> int` | Stampa l'output formattato su stdout. |
-| **println** | `println(fmt: char*, ...) -> int` | Stampa l'output formattato su stdout seguito da una nuova riga. |
+| **print** | `print(s: const char*)` | Stampa `s` su stdout. |
+| **println** | `println(s: const char*)` | Stampa `s` su stdout seguita da una nuova riga. |
+| **eprint** | `eprint(s: const char*)` | Stampa `s` su stderr. |
+| **eprintln** | `eprintln(s: const char*)` | Stampa `s` su stderr seguita da una nuova riga. |
 
 ### Input
 

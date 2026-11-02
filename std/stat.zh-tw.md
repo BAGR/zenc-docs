@@ -18,11 +18,11 @@ fn main() {
     let res = FileStat::stat("myfile.txt");
     if (res.is_some()) {
         let st = res.unwrap();
-        println "大小: {st.size} 位元組";
-        println "權限: {st.mode}";
+        println(f"大小: {st.size} 位元組");
+        println(f"權限: {st.mode}");
         
         if (FileStat::is_dir(st.mode)) {
-            println "這是一個目錄。";
+            println("這是一個目錄。");
         }
     }
 }

@@ -13,11 +13,12 @@ The `Math` module provides a core set of standard mathematical constants and fun
 
 ```zc
 import "std/math.zc"
+import "std/io.zc"
 
 fn main() {
     let radius = 5.0;
     let area = Math::PI() * Math::pow(radius, 2.0);
-    println "Area of circle: {area}";
+    println(f"Area of circle: {area}");
 }
 ```
 

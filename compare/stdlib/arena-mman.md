@@ -23,8 +23,8 @@ fn main() {
     let buf: char* = a + 8;
     strcpy(buf, "Hello from arena");
 
-    println "x: {*x}";
-    println "buf: {buf}";
+    println(f"x: {*x}");
+    println(f"buf: {buf}");
 }
 ```
 

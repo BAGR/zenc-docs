@@ -3,11 +3,10 @@ title = "Concurrency"
 weight = 22
 +++
 
-# Concurrency (Async/Await)
+# Concurrency
 <!-- zc-check: skip-file: concurrency example output ordering is non-deterministic -->
 
-Stackless async functions, await for result retrieval, and
-background task launching.
+Threads from `std/thread.zc`: spawning closures and joining them.
 
 ## Zen C
 
@@ -16,26 +15,26 @@ import "std/io.zc"
 import "std/thread.zc"
 
 fn worker(name: string) {
-    println "{name} started";
+    println(f"{name} started");
     sleep_ms(50);
-    println "{name} done";
+    println(f"{name} done");
 }
 
 fn main() {
-    println "spawning threads...";
+    println("spawning threads...");
 
     let t1 = thread::spawn(fn() { worker("A"); }).unwrap();
     let t2 = thread::spawn(fn() { worker("B"); }).unwrap();
 
-    println "doing other work...";
+    println("doing other work...");
 
     t1.join().unwrap();
-    println "A complete";
+    println("A complete");
 
     t2.join().unwrap();
-    println "B complete";
+    println("B complete");
 
-    println "done";
+    println("done");
 }
 ```
 

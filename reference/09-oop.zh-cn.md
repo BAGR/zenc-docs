@@ -72,6 +72,7 @@ Zen C 包含与语言语法集成的标准 Trait。
 
 ```zc
 import "std/iter.zc"
+import "std/io.zc"
 
 // 定义一个迭代器
 struct MyIter {
@@ -98,7 +99,7 @@ impl MyRange {
 
 // 在循环中使用
 for i in my_range {
-    println "{i}";
+    println(f"{i}");
 }
 ```
 

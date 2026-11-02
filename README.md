@@ -57,7 +57,7 @@ The legacy subcommands `zc lsp`, `zc repl`, `zc doc`, and `zc format` still work
 | 8 | [Memory & Lifetimes](reference/08-memory-management.md) | Ownership, borrowing |
 | 9 | [OOP](reference/09-oop.md) | Traits, impl blocks, methods |
 | 10 | [Generics](reference/10-generics.md) | Type-safe templates |
-| 11 | [Concurrency](reference/11-concurrency.md) | Stackless async/await |
+| 11 | [Concurrency](reference/11-concurrency.md) | Threads with `std/thread.zc` |
 | 12 | [Advanced](reference/12-advanced.md) | Inline assembly, raw blocks |
 | 13 | [Comptime](reference/13-comptime.md) | Compile-time evaluation and metaprogramming |
 | 14 | [Interop](reference/14-interop.md) | C, C++, CUDA, Objective-C interop |

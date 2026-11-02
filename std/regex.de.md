@@ -6,10 +6,11 @@ Das Modul `std/regex` bietet Unterstützung für reguläre Ausdrücke basierend 
 
 ```zc
 import "std/regex.zc"
+import "std/io.zc"
 
 fn main() {
     if regex_match("^[a-z]+$", "hello") {
-        println "Passt!";
+        println("Passt!");
     }
     
     let re = Regex::compile("\\d+");

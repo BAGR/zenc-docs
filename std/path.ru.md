@@ -13,16 +13,17 @@
 
 ```zc
 import "std/path.zc"
+import "std/io.zc"
 
 fn main() {
     let p = Path::new("/home/user");
     let full_path = p.join("docs/file.txt");
     
-    println "Полный путь: {full_path.c_str()}";
+    println(f"Полный путь: {full_path.c_str()}");
     
     match full_path.extension() {
-        Some(ext) => println "Расширение: {ext}",
-        None => println "Расширение не найдено"
+        Some(ext) => println(f"Расширение: {ext}"),
+        None => println("Расширение не найдено")
     }
 } // full_path и p освобождаются здесь автоматически
 ```

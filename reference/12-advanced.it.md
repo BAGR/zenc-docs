@@ -15,10 +15,10 @@ Esegui codice al momento della compilazione per generare sorgente o stampare mes
 ```zc
 comptime {
     // Genera codice al momento della compilazione (scritto su stdout)
-    println "let data_compilazione = \"2024-01-01\";";
+    println("let data_compilazione = \"2024-01-01\";");
 }
 
-println "Data compilazione: {data_compilazione}";
+println(f"Data compilazione: {data_compilazione}");
 ```
 
 <details>
@@ -92,10 +92,10 @@ Accedi alle informazioni di build del compilatore al momento della compilazione:
 ```zc
 comptime {
     // Generazione codice specifico per piattaforma
-    println "let PLATFORM = \"{__COMPTIME_TARGET__}\";";
+    println(f"let PLATFORM = \"{__COMPTIME_TARGET__}\";");
 }
 
-println "In esecuzione su: {PLATFORM}";
+println(f"In esecuzione su: {PLATFORM}");
 ```
 </details>
 
@@ -153,10 +153,11 @@ import "opengl_backend.zc";
 
 @cfg(USE_VULKAN)
 import "vulkan_backend.zc";
+import "std/io.zc"
 
 @cfg(not(USE_OPENGL))
 @cfg(not(USE_VULKAN))
-fn fallback_init() { println "Nessun backend selezionato"; }
+fn fallback_init() { println("Nessun backend selezionato"); }
 ```
 
 | Forma | Significato |
@@ -336,17 +337,17 @@ Le keyword che seguono sono riservate in Zen C.
 `alias`, `def`, `enum`, `fn`, `impl`, `import`, `let`, `module`, `opaque`, `struct`, `trait`, `union`, `use`
 
 #### Controllo del Flusso
-`async`, `await`, `break`, `catch`, `continue`, `defer`, `do`, `else`, `for`, `goto`, `guard`, `if`, `loop`, `match`, `return`, `try`, `unless`, `while`
+`break`, `catch`, `continue`, `defer`, `else`, `for`, `goto`, `if`, `loop`, `match`, `return`, `try`, `while`
 
 #### Speciali
-`asm`, `assert`, `autofree`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
+`asm`, `assert`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
 
 #### Costanti
 `true`, `false`, `null`
 
 #### Riservate del C
 Gli identifiers seguenti sono riservati poiché sono keyword nello standard C11:
-`auto`, `case`, `char`, `default`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
+`auto`, `case`, `char`, `default`, `do`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
 
 #### Operatori
 `and`, `or`

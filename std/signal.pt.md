@@ -15,13 +15,13 @@ import "std/sys/signal.zc"
 import "std/io.zc"
 
 fn on_interrupt(sig: int) {
-    println "Recebido SIGINT ({sig}). A limpar...";
+    println(f"Recebido SIGINT ({sig}). A limpar...");
     exit(0);
 }
 
 fn main() {
     Signal::set_handler(Z_SIGINT, on_interrupt);
-    println "À espera de Ctrl+C...";
+    println("À espera de Ctrl+C...");
     while(true) {}
 }
 ```

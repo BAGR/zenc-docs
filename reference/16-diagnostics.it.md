@@ -414,6 +414,7 @@ Utilizza `include` per gli header e i blocchi `raw` per la sintassi Obj-C (`@int
 //> linux: cflags: -fconstant-string-class=NSConstantString -D_NATIVE_OBJC_EXCEPTIONS
 //> linux: link: -lgnustep-base -lobjc
 
+import "std/io.zc"
 include <Foundation/Foundation.h>
 
 fn main() {
@@ -422,7 +423,7 @@ fn main() {
         NSLog(@"Ciao da Objective-C!");
         [pool drain];
     }
-    println "Funziona anche Zen C!";
+    println("Funziona anche Zen C!");
 }
 ```
 

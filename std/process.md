@@ -13,6 +13,7 @@ The `std/process` module provides a high-level API for spawning child processes,
 
 ```zc
 import "std/process.zc"
+import "std/io.zc"
 
 fn main() {
     // Basic command execution
@@ -21,10 +22,10 @@ fn main() {
         .output();
         
     if (output.exit_code == 0) {
-        println "Captured: {output.std_out}";
+        println(f"Captured: {output.std_out}");
         // output.std_out is a String, freed automatically
     } else {
-        println "Command failed with code {output.exit_code}";
+        println(f"Command failed with code {output.exit_code}");
     }
 }
 ```

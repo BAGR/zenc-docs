@@ -19,19 +19,18 @@ This directory is **not synced** to the public docs website.
 | 7 | [Enums & Unions](language/07-enums-unions.md) | Tagged unions, pattern variants, C unions |
 | 8 | [Functions](language/08-functions.md) | fn syntax, named args, defaults, variadic, fn* |
 | 9 | [Lambdas](language/09-lambdas.md) | Closures, captures by ref/value, arrow syntax |
-| 10 | [Control Flow](language/10-control-flow.md) | if/else, while, for ranges, loop, do-while |
+| 10 | [Control Flow](language/10-control-flow.md) | if/else, while, for ranges, loop |
 | 11 | [Pattern Matching](language/11-pattern-matching.md) | match on literals, ranges, enums, ref binding |
-| 12 | [Guard & Unless](language/12-guard-unless.md) | Guard early return, unless (inverted if) |
 | 13 | [Operators](language/13-operators.md) | Operator overloading (arithmetic, index, comparison) |
 | 14 | [Syntactic Sugar](language/14-sugar.md) | Pipe, null-coalescing, safe nav, try, auto-deref |
-| 15 | [Printing & Interpolation](language/15-printing.md) | print/println, f-strings, raw strings, input |
-| 16 | [Defer & Autofree](language/16-defer-autofree.md) | Deferred cleanup, automatic free |
+| 15 | [Printing & Interpolation](language/15-printing.md) | print/println, f-strings, raw strings, readln |
+| 16 | [Defer](language/16-defer.md) | Deferred cleanup at scope exit |
 | 17 | [Memory Management](language/17-memory.md) | Move semantics, Copy, Clone, Drop, RAII |
 | 18 | [Methods](language/18-methods.md) | impl blocks, static/instance, primitive methods |
 | 19 | [Traits](language/19-traits.md) | Trait definition, impl, trait objects, standard traits |
 | 20 | [Composition](language/20-composition.md) | use keyword for mixin and named composition |
 | 21 | [Generics](language/21-generics.md) | Generic structs, functions, constraints |
-| 22 | [Concurrency](language/22-concurrency.md) | async/await, channels, launch |
+| 22 | [Concurrency](language/22-concurrency.md) | Threads with std/thread.zc |
 | 23 | [Comptime](language/23-comptime.md) | Compile-time code generation, metadata |
 | 24 | [Embed & Plugins](language/24-embed-plugins.md) | File embedding, compiler plugins |
 | 25 | [Conditional Compilation](language/25-conditional.md) | cfg, defines, custom attributes, derive |

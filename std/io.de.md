@@ -4,7 +4,7 @@ Das Modul `std/io` bietet Standard-Eingabe/Ausgabe-Funktionen, einschließlich f
 
 ## Überblick
 
-- **Formatierte Ausgabe**: Bietet `print` und `println` mit Unterstützung für C-Style Format-Spezifizierer (`%s`, `%d`, etc.).
+- **Ausgabe**: `print`, `println`, `eprint` und `eprintln` schreiben einen String nach stdout oder stderr; `f"..."` und `format()` erzeugen formatierte Strings dafür.
 - **String-Formatierung**: Mehrere Optionen zum Formatieren in statische, benutzerdefinierte oder auf dem Heap allokierte Puffer.
 - **Unicode-Unterstützung**: Enthält `read_rune` zum Lesen einzelner UTF-8-Zeichen von stdin.
 - **Konvertierungs-Hilfsprogramme**: Einfache Methoden zum Konvertieren von Ganzzahlen und Runen in Strings.
@@ -16,14 +16,15 @@ import "std/io.zc"
 
 fn main() {
     // Grundlegendes Drucken
-    println("Hallo, %s!", "Zen-C");
+    println("Hallo, Zen-C!");
     
     // Lesen einer Zeile der Eingabe
     print("Geben Sie Ihren Namen ein: ");
-    autofree let name = readln();
+    let name = readln();
     
     if name != NULL {
-        println("Begrüßung, %s", name);
+        println(f"Begrüßung, {name}");
+        free(name);
     }
 }
 ```
@@ -34,8 +35,10 @@ fn main() {
 
 | Methode | Signatur | Beschreibung |
 | :--- | :--- | :--- |
-| **print** | `print(fmt: char*, ...) -> int` | Gibt formatierte Ausgabe nach stdout aus. |
-| **println** | `println(fmt: char*, ...) -> int` | Gibt formatierte Ausgabe nach stdout aus, gefolgt von einem Zeilenumbruch. |
+| **print** | `print(s: const char*)` | Gibt `s` nach stdout aus. |
+| **println** | `println(s: const char*)` | Gibt `s` nach stdout aus, gefolgt von einem Zeilenumbruch. |
+| **eprint** | `eprint(s: const char*)` | Gibt `s` nach stderr aus. |
+| **eprintln** | `eprintln(s: const char*)` | Gibt `s` nach stderr aus, gefolgt von einem Zeilenumbruch. |
 
 ### Eingabe
 

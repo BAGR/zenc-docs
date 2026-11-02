@@ -1,12 +1,12 @@
 +++
-title = "Defer & Autofree"
+title = "Defer"
 weight = 16
 +++
 
-# Defer & Autofree
+# Defer
 
-Deferred cleanup at scope exit (LIFO order) and automatic memory
-freeing for heap allocations.
+Deferred cleanup at scope exit (LIFO order), for files and for heap
+allocations.
 
 ## Zen C
 
@@ -15,24 +15,29 @@ import "std/io.zc"
 
 fn process_file(path: char*) {
     let f = fopen(path, "r");
+    if f == NULL {
+        println(f"cannot open {path}");
+        return;
+    }
     defer fclose(f);
 
-    println "processing {path}...";
-    println "done";
+    println(f"processing {path}...");
+    println("done");
 }
 
 fn allocate_buffer() {
-    autofree let buf = malloc(1024);
-    println "buffer allocated";
+    let buf = malloc(1024);
+    defer free(buf);
+    println("buffer allocated");
 }
 
 fn main() {
     process_file("test.txt");
-    println "---";
+    println("---");
 
     allocate_buffer();
-    println "---";
-    println "buffer automatically freed";
+    println("---");
+    println("buffer freed by defer");
 }
 ```
 
@@ -44,7 +49,10 @@ fn main() {
 
 void process_file(const char* path) {
     FILE* f = fopen(path, "r");
-    if (!f) return;
+    if (!f) {
+        printf("cannot open %s\n", path);
+        return;
+    }
 
     printf("processing %s...\n", path);
     printf("done\n");
@@ -74,9 +82,9 @@ int main(void) {
 - `defer fclose(f)` schedules cleanup at scope exit
 - Multiple defers execute in LIFO (last-in, first-out) order
 - No control-flow allowed inside defer (no return/break/continue)
-- `autofree let buf = malloc(N)` auto-frees at scope exit
+- `defer free(buf)` right after `malloc` frees the buffer on every exit path
 - C requires manual cleanup at every exit point (goto cleanup pattern)
-- Combined with `guard`, creates clean early-return-with-cleanup
+- Combined with an early `return`, cleanup still runs
 
 ## Output
 
@@ -86,3 +94,10 @@ int main(void) {
 
 
 
+
+
+cannot open test.txt
+---
+buffer allocated
+---
+buffer freed by defer

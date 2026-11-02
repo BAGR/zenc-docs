@@ -14,11 +14,11 @@ import "std/sys/user.zc"
 import "std/io.zc"
 
 fn main() {
-    println "UID attuale: {User::get_uid()}";
-    println "GID attuale: {User::get_gid()}";
+    println(f"UID attuale: {User::get_uid()}");
+    println(f"GID attuale: {User::get_gid()}");
     
     if (User::get_euid() == 0) {
-        println "Esecuzione con privilegi di root.";
+        println("Esecuzione con privilegi di root.");
     }
 }
 ```

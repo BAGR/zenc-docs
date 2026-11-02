@@ -15,9 +15,9 @@ import "std/io.zc"
 
 fn main() {
     let info = SysInfo::get_uname();
-    println "BS: {info.sysname}";
-    println "Kernel: {info.release}";
-    println "Architektur: {info.machine}";
+    println(f"BS: {info.sysname}");
+    println(f"Kernel: {info.release}");
+    println(f"Architektur: {info.machine}");
 }
 ```
 

@@ -13,6 +13,7 @@ Das Modul `std/arena` bietet einen schnellen "Bump"-Allokator für Massenspeiche
 
 ```zc
 import "std/arena.zc"
+import "std/io.zc"
 
 struct Node {
     val: int;
@@ -29,7 +30,7 @@ fn main() {
     // String in den Arena-Speicher duplizieren
     let s = a.dup_str("Hello World");
     
-    println "Arena genutzt: {a.bytes_used()} Bytes";
+    println(f"Arena genutzt: {a.bytes_used()} Bytes");
     
     // Alles wird automatisch freigegeben, wenn 'a' den Gültigkeitsbereich verlässt
 }

@@ -9,11 +9,11 @@ weight = 5
 #### Condizionali
 ```zc
 if x > 10 {
-    print "Grande";
+    print("Grande");
 } else if x > 5 {
-    print "Medio";
+    print("Medio");
 } else {
-    print "Piccolo";
+    print("Piccolo");
 }
 
 // Operatore ternario
@@ -27,21 +27,21 @@ let categoria = if (x > 100) { "enorme" } else if (x > 10) { "grande" } else { "
 Alternativa potente agli `switch`.
 ```zc
 match val {
-    1         => { print "Uno" },
-    2 || 3    => { print "Due o Tre" },           // OR logico con ||
-    4 or 5    => { print "Quattro or Cinque" },   // OR logico con 'or'
-    6, 7, 8   => { print "Da Sei a Otto" },       // OR logico con la virgola (,)
-    10 .. 15  => { print "Da 10 a 14" },          // Range Esclusivo (Legacy)
-    10 ..< 15 => { print "Da 10 a 14" },          // Range Esclusivo (Esplicito)
-    20 ..= 25 => { print "Da 20 a 25" },          // Range Inclusivo
-    _         => { print "Altro" },
+    1         => { print("Uno") },
+    2 || 3    => { print("Due o Tre") },           // OR logico con ||
+    4 or 5    => { print("Quattro or Cinque") },   // OR logico con 'or'
+    6, 7, 8   => { print("Da Sei a Otto") },       // OR logico con la virgola (,)
+    10 .. 15  => { print("Da 10 a 14") },          // Range Esclusivo (Legacy)
+    10 ..< 15 => { print("Da 10 a 14") },          // Range Esclusivo (Esplicito)
+    20 ..= 25 => { print("Da 20 a 25") },          // Range Inclusivo
+    _         => { print("Altro") },
 }
 
 // Destrutturazione degli Enums
 match forma {
-    Forma::Cerchio(r)        => { println "Raggio: {r}" },
-    Forma::Rettangolo(w, h)  => { println "Area: {w*h}" },
-    Forma::Punto             => { println "Punto" },
+    Forma::Cerchio(r)        => { println(f"Raggio: {r}") },
+    Forma::Rettangolo(w, h)  => { println(f"Area: {w*h}") },
+    Forma::Punto             => { println("Punto") },
 }
 ```
 
@@ -54,7 +54,7 @@ match opt {
     Some(ref x) => {
         // 'x' è un puntatore che punta al valore contenuto in 'opt'
         // 'opt' NON viene né mosso né consumato qui
-        println "{x.field}"; 
+        println(f"{x.field}"); 
     },
     None => {}
 }
@@ -79,9 +79,6 @@ for i, val in 0..10 step 2 { ... } // i = 0, 1, 2, ...; val = 0, 2, 4, ...
 // While (lett. mentre)
 while x < 10 { ... }
 
-// Do-While
-do { ... } while x < 10;
-
 // Infinito con etichetta
 esterno: loop {
     if done { break esterno; }
@@ -89,13 +86,4 @@ esterno: loop {
 
 // Ripeti N volte
 for _ in 0..5 { ... }
-```
-
-#### Controllo Avanzato
-```zc
-// Guard (lett. 'guardia'): Esegue il caso 'else' e ritorna se la condizione è falsa
-guard ptr != NULL else { return; }
-
-// Unless (lett. 'a meno che'): Se non vero
-unless è_valido { return; }
 ```

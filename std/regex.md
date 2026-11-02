@@ -6,10 +6,11 @@ The `std/regex` module providing regular expression support based on POSIX `rege
 
 ```zc
 import "std/regex.zc"
+import "std/io.zc"
 
 fn main() {
     if regex_match("^[a-z]+$", "hello") {
-        println "Matches!";
+        println("Matches!");
     }
     
     let re = Regex::compile("\\d+");

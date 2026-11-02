@@ -72,6 +72,7 @@ Implementiere `Iterable<T>`, um `for-in`-Schleifen für eigene Typen zu ermögli
 
 ```zc
 import "std/iter.zc"
+import "std/io.zc"
 
 // Iterator definieren
 struct MyIter {
@@ -98,7 +99,7 @@ impl MyRange {
 
 // Nutzung in Schleife
 for i in my_range {
-    println "{i}";
+    println(f"{i}");
 }
 ```
 

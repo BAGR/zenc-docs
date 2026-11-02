@@ -12,13 +12,14 @@ Zen C include un framework di test integrato che consente di scrivere test unita
 Un blocco `test` contiene un nome descrittivo e un corpo di codice da eseguire. I test non richiedono una funzione `main` per essere eseguiti.
 
 ```zc
+import "std/io.zc"
 test "unittest1" {
-    "Questo è un test unitario";
+    println("Questo è un test unitario");
 
     let a = 3;
     assert(a > 0, "a dovrebbe essere un intero positivo");
 
-    "unittest1 superato.";
+    println("unittest1 superato.");
 }
 ```
 

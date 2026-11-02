@@ -15,10 +15,10 @@ weight = 12
 ```zc
 comptime {
     // Генерирует код во время компиляции (выводится в stdout)
-    println "let build_date = \"2024-01-01\";";
+    println("let build_date = \"2024-01-01\";");
 }
 
-println "Build Date: {build_date}";
+println(f"Build Date: {build_date}");
 ```
 
 **Вспомогательные функции**
@@ -37,7 +37,7 @@ comptime {
         compile_error("Функция должна быть включена!");
     }
     
-    println "let FEATURE_ENABLED = 1;";
+    println("let FEATURE_ENABLED = 1;");
 }
 ```
 
@@ -50,10 +50,10 @@ comptime {
 ```zc
 comptime {
     // Генерация кода для конкретной платформы
-    println "let PLATFORM = \"{__COMPTIME_TARGET__}\";";
+    println(f"let PLATFORM = \"{__COMPTIME_TARGET__}\";");
 }
 
-println "Запуск на: {PLATFORM}";
+println(f"Запуск на: {PLATFORM}");
 ```
 
 {% alert(type="note") %}
@@ -110,10 +110,11 @@ import "opengl_backend.zc";
 
 @cfg(USE_VULKAN)
 import "vulkan_backend.zc";
+import "std/io.zc"
 
 @cfg(not(USE_OPENGL))
 @cfg(not(USE_VULKAN))
-fn fallback_init() { println "Бэкенд не выбран"; }
+fn fallback_init() { println("Бэкенд не выбран"); }
 ```
 
 | Форма | Значение |
@@ -292,17 +293,17 @@ fn main() { ... }
 `alias`, `def`, `enum`, `fn`, `impl`, `import`, `let`, `module`, `opaque`, `struct`, `trait`, `union`, `use`
 
 #### Управление потоком
-`async`, `await`, `break`, `catch`, `continue`, `defer`, `do`, `else`, `for`, `goto`, `guard`, `if`, `loop`, `match`, `return`, `try`, `unless`, `while`
+`break`, `catch`, `continue`, `defer`, `else`, `for`, `goto`, `if`, `loop`, `match`, `return`, `try`, `while`
 
 #### Специальное
-`asm`, `assert`, `autofree`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
+`asm`, `assert`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
 
 #### Константы
 `true`, `false`, `null`
 
 #### Зарезервировано в Си
 Следующие идентификаторы зарезервированы, так как они являются ключевыми словами в C11:
-`auto`, `case`, `char`, `default`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
+`auto`, `case`, `char`, `default`, `do`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
 
 #### Операторы
 `and`, `or`

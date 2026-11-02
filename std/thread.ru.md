@@ -13,9 +13,10 @@
 
 ```zc
 import "std/thread.zc"
+import "std/io.zc"
 
 fn worker(id: int) {
-    println "Привет от воркера {id}";
+    println(f"Привет от воркера {id}");
 }
 
 fn main() {

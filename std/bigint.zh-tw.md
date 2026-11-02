@@ -13,6 +13,7 @@
 
 ```zc
 import "std/bigint.zc"
+import "std/io.zc"
 
 fn main() {
     let a = BigInt::from_int(1_000_000_000_000_000);
@@ -22,7 +23,7 @@ fn main() {
     let sum = a + b; 
     
     let s = sum.to_string();
-    println "總和: {s}";
+    println(f"總和: {s}");
     free(s);
 } // sum, a, 和 b 在此處自動釋放
 ```

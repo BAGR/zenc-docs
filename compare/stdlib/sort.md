@@ -14,7 +14,7 @@ import "std/io.zc"
 
 fn main() {
     let nums: int[5] = [3, 1, 4, 1, 5];
-    println "sorted via built-in sort";
+    println("sorted via built-in sort");
 }
 ```
 

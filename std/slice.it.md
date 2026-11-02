@@ -13,6 +13,7 @@
 
 ```zc
 import "std/slice.zc"
+import "std/io.zc"
 
 fn main() {
     let arr: int[5] = [10, 20, 30, 40, 50];
@@ -22,12 +23,12 @@ fn main() {
     
     // Iterazione diretta sullo slice
     for val in s {
-        println "{val}";
+        println(f"{val}");
     }
     
     // Iterazione diretta sull'array (importa automaticamente std/slice.zc)
     for val in arr {
-        println "{val}";
+        println(f"{val}");
     }
 }
 ```

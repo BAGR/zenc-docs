@@ -108,11 +108,11 @@ Declaration ::= "let" | "def" | "fn" | "struct" | "enum" | "union" | "alias"
               | "trait" | "impl" | "use" | "module" | "import" | "opaque"
 
 Control     ::= "if" | "else" | "match" | "for" | "while" | "loop" 
-              | "return" | "break" | "continue" | "guard" | "unless" 
-              | "defer" | "async" | "await" | "try" | "catch" | "goto"
+              | "return" | "break" | "continue" 
+              | "defer" | "try" | "catch" | "goto"
 
 Special     ::= "asm" | "assert" | "test" | "sizeof" | "embed" | "comptime" 
-              | "autofree" | "volatile" | "launch" | "ref" | "static" | "const"
+              | "volatile" | "launch" | "ref" | "static" | "const"
 
 BoolLiteral ::= "true" | "false"
 NullLiteral ::= "null"

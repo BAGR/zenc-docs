@@ -41,7 +41,7 @@
 
 ## Обзор
 
-**Zen C** — это современный язык системного программирования, который компилируется в человекочитаемом `GNU C`/`C11`. Он предоставляет богатый набор возможностей, включая вывод типов, сопоставление с паттернами, генерику, трейты, async/await и ручное управление памятью с возможностями RAII, при этом поддерживая 100% совместимость с ABI Си.
+**Zen C** — это современный язык системного программирования, который компилируется в человекочитаемом `GNU C`/`C11`. Он предоставляет богатый набор возможностей, включая вывод типов, сопоставление с паттернами, генерику, трейты и ручное управление памятью с возможностями RAII, при этом поддерживая 100% совместимость с ABI Си.
 
 ## Сообщество
 
@@ -117,7 +117,7 @@
         <li><a href="#8-управление-памятью">8. Управление памятью</a></li>
         <li><a href="#9-объектно-ориентированное-программирование">9. ООП</a></li>
         <li><a href="#10-обобщения">10. Обобщения</a></li>
-        <li><a href="#11-параллелизм-asyncawait">11. Параллелизм</a></li>
+        <li><a href="#11-параллелизм">11. Параллелизм</a></li>
         <li><a href="#12-продвинутые-темы-и-метапрограммирование">12. Продвинутые темы и метапрограммирование</a>
           <ul>
             <li><a href="#121-метапрограммирование">12.1 Метапрограммирование</a></li>
@@ -265,22 +265,23 @@ Zen C предоставляет полноценную поддержку ск�
 
 ```zc
 import "std.zc"
+import "std/io.zc"
 
 fn main() {
     let c = 'a';
-    println "Символ '{c}' имеет код {(int)c} в ASCII/Unicode";
+    println(f"Символ '{c}' имеет код {(int)c} в ASCII/Unicode");
 
     let code = 97;
-    println "Код {code} соответствует символу {(char)code}";
+    println(f"Код {code} соответствует символу {(char)code}");
 
     let r: rune = '🚀';
-    println "Руна '{r}' имеет код {(uint)r} в Unicode";
+    println(f"Руна '{r}' имеет код {(uint)r} в Unicode");
     
     let r_code: uint = 128640;
-    println "Код {r_code} соответствует руне '{(rune)r_code}'";
+    println(f"Код {r_code} соответствует руне '{(rune)r_code}'");
 
     let r_esc: rune = '\u{2764}';
-    println "Руна '{r_esc}' имеет код {(uint)r_esc} (0x{(uint)r_esc:X})";
+    println(f"Руна '{r_esc}' имеет код {(uint)r_esc} (0x{(uint)r_esc:X})");
 }
 ```
 
@@ -464,7 +465,7 @@ add(a: 10, b: 20);
 ```zc
 fn print_val(v: const int) {
     // v = 10; // Ошибка: невозможно присвоить const переменной
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -472,6 +473,7 @@ fn print_val(v: const int) {
 Функции могут определять значения по умолчанию для завершающих аргументов. Это могут быть литералы, выражения или допустимый код Zen C (например, конструкторы структур).
 ```zc
 // Простое значение по умолчанию
+import "std/io.zc"
 fn increment(val: int, amount: int = 1) -> int {
     return val + amount;
 }
@@ -484,7 +486,7 @@ fn offset(val: int, pad: int = 10 * 2) -> int {
 // Значение по умолчанию для структуры
 struct Config { debug: bool; }
 fn init(cfg: Config = Config { debug: true }) {
-    if cfg.debug { println "Debug Mode"; }
+    if cfg.debug { println("Debug Mode"); }
 }
 
 fn main() {
@@ -556,11 +558,11 @@ fn log(lvl: int, fmt: char*, ...) {
 #### Условные операторы
 ```zc
 if x > 10 {
-    print "Large";
+    print("Large");
 } else if x > 5 {
-    print "Medium";
+    print("Medium");
 } else {
-    print "Small";
+    print("Small");
 }
 
 // Тернарно
@@ -574,21 +576,21 @@ let категория = if (x > 100) { "огромный" } else if (x > 10) { 
 Мощная альтернатива `switch`.
 ```zc
 match val {
-    1         => { print "One" },
-    2 || 3    => { print "Two or Three" },    // ИЛИ с ||
-    4 or 5    => { print "Four or Five" },    // ИЛИ с 'or'
-    6, 7, 8   => { print "Six to Eight" },    // ИЛИ с запятой
-    10 .. 15  => { print "10 to 14" },        // Исключающий диапазон (устаревший)
-    10 ..< 15 => { print "10 to 14" },        // Исключающий диапазон (явно)
-    20 ..= 25 => { print "20 to 25" },        // Включающий диапазон
-    _         => { print "Other" },
+    1         => { print("One") },
+    2 || 3    => { print("Two or Three") },    // ИЛИ с ||
+    4 or 5    => { print("Four or Five") },    // ИЛИ с 'or'
+    6, 7, 8   => { print("Six to Eight") },    // ИЛИ с запятой
+    10 .. 15  => { print("10 to 14") },        // Исключающий диапазон (устаревший)
+    10 ..< 15 => { print("10 to 14") },        // Исключающий диапазон (явно)
+    20 ..= 25 => { print("20 to 25") },        // Включающий диапазон
+    _         => { print("Other") },
 }
 
 // Деструктуризация перечислений
 match shape {
-    Shape::Circle(r)   => { println "Radius: {r}" },
-    Shape::Rect(w, h)  => { println "Area: {w*h}" },
-    Shape::Point       => { println "Point" },
+    Shape::Circle(r)   => { println(f"Radius: {r}") },
+    Shape::Rect(w, h)  => { println(f"Area: {w*h}") },
+    Shape::Point       => { println("Point") },
 }
 ```
 
@@ -601,7 +603,7 @@ match opt {
     Some(ref x) => {
         // 'x' - это указатель на значение внутри 'opt'
         // 'opt' НЕ перемещается/не потребляется здесь
-        println "{x.field}"; 
+        println(f"{x.field}"); 
     },
     None => {}
 }
@@ -627,7 +629,7 @@ for i, val in 0..10 step 2 { ... } // i = 0, 1, 2, ...; val = 0, 2, 4, ...
 let arr: int[5] = [1, 2, 3, 4, 5];
 for val in arr {
     // val - это int
-    println "{val}";
+    println(f"{val}");
 }
 
 // While
@@ -640,15 +642,6 @@ outer: loop {
 
 // Повторить N раз
 for _ in 0..5 { ... }
-```
-
-#### Продвинутое управление
-```zc
-// Guard: выполнить else и вернуться, если условие ложно
-guard ptr != NULL else { return; }
-
-// Unless: если не верно
-unless is_valid { return; }
 ```
 
 ### 6. Операторы
@@ -715,46 +708,40 @@ let val = m[1, 2]; // Вызывает Matrix.get(m, 1, 2)
 
 ### 7. Печать и интерполяция строк
 
-Zen C предоставляет универсальные опции для печати на консоль, включая ключевые слова и краткие сокращения.
+`print`, `println`, `eprint` и `eprintln` — функции модуля `std/io.zc`, поэтому программа, которая печатает, импортирует его. Каждая принимает одну строку.
 
-#### Ключевые слова
-
-| Ключевое слово | Описание |
+| Функция | Описание |
 |:---|:---|
-| `print "text"` | Выводит на `stdout` без перевода строки. |
-| `println "text"` | Выводит на `stdout` с переводом строки. |
-| `eprint "text"` | Выводит на `stderr` без перевода строки. |
-| `eprintln "text"` | Выводит на `stderr` с переводом строки. |
+| `print(s)` | Выводит на `stdout` без перевода строки. |
+| `println(s)` | Выводит на `stdout` с переводом строки. |
+| `eprint(s)` | Выводит на `stderr` без перевода строки. |
+| `eprintln(s)` | Выводит на `stderr` с переводом строки. |
 
-#### Сокращения
+```zc
+import "std/io.zc"
 
-Zen C позволяет использовать строковые литералы непосредственно как операторы для быстрой печати:
-
-| Синтаксис | Эквивалент | Описание |
-|:---|:---|:---|
-| `"Hello World"` | `println "Hello World"` | Неявно добавляет перевод строки. |
-| `"Hello World"..` | `print "Hello World"` | Без перевода строки. |
-| `!"Error"` | `eprintln "Error"` | Вывод на stderr. |
-| `!"Error"..` | `eprint "Error"` | Вывод на stderr, без перевода строки. |
+fn main() {
+    print("Loading... ");
+    println("done");
+    eprintln("warning: no config file");
+}
+```
 
 #### Интерполяция строк
 
-Вы можете встраивать выражения непосредственно в строковые литералы, используя синтаксис `{}`. Это работает со всеми методами вывода и сокращениями строк.
-
-Интерполяция строк в Zen C **неявная**: если ваша строка содержит `{...}`, она будет автоматически обработана как интерполированная строка. Вы также можете явно использовать префикс `f` (например, `f"..."`), чтобы принудительно задать семантику интерполяции.
+Интерполируются только строки с префиксом `f`: в `f"..."` каждое выражение в `{}` заменяется его значением. В обычной строке `"..."` `{expr}` — ошибка компиляции с подсказкой использовать `f"..."`.
 
 ```zc
 let x = 42;
 let name = "Zen";
-println "Значение: {x}, Имя: {name}";
-"Значение: {x}, Имя: {name}"; // сокращение println
+println(f"Value: {x}, Name: {name}");
 ```
 
-**Экранирование фигурных скобок**: Используйте `{{` для вывода литеральной `{` и `}}` для литеральной `}`:
+**Экранирование скобок**: внутри `f"..."` используйте `{{`, чтобы получить литерал `{`, и `}}` для литерала `}`:
 
 ```zc
-let json = "JSON: {{\"ключ\": \"значение\"}}";
-// Вывод: JSON: {"ключ": "значение"}
+let json = f"JSON: {{\"key\": \"value\"}}";
+// Output: JSON: {"key": "value"}
 ```
 
 **Сырые строки (Raw Strings)**: Чтобы определить строку, в которой интерполяция и escape-последовательности полностью игнорируются, используйте префикс `r` (например, `r"..."`):
@@ -768,40 +755,44 @@ let raw_json = r'{"ключ": "значение"}'; // Экранировани�
 
 Zen C поддерживает блоки сырых многострочных строк, используя разделитель `"""`. Это чрезвычайно полезно для написания встроенных языков (GLSL, HTML) или генерации C-кода в блоках `comptime` без необходимости ручного экранирования переносов строк и внутренних кавычек.
 
-Как и стандартные строки, многострочные строки поддерживают **неявную интерполяцию**. Вы также можете явно использовать для них префикс:
-- `f"""..."""`: Явно помечает их как блок интерполированной строки.
-- `r"""..."""`: Явно помечает их как блок сырой строки (без интерполяции, без escape-последовательностей).
+Многострочные строки подчиняются тем же правилам, что и обычные: блок `"""..."""` без префикса не интерполируется, а `{expr}` внутри него — ошибка. Префикс меняет это:
+- `f"""..."""`: интерполирует `{expr}`, как `f"..."`.
+- `r"""..."""`: сырой блок (без escape-последовательностей).
 
 ```zc
 let prompt = """
-  Пожалуйста, введите ваше имя:
-  Введите "exit" для отмены.
+  Please enter your name:
+  Type "exit" to cancel.
 """;
 
-let world = "мир";
-let script = """
-  fn hello() {
-      println "привет, {world}!";
-  }
+let world = "world";
+let script = f"""
+  fn hello() {{
+      println("hello, {world}!");
+  }}
 """;
 
 let pure_raw = r"""
-  Здесь {скобки} - это просто текст, а \n - буквально слэш-n.
+  Here {braces} are just text, and \n is literally slash-n.
 """;
 ```
 
-#### Запросы ввода (`?`)
+#### Чтение ввода
 
-Zen C поддерживает сокращение для запроса ввода пользователя с использованием префикса `?`.
-
-- `? "Prompt text"`: Выводит подсказку (без перевода строки) и ожидает ввода (читает строку).
-- `? "Enter age: " (age)`: Выводит подсказку и сканирует ввод в переменную `age`.
-    - Спецификаторы формата автоматически выводятся на основе типа переменной.
+`readln()` из `std/io.zc` читает строку из `stdin` без символа новой строки. В конце ввода она возвращает `NULL`; освобождает строку вызывающий код.
 
 ```zc
-let age: int;
-? "How old are you? " (age);
-println "You are {age} years old.";
+import "std/io.zc"
+
+fn main() {
+    print("How old are you? ");
+    let line = readln();
+    if line != NULL {
+        let age = atoi(line);
+        println(f"You are {age} years old.");
+        free(line);
+    }
+}
 ```
 
 ### 8. Управление памятью
@@ -816,12 +807,6 @@ defer fclose(f);
 ```
 
 > Чтобы предотвратить неопределённое поведение, операторы управления потоком (`return`, `break`, `continue`, `goto`) **недопустимы** внутри блока `defer`.
-
-#### Autofree
-Автоматически освобождает переменную при выходе из области видимости.
-```zc
-autofree let types = malloc(1024);
-```
 
 #### Семантика ресурсов (Move по умолчанию)
 Zen C рассматривает типы с деструкторами (такие как `File`, `Vec` или выделённые malloc указатели) как **Ресурсы**. Чтобы предотвратить ошибки двойного освобождения, ресурсы не могут быть неявно дублированы.
@@ -940,6 +925,7 @@ Zen C включает стандартные трейты, которые ин�
 
 ```zc
 import "std/iter.zc"
+import "std/io.zc"
 
 // Определите итератор
 struct MyIter {
@@ -966,7 +952,7 @@ impl MyRange {
 
 // Используйте в цикле
 for i in my_range {
-    println "{i}";
+    println(f"{i}");
 }
 ```
 
@@ -1072,19 +1058,23 @@ struct Pair<K, V> {
 }
 ```
 
-### 11. Параллелизм (Async/Await)
+### 11. Параллелизм
 
-Встроен на основе pthreads.
+Потоки предоставляет `std/thread.zc`, построенный на pthreads. `Thread::spawn` запускает функцию или замыкание в новом потоке, а `join` ждёт его завершения.
 
 ```zc
-async fn fetch_data() -> string {
-    // Запускается в фоне
-    return "Data";
+import "std/thread.zc"
+import "std/io.zc"
+
+fn fetch_data(id: int) {
+    println(f"Worker {id} running in the background");
 }
 
 fn main() {
-    let future = fetch_data();
-    let result = await future;
+    let t = Thread::spawn(fn() {
+        fetch_data(1);
+    }).unwrap();
+    t.join();
 }
 ```
 
@@ -1097,10 +1087,10 @@ fn main() {
 ```zc
 comptime {
     // Генерирует код во время компиляции (выводится в stdout)
-    println "let build_date = \"2024-01-01\";";
+    println("let build_date = \"2024-01-01\";");
 }
 
-println "Build Date: {build_date}";
+println(f"Build Date: {build_date}");
 ```
 
 **Вспомогательные функции**
@@ -1119,7 +1109,7 @@ comptime {
         compile_error("Функция должна быть включена!");
     }
     
-    println "let FEATURE_ENABLED = 1;";
+    println("let FEATURE_ENABLED = 1;");
 }
 ```
 
@@ -1132,10 +1122,10 @@ comptime {
 ```zc
 comptime {
     // Генерация кода для конкретной платформы
-    println "let PLATFORM = \"{__COMPTIME_TARGET__}\";";
+    println(f"let PLATFORM = \"{__COMPTIME_TARGET__}\";");
 }
 
-println "Запуск на: {PLATFORM}";
+println(f"Запуск на: {PLATFORM}");
 ```
 
 > [!NOTE]
@@ -1190,10 +1180,11 @@ import "opengl_backend.zc";
 
 @cfg(USE_VULKAN)
 import "vulkan_backend.zc";
+import "std/io.zc"
 
 @cfg(not(USE_OPENGL))
 @cfg(not(USE_VULKAN))
-fn fallback_init() { println "Бэкенд не выбран"; }
+fn fallback_init() { println("Бэкенд не выбран"); }
 ```
 
 | Форма | Значение |
@@ -1371,17 +1362,17 @@ fn main() { ... }
 `alias`, `def`, `enum`, `fn`, `impl`, `import`, `let`, `module`, `opaque`, `struct`, `trait`, `union`, `use`
 
 #### Управление потоком
-`async`, `await`, `break`, `catch`, `continue`, `defer`, `do`, `else`, `for`, `goto`, `guard`, `if`, `loop`, `match`, `return`, `try`, `unless`, `while`
+`break`, `catch`, `continue`, `defer`, `else`, `for`, `goto`, `if`, `loop`, `match`, `return`, `try`, `while`
 
 #### Специальное
-`asm`, `assert`, `autofree`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
+`asm`, `assert`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
 
 #### Константы
 `true`, `false`, `null`
 
 #### Зарезервировано в Си
 Следующие идентификаторы зарезервированы, так как они являются ключевыми словами в C11:
-`auto`, `case`, `char`, `default`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
+`auto`, `case`, `char`, `default`, `do`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
 
 #### Операторы
 `and`, `or`
@@ -1437,13 +1428,14 @@ fn main() {
 Блок `test` содержит описательное имя и тело кода для выполнения. Тесты не требуют функции `main` для запуска.
 
 ```zc
+import "std/io.zc"
 test "unittest1" {
-    "Это юнит-тест";
+    println("Это юнит-тест");
 
     let a = 3;
     assert(a > 0, "a должно быть положительным целым числом");
 
-    "unittest1 пройден.";
+    println("unittest1 пройден.");
 }
 ```
 
@@ -1858,6 +1850,7 @@ zc app.zc --objc --cc clang
 //> linux: cflags: -fconstant-string-class=NSConstantString -D_NATIVE_OBJC_EXCEPTIONS
 //> linux: link: -lgnustep-base -lobjc
 
+import "std/io.zc"
 include <Foundation/Foundation.h>
 
 fn main() {
@@ -1866,7 +1859,7 @@ fn main() {
         NSLog(@"Hello from Objective-C!");
         [pool drain];
     }
-    println "Zen C works too!";
+    println("Zen C works too!");
 }
 ```
 

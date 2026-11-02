@@ -416,6 +416,7 @@ zc app.zc --objc --cc clang
 //> linux: cflags: -fconstant-string-class=NSConstantString -D_NATIVE_OBJC_EXCEPTIONS
 //> linux: link: -lgnustep-base -lobjc
 
+import "std/io.zc"
 include <Foundation/Foundation.h>
 
 fn main() {
@@ -424,7 +425,7 @@ fn main() {
         NSLog(@"来自 Objective-C 的问候！");
         [pool drain];
     }
-    println "Zen C 也能正常工作！";
+    println("Zen C 也能正常工作！");
 }
 ```
 

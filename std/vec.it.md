@@ -13,6 +13,7 @@
 
 ```zc
 import "std/vec.zc"
+import "std/io.zc"
 
 fn main() {
     let v = Vec<int>::new();
@@ -21,7 +22,7 @@ fn main() {
     
     // Iterazione
     for x in &v {
-        println "{(*x)}";
+        println(f"{(*x)}");
     }
 } // v viene liberata automaticamente qui
 ```

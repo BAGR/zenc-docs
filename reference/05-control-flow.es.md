@@ -9,11 +9,11 @@ weight = 5
 #### Condicionales
 ```zc
 if x > 10 {
-    print "Grande";
+    print("Grande");
 } else if x > 5 {
-    print "Mediano";
+    print("Mediano");
 } else {
-    print "Pequeño";
+    print("Pequeño");
 }
 
 // Ternario
@@ -27,21 +27,21 @@ let categoria = if (x > 100) { "enorme" } else if (x > 10) { "grande" } else { "
 Una alternativa potente al `switch`.
 ```zc
 match val {
-    1         => { print "Uno" },
-    2 || 3    => { print "Dos o Tres" },      // OR con ||
-    4 or 5    => { print "Cuatro o Cinco" },  // OR con 'or'
-    6, 7, 8   => { print "Seis a Ocho" },     // OR con coma
-    10 .. 15  => { print "10 a 14" },         // Rango exclusivo (Legado)
-    10 ..< 15 => { print "10 a 14" },         // Rango exclusivo (Explícito)
-    20 ..= 25 => { print "20 a 25" },         // Rango inclusivo
-    _         => { print "Otro" },
+    1         => { print("Uno") },
+    2 || 3    => { print("Dos o Tres") },      // OR con ||
+    4 or 5    => { print("Cuatro o Cinco") },  // OR con 'or'
+    6, 7, 8   => { print("Seis a Ocho") },     // OR con coma
+    10 .. 15  => { print("10 a 14") },         // Rango exclusivo (Legado)
+    10 ..< 15 => { print("10 a 14") },         // Rango exclusivo (Explícito)
+    20 ..= 25 => { print("20 a 25") },         // Rango inclusivo
+    _         => { print("Otro") },
 }
 
 // Desestructuración de Enums
 match shape {
-    Shape::Circle(r)   => { println "Radio: {r}" },
-    Shape::Rect(w, h)  => { println "Área: {w*h}" },
-    Shape::Point       => { println "Punto" },
+    Shape::Circle(r)   => { println(f"Radio: {r}") },
+    Shape::Rect(w, h)  => { println(f"Área: {w*h}") },
+    Shape::Point       => { println("Punto") },
 }
 ```
 
@@ -54,7 +54,7 @@ match opt {
     Some(ref x) => {
         // 'x' es un puntero al valor dentro de 'opt'
         // 'opt' NO se mueve ni se consume aquí
-        println "{x.field}"; 
+        println(f"{x.field}"); 
     },
     None => {}
 }
@@ -80,14 +80,11 @@ for i, val in 0..10 step 2 { ... } // i = 0, 1, 2, ...; val = 0, 2, 4, ...
 let arr: int[5] = [1, 2, 3, 4, 5];
 for val in arr {
     // val es int
-    println "{val}";
+    println(f"{val}");
 }
 
 // While
 while x < 10 { ... }
-
-// Do-While
-do { ... } while x < 10;
 
 // Infinito con etiqueta
 externo: loop {
@@ -96,13 +93,4 @@ externo: loop {
 
 // Repetir N veces
 for _ in 0..5 { ... }
-```
-
-#### Control Avanzado
-```zc
-// Guard: Ejecuta else y retorna si la condición es falsa
-guard ptr != NULL else { return; }
-
-// Unless: Si no es verdadero
-unless es_valido { return; }
 ```

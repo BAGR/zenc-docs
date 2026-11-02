@@ -16,7 +16,7 @@ import "std/io.zc"
 fn main() {
     let data = "Hello";
     let encoded = Hex::encode((u8*)data, 5);
-    println "Hex: {encoded}"; // 48656c6c6f
+    println(f"Hex: {encoded}"); // 48656c6c6f
     
     let decoded_res = Hex::decode(encoded);
     if (decoded_res.is_ok()) {

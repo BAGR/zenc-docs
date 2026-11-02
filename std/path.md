@@ -13,16 +13,17 @@ The `std/path` module provides cross-platform utilities for manipulating file sy
 
 ```zc
 import "std/path.zc"
+import "std/io.zc"
 
 fn main() {
     let p = Path::new("/home/user");
     let full_path = p.join("docs/file.txt");
     
-    println "Full path: {full_path.c_str()}";
+    println(f"Full path: {full_path.c_str()}");
     
     match full_path.extension() {
-        Some(ext) => { println "Extension: {ext}"; },
-        None => { println "No extension found"; }
+        Some(ext) => { println(f"Extension: {ext}"); },
+        None => { println("No extension found"); }
     }
 } // full_path and p are freed automatically here
 ```

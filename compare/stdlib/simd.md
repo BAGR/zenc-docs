@@ -18,13 +18,13 @@ fn main() {
     let b = f32x4{5.0, 6.0, 7.0, 8.0};
 
     let sum = a + b;
-    println "a[0] + b[0]: {sum[0]}";
+    println(f"a[0] + b[0]: {sum[0]}");
 
     let product = a * b;
-    println "a[1] * b[1]: {product[1]}";
+    println(f"a[1] * b[1]: {product[1]}");
 
     let scaled = a * 2.0;
-    println "a[2] * 2: {scaled[2]}";
+    println(f"a[2] * 2: {scaled[2]}");
 }
 ```
 

@@ -13,12 +13,13 @@
 
 ```zc
 import "std/fs.zc"
+import "std/io.zc"
 
 fn main() {
     // 使用 RAII 的基本檔案讀取
     match File::read_all("config.txt") {
-        Ok(content) => println "配置內容: {content}",
-        Err(e) => println "讀取配置出錯: {e}"
+        Ok(content) => println(f"配置內容: {content}"),
+        Err(e) => println(f"讀取配置出錯: {e}")
     }
     
     // 具有自動關閉功能的顯式檔案句柄
@@ -27,7 +28,7 @@ fn main() {
             file.write_string("日誌項目\n");
             // 檔案在此處自動關閉
         }
-        Err(e) => println "無法開啟日誌: {e}"
+        Err(e) => println(f"無法開啟日誌: {e}")
     }
 }
 ```

@@ -16,7 +16,7 @@ import "std/io.zc"
 
 fn main() {
     let now = time::now();
-    println "timestamp: {now} ms";
+    println(f"timestamp: {now} ms");
 }
 ```
 

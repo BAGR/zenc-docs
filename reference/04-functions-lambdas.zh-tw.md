@@ -26,7 +26,7 @@ add(a: 10, b: 20);
 ```zc
 fn print_val(v: const int) {
     // v = 10; // 錯誤：無法賦值給 const 變量
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -34,6 +34,7 @@ fn print_val(v: const int) {
 函數可以為尾部參數定義默認值。這些值可以是字面量、表達式或有效的 Zen C 代碼（如結構體構造函數）。
 ```zc
 // 簡單默認值
+import "std/io.zc"
 fn increment(val: int, amount: int = 1) -> int {
     return val + amount;
 }
@@ -46,7 +47,7 @@ fn offset(val: int, pad: int = 10 * 2) -> int {
 // 結構體默認值
 struct Config { debug: bool; }
 fn init(cfg: Config = Config { debug: true }) {
-    if cfg.debug { println "調試模式"; }
+    if cfg.debug { println("調試模式"); }
 }
 
 fn main() {

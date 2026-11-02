@@ -12,6 +12,7 @@ O módulo `std/env` fornece acesso multiplataforma às variáveis de ambiente do
 
 ```zc
 import "std/env.zc"
+import "std/io.zc"
 
 fn main() {
     // Definir uma variável de ambiente
@@ -19,17 +20,17 @@ fn main() {
 
     // Obter (Emprestado)
     match Env::get("MY_APP_MODE") {
-        Some(val) => println "Modo: {val}",
-        None => println "Modo não definido"
+        Some(val) => println(f"Modo: {val}"),
+        None => println("Modo não definido")
     }
 
     // Obter (String Própria para RAII)
     match Env::get_dup("HOME") {
         Some(home) => {
-             println "Home: {home}";
+             println(f"Home: {home}");
              // home é libertado automaticamente
         }
-        None => println "HOME não encontrado"
+        None => println("HOME não encontrado")
     }
 }
 ```

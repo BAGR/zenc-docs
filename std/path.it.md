@@ -13,16 +13,17 @@ Il modulo `std/path` fornisce utilità cross-platform per la manipolazione dei p
 
 ```zc
 import "std/path.zc"
+import "std/io.zc"
 
 fn main() {
     let p = Path::new("/home/user");
     let full_path = p.join("docs/file.txt");
     
-    println "Percorso completo: {full_path.c_str()}";
+    println(f"Percorso completo: {full_path.c_str()}");
     
     match full_path.extension() {
-        Some(ext) => println "Estensione: {ext}",
-        None => println "Nessuna estensione trovata"
+        Some(ext) => println(f"Estensione: {ext}"),
+        None => println("Nessuna estensione trovata")
     }
 } // full_path e p vengono liberati automaticamente qui
 ```

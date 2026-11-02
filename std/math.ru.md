@@ -13,11 +13,12 @@
 
 ```zc
 import "std/math.zc"
+import "std/io.zc"
 
 fn main() {
     let radius = 5.0;
     let area = Math::PI() * Math::pow(radius, 2.0);
-    println "Площадь круга: {area}";
+    println(f"Площадь круга: {area}");
 }
 ```
 

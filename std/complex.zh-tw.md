@@ -13,6 +13,7 @@
 
 ```zc
 import "std/complex.zc"
+import "std/io.zc"
 
 fn main() {
     let c1 = Complex::new(3.0, 4.0);
@@ -21,8 +22,8 @@ fn main() {
     let sum = c1 + c2;
     let prod = c1 * c2;
     
-    println "總和: {sum}";       // 總和: 4.000000 + 6.000000i
-    println "模數: {c1.magnitude()}";
+    println(f"總和: {sum}");       // 總和: 4.000000 + 6.000000i
+    println(f"模數: {c1.magnitude()}");
 }
 ```
 

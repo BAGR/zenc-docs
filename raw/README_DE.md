@@ -41,7 +41,7 @@
 
 ## Übersicht
 
-**Zen C** ist eine moderne Systemprogrammiersprache, die zu menschenlesbarem `GNU C`/`C11` kompiliert. Es bietet einen reichhaltigen Funktionsumfang, darunter Typinferenz, Pattern Matching, Generics, Traits, Async/Await und manuelles Speichermanagement mit RAII-Fähigkeiten – und das alles bei 100%iger C-ABI-Kompatibilität.
+**Zen C** ist eine moderne Systemprogrammiersprache, die zu menschenlesbarem `GNU C`/`C11` kompiliert. Es bietet einen reichhaltigen Funktionsumfang, darunter Typinferenz, Pattern Matching, Generics, Traits und manuelles Speichermanagement mit RAII-Fähigkeiten – und das alles bei 100%iger C-ABI-Kompatibilität.
 
 ## Community
 
@@ -117,7 +117,7 @@ Projekte, die mit Zen C erstellt wurden:
 		<li><a href="#8-speicherverwaltung">8. Speicherverwaltung</a></li>  
 		<li><a href="#9-objektorientierte-programmierung-oop">9. OOP</a></li>
 		<li><a href="#10-generische-typen">10. Generische Typen</a></li>  
-		<li><a href="#11-nebenläufigkeit-asyncawait">11. Nebenläufigkeit</a></li>  
+		<li><a href="#11-nebenläufigkeit">11. Nebenläufigkeit</a></li>  
         <li><a href="#12-fortgeschrittenes--metaprogrammierung">12. Fortgeschrittenes & Metaprogrammierung</a>
           <ul>
             <li><a href="#121-metaprogrammierung">12.1 Metaprogrammierung</a></li>
@@ -278,22 +278,23 @@ Zen C bietet erstklassige Unterstützung für Unicode-Skalarwerte über den Typ 
 
 ```zc
 import "std.zc"
+import "std/io.zc"
 
 fn main() {
     let c = 'a';
-    println "Das Zeichen '{c}' hat den Code {(int)c} in ASCII/Unicode";
+    println(f"Das Zeichen '{c}' hat den Code {(int)c} in ASCII/Unicode");
 
     let code = 97;
-    println "Der Code {code} entspricht dem Zeichen {(char)code}";
+    println(f"Der Code {code} entspricht dem Zeichen {(char)code}");
 
     let r: rune = '🚀';
-    println "Die Rune '{r}' hat den Unicode-Code {(uint)r}";
+    println(f"Die Rune '{r}' hat den Unicode-Code {(uint)r}");
     
     let r_code: uint = 128640;
-    println "Der Code {r_code} entspricht der Rune '{(rune)r_code}'";
+    println(f"Der Code {r_code} entspricht der Rune '{(rune)r_code}'");
 
     let r_esc: rune = '\u{2764}';
-    println "Die Rune '{r_esc}' hat den Code {(uint)r_esc} (0x{(uint)r_esc:X})";
+    println(f"Die Rune '{r_esc}' hat den Code {(uint)r_esc} (0x{(uint)r_esc:X})");
 }
 ```
 
@@ -479,7 +480,7 @@ Dies ist ein Typqualifizierer, kein Konstantenwert.
 ```zc
 fn drucke_wert(v: const int) {
     // v = 10; // Fehler: Zuweisung zu einer const-Variablen nicht erlaubt
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -488,6 +489,7 @@ Funktionen können Standardwerte für nachgestellte Argumente definieren.
 Diese können Literale, Ausdrücke oder gültiger Zen C-Code sein (z. B. Struktur-Konstruktoren).
 ```zc
 // Einfacher Standardwert
+import "std/io.zc"
 fn inkrement(val: int, menge: int = 1) -> int {
     return val + menge;
 }
@@ -500,7 +502,7 @@ fn versatz(val: int, pad: int = 10 * 2) -> int {
 // Standardwert mit Struktur
 struct Konfig { debug: bool; }
 fn init(cfg: Konfig = Konfig { debug: true }) {
-    if cfg.debug { println "Debug-Modus"; }
+    if cfg.debug { println("Debug-Modus"); }
 }
 
 fn main() {
@@ -572,11 +574,11 @@ fn log(lvl: int, fmt: char*, ...) {
 #### Bedingte Anweisungen
 ```zc
 if x > 10 {
-    print "Groß";
+    print("Groß");
 } else if x > 5 {
-    print "Mittel";
+    print("Mittel");
 } else {
-    print "Klein";
+    print("Klein");
 }
 
 // Ternäroperator
@@ -591,21 +593,21 @@ Leistungsfähige Alternative zu `switch`.
 
 ```zc
 match wert {
-    1         => { print "Eins" },
-    2 || 3    => { print "Zwei oder Drei" },    // ODER mit ||
-    4 or 5    => { print "Vier oder Fünf" },    // ODER mit 'or'
-    6, 7, 8   => { print "Sechs bis Acht" },    // ODER mit Komma
-    10 .. 15  => { print "10 bis 14" },         // Exklusiver Bereich (Legacy)
-    10 ..< 15 => { print "10 bis 14" },         // Exklusiver Bereich (explizit)
-    20 ..= 25 => { print "20 bis 25" },         // Inklusiver Bereich
-    _         => { print "Andere" },
+    1         => { print("Eins") },
+    2 || 3    => { print("Zwei oder Drei") },    // ODER mit ||
+    4 or 5    => { print("Vier oder Fünf") },    // ODER mit 'or'
+    6, 7, 8   => { print("Sechs bis Acht") },    // ODER mit Komma
+    10 .. 15  => { print("10 bis 14") },         // Exklusiver Bereich (Legacy)
+    10 ..< 15 => { print("10 bis 14") },         // Exklusiver Bereich (explizit)
+    20 ..= 25 => { print("20 bis 25") },         // Inklusiver Bereich
+    _         => { print("Andere") },
 }
 
 // Destrukturierung von Enums
 match form {
-    Form::Kreis(r)       => { println "Radius: {r}" },
-    Form::Rechteck(w, h) => { println "Fläche: {w*h}" },
-    Form::Point          => { println "Point" },
+    Form::Kreis(r)       => { println(f"Radius: {r}") },
+    Form::Rechteck(w, h) => { println(f"Fläche: {w*h}") },
+    Form::Point          => { println("Point") },
 }
 ```
 
@@ -619,7 +621,7 @@ match opt {
     Some(ref x) => {
         // 'x' ist ein Zeiger auf den Wert innerhalb von 'opt'
         // 'opt' wird hier NICHT verschoben oder verbraucht
-        println "{x.feld}"; 
+        println(f"{x.feld}"); 
     },
     None => {}
 }
@@ -645,14 +647,11 @@ for i, wert in 0..10 step 2 { ... }  // i = 0, 1, 2, ...; wert = 0, 2, 4, ...
 let arr: int[5] = [1, 2, 3, 4, 5];
 for wert in arr {
     // wert ist int
-    println "{wert}";
+    println(f"{wert}");
 }
 
 // While-Schleife
 while x < 10 { ... }
-
-// Do-While-Schleife
-do { ... } while x < 10;
 
 // Endlosschleife mit Label
 äußerer: loop {
@@ -661,15 +660,6 @@ do { ... } while x < 10;
 
 // Wiederholung N-mal
 for _ in 0..5 { ... }
-```
-
-#### Erweiterter Kontrollfluss
-```zc
-// Guard: else ausführen und zurückkehren, falls Bedingung falsch
-guard ptr != NULL else { return; }
-
-// Unless: Ausführen, falls Bedingung nicht wahr
-unless ist_gueltig { return; }
 ```
 
 ### 6. Operatoren
@@ -741,47 +731,40 @@ Der Zugriff auf Zeigerfelder (`ptr.feld`) und Methodenaufrufe (`ptr.methode()`) 
 
 ### 7. Ausgabe und String-Interpolation
 
-Zen C bietet vielseitige Optionen zur Konsolenausgabe, einschließlich Schlüsselwörtern und kurzen Schreibweisen.
+`print`, `println`, `eprint` und `eprintln` sind Funktionen aus `std/io.zc`; ein Programm, das etwas ausgibt, importiert dieses Modul. Jede nimmt genau einen String.
 
-#### Schlüsselwörter
-
-| Schlüsselwort | Beschreibung |
+| Funktion | Beschreibung |
 |:---|:---|
-| `print "..."` | Gibt auf `stdout` aus ohne nachgestellten Zeilenumbruch. |
-| `println "..."` | Gibt auf `stdout` aus **mit** nachgestelltem Zeilenumbruch. |
-| `eprint "..."` | Gibt auf `stderr` aus ohne nachgestellten Zeilenumbruch. |
-| `eprintln "..."` | Gibt auf `stderr` aus **mit** nachgestelltem Zeilenumbruch. |
+| `print(s)` | Gibt auf `stdout` aus ohne nachgestellten Zeilenumbruch. |
+| `println(s)` | Gibt auf `stdout` aus **mit** nachgestelltem Zeilenumbruch. |
+| `eprint(s)` | Gibt auf `stderr` aus ohne nachgestellten Zeilenumbruch. |
+| `eprintln(s)` | Gibt auf `stderr` aus **mit** nachgestelltem Zeilenumbruch. |
 
-#### Kurze Schreibweisen
+```zc
+import "std/io.zc"
 
-Zen C erlaubt, String-Literale direkt als Anweisungen zu verwenden:
-
-| Syntax | Entspricht | Beschreibung |
-|:---|:---|:---|
-| `"Hz"` | `println "Hz"` | Gibt auf `stdout` aus, mit Zeilenumbruch. |
-| `"Hz"..` | `print "Hz"` | Gibt auf `stdout` aus, ohne Zeilenumbruch. |
-| `!"Err"` | `eprintln "Err"` | Gibt auf `stderr` aus, mit Zeilenumbruch. |
-| `!"Err"..` | `eprint "Err"` | Gibt auf `stderr` aus, ohne Zeilenumbruch. |
+fn main() {
+    print("Loading... ");
+    println("done");
+    eprintln("warning: no config file");
+}
+```
 
 #### String-Interpolation
 
-Ausdrücke können direkt in String-Literalen mit `{}` eingebettet werden.  
-Dies funktioniert für alle Druckmethoden und String-Kurzschreibweisen.
-
-Die Interpolation in Zen C ist **implizit**: enthält ein String `{...}`, wird es automatisch als interpolierter String geparst. Du kannst auch explizit mit `f` prefixen (z. B. `f"..."`), um Interpolation zu erzwingen.
+Nur Strings mit dem Präfix `f` werden interpoliert: In `f"..."` wird jeder Ausdruck zwischen `{}` durch seinen Wert ersetzt. In einem normalen `"..."` ist `{expr}` ein Kompilierfehler, der auf `f"..."` verweist.
 
 ```zc
 let x = 42;
 let name = "Zen";
-println "Wert: {x}, Name: {name}";
-"Wert: {x}, Name: {name}"; // Kurzschreibweise für println
+println(f"Value: {x}, Name: {name}");
 ```
 
-**Escape für geschweifte Klammern**:  `{{` erzeugt `{`, `}}` erzeugt `}`:
+**Klammern escapen**: Innerhalb von `f"..."` erzeugt `{{` ein wörtliches `{` und `}}` ein wörtliches `}`:
 
 ```zc
-let json = "JSON: {{\"key\": \"value\"}}";
-// Ausgabe: JSON: {"key": "value"}
+let json = f"JSON: {{\"key\": \"value\"}}";
+// Output: JSON: {"key": "value"}
 ```
 
 **Raw-Strings**: Strings, bei denen Interpolation und Escape-Sequenzen komplett ignoriert werden, werden mit `r` prefixiert (z. B. `r"..."`):
@@ -795,40 +778,44 @@ let raw_json = r'{"key": "value"}'; // Kein Escapen von Klammern nötig
 
 Zen C unterstützt rohe mehrzeilige Strings mit `"""`-Delimiter. Sehr nützlich für eingebettete Sprachen (GLSL, HTML) oder zum Generieren von C-Code in `comptime`-Blöcken ohne manuelles Escapen.
 
-Wie normale Strings unterstützen mehrzeilige Strings **implizite Interpolation**. Man kann auch explizit prefixen:  
-- `f"""..."""`: explizit interpolierter Stringblock  
-- `r"""..."""`: explizit roher Stringblock (keine Interpolation, keine Escape-Sequenzen)
+Mehrzeilige Strings folgen denselben Regeln wie normale Strings: Ein `"""..."""`-Block ohne Präfix interpoliert nicht, und ein `{expr}` darin ist ein Fehler. Ein Präfix ändert das:
+- `f"""..."""`: interpoliert `{expr}` wie `f"..."`.
+- `r"""..."""`: ein Raw-Block (ohne Escape-Sequenzen).
 
 ```zc
 let prompt = """
-  Bitte geben Sie Ihren Namen ein:
-  Tippen Sie "exit", um abzubrechen.
+  Please enter your name:
+  Type "exit" to cancel.
 """;
 
-let welt = "Welt";
-let script = """
-  fn hallo() {
-      println "Hallo, {welt}!";
-  }
+let world = "world";
+let script = f"""
+  fn hello() {{
+      println("hello, {world}!");
+  }}
 """;
 
-let nur_raw = r"""
-  Hier sind {klammern} einfach Text, und \n ist buchstäblich Slash-n.
+let pure_raw = r"""
+  Here {braces} are just text, and \n is literally slash-n.
 """;
 ```
 
-#### Eingabeaufforderungen (`?`)
+#### Eingabe lesen
 
-Zen C unterstützt eine Kurzschreibweise für Benutzereingaben mit dem `?`-Präfix.
-
-- `? "Prompt-Text"`: Gibt die Eingabeaufforderung aus (ohne Zeilenumbruch) und wartet auf Eingabe (liest eine Zeile).  
-- `? "Alter eingeben: " (alter)`: Gibt Prompt aus und speichert die Eingabe in der Variablen `alter`.  
-    - Format-Spezifizierer werden automatisch anhand des Variablentyps bestimmt.
+`readln()` aus `std/io.zc` liest eine Zeile von `stdin`, ohne den Zeilenumbruch. Am Ende der Eingabe gibt es `NULL` zurück; der Aufrufer gibt die Zeile frei.
 
 ```zc
-let alter: int;
-? "Wie alt bist du? " (alter);
-println "Du bist {alter} Jahre alt.";
+import "std/io.zc"
+
+fn main() {
+    print("How old are you? ");
+    let line = readln();
+    if line != NULL {
+        let age = atoi(line);
+        println(f"You are {age} years old.");
+        free(line);
+    }
+}
 ```
 
 ### 8. Speicherverwaltung
@@ -845,13 +832,6 @@ defer fclose(f);
 
 > [!WARNING]
 > Um undefiniertes Verhalten zu vermeiden, sind Kontrollfluss-Anweisungen (`return`, `break`, `continue`, `goto`) **nicht erlaubt** innerhalb eines `defer`-Blocks.
-
-#### Autofree
-Gibt die Variable automatisch frei, wenn der Scope endet.
-
-```zc
-autofree let types = malloc(1024);
-```
 
 #### Ressourcen-Semantik (Move by Default)
 Zen C behandelt Typen mit Destruktoren (wie `File`, `Vec` oder malloc'd Pointer) als **Ressourcen**.  
@@ -971,6 +951,7 @@ Implementiere `Iterable<T>`, um `for-in`-Schleifen für eigene Typen zu ermögli
 
 ```zc
 import "std/iter.zc"
+import "std/io.zc"
 
 // Iterator definieren
 struct MyIter {
@@ -997,7 +978,7 @@ impl MyRange {
 
 // Nutzung in Schleife
 for i in my_range {
-    println "{i}";
+    println(f"{i}");
 }
 ```
 
@@ -1103,19 +1084,23 @@ struct Pair<K, V> {
 }
 ```
 
-### 11. Nebenläufigkeit (Async/Await)
+### 11. Nebenläufigkeit
 
-Basierend auf pthreads.
+Threads stellt `std/thread.zc` bereit, aufgebaut auf pthreads. `Thread::spawn` führt eine Funktion oder einen Closure in einem neuen Thread aus, und `join` wartet auf dessen Ende.
 
 ```zc
-async fn fetch_data() -> string {
-    // Läuft im Hintergrund
-    return "Daten";
+import "std/thread.zc"
+import "std/io.zc"
+
+fn fetch_data(id: int) {
+    println(f"Worker {id} running in the background");
 }
 
 fn main() {
-    let future = fetch_data();
-    let result = await future;
+    let t = Thread::spawn(fn() {
+        fetch_data(1);
+    }).unwrap();
+    t.join();
 }
 ```
 
@@ -1129,10 +1114,10 @@ Führt Code zur Compile-Zeit aus, um Quellcode zu generieren oder Nachrichten au
 ```zc
 comptime {
     // Generiert Code während der Kompilierung (wird auf stdout geschrieben)
-    println "let build_date = \"2024-01-01\";";
+    println("let build_date = \"2024-01-01\";");
 }
 
-println "Build Date: {build_date}";
+println(f"Build Date: {build_date}");
 ```
 
 <details>
@@ -1205,10 +1190,10 @@ Zugriff auf Compiler-Buildinformationen zur Compile-Zeit:
 ```zc
 comptime {
     // Plattform-spezifische Code-Generierung
-    println "let PLATFORM = \"{__COMPTIME_TARGET__}\";";
+    println(f"let PLATFORM = \"{__COMPTIME_TARGET__}\";");
 }
 
-println "Running on: {PLATFORM}";
+println(f"Running on: {PLATFORM}");
 ```
 </details>
 
@@ -1264,6 +1249,7 @@ import "opengl_backend.zc";
 
 @cfg(USE_VULKAN)
 import "vulkan_backend.zc";
+import "std/io.zc"
 
 // Oder: inkludieren, wenn irgendein Backend gewählt ist
 @cfg(any(USE_OPENGL, USE_VULKAN))
@@ -1272,7 +1258,7 @@ fn init_graphics() { /* ... */ }
 // UND mit Negation
 @cfg(not(USE_OPENGL))
 @cfg(not(USE_VULKAN))
-fn fallback_init() { println "Kein Backend ausgewählt"; }
+fn fallback_init() { println("Kein Backend ausgewählt"); }
 ```
 
 | Form | Bedeutung |
@@ -1450,17 +1436,17 @@ Zen C reserviert folgende Schlüsselwörter:
 `alias`, `def`, `enum`, `fn`, `impl`, `import`, `let`, `module`, `opaque`, `struct`, `trait`, `union`, `use`
 
 #### Kontrollfluss
-`async`, `await`, `break`, `catch`, `continue`, `defer`, `do`, `else`, `for`, `goto`, `guard`, `if`, `loop`, `match`, `return`, `try`, `unless`, `while`
+`break`, `catch`, `continue`, `defer`, `else`, `for`, `goto`, `if`, `loop`, `match`, `return`, `try`, `while`
 
 #### Spezielle
-`asm`, `assert`, `autofree`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
+`asm`, `assert`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
 
 #### Konstanten
 `true`, `false`, `null`
 
 #### C-Reserviert
 Die folgenden Bezeichner sind reserviert, da sie Schlüsselwörter in C11 sind:
-`auto`, `case`, `char`, `default`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
+`auto`, `case`, `char`, `default`, `do`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
 
 #### Operatoren
 `and`, `or`
@@ -1560,13 +1546,14 @@ Zen C bietet ein eingebautes Test-Framework, um Unit-Tests direkt in den Quellco
 Ein `test`-Block enthält einen beschreibenden Namen und einen Codeblock, der ausgeführt wird. Es wird keine `main`-Funktion benötigt.
 
 ```zc
+import "std/io.zc"
 test "unittest1" {
-    "Dies ist ein Unit-Test";
+    println("Dies ist ein Unit-Test");
 
     let a = 3;
     assert(a > 0, "a sollte eine positive Zahl sein");
 
-    "unittest1 erfolgreich.";
+    println("unittest1 erfolgreich.");
 }
 ```
 
@@ -1947,6 +1934,7 @@ Verwende `include` für Header und `raw`-Blöcke für Objective-C-Syntax (`@inte
 //> linux: cflags: -fconstant-string-class=NSConstantString -D_NATIVE_OBJC_EXCEPTIONS
 //> linux: link: -lgnustep-base -lobjc
 
+import "std/io.zc"
 include <Foundation/Foundation.h>
 
 fn main() {
@@ -1955,7 +1943,7 @@ fn main() {
         NSLog(@"Hello from Objective-C!");
         [pool drain];
     }
-    println "Zen C funktioniert ebenfalls!";
+    println("Zen C funktioniert ebenfalls!");
 }
 ```
 

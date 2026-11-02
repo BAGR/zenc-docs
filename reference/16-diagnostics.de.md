@@ -372,6 +372,7 @@ Verwende `include` für Header und `raw`-Blöcke für Objective-C-Syntax (`@inte
 //> linux: cflags: -fconstant-string-class=NSConstantString -D_NATIVE_OBJC_EXCEPTIONS
 //> linux: link: -lgnustep-base -lobjc
 
+import "std/io.zc"
 include <Foundation/Foundation.h>
 
 fn main() {
@@ -380,7 +381,7 @@ fn main() {
         NSLog(@"Hello from Objective-C!");
         [pool drain];
     }
-    println "Zen C funktioniert ebenfalls!";
+    println("Zen C funktioniert ebenfalls!");
 }
 ```
 

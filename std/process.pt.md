@@ -13,6 +13,7 @@ O módulo `std/process` fornece uma API de alto nível para lançar processos fi
 
 ```zc
 import "std/process.zc"
+import "std/io.zc"
 
 fn main() {
     // Execução básica de comando
@@ -21,10 +22,10 @@ fn main() {
         .output();
         
     if (output.exit_code == 0) {
-        println "Capturado: {output.std_out}";
+        println(f"Capturado: {output.std_out}");
         // output.std_out é uma String, libertada automaticamente
     } else {
-        println "Comando falhou com o código {output.exit_code}";
+        println(f"Comando falhou com o código {output.exit_code}");
     }
 }
 ```

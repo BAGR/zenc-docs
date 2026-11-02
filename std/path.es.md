@@ -13,16 +13,17 @@ El módulo `std/path` proporciona utilidades multiplataforma para manipular ruta
 
 ```zc
 import "std/path.zc"
+import "std/io.zc"
 
 fn main() {
     let p = Path::new("/home/usuario");
     let ruta_completa = p.join("docs/archivo.txt");
     
-    println "Ruta completa: {ruta_completa.c_str()}";
+    println(f"Ruta completa: {ruta_completa.c_str()}");
     
     match ruta_completa.extension() {
-        Some(ext) => println "Extensión: {ext}",
-        None => println "No se encontró extensión"
+        Some(ext) => println(f"Extensión: {ext}"),
+        None => println("No se encontró extensión")
     }
 } // ruta_completa y p se liberan automáticamente aquí
 ```

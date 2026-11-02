@@ -12,13 +12,14 @@ Zen C incluye un marco de pruebas integrado que permite escribir pruebas unitari
 Un bloque `test` contiene un nombre descriptivo y un cuerpo de código para ejecutar. Las pruebas no requieren una función `main` para ejecutarse.
 
 ```zc
+import "std/io.zc"
 test "unittest1" {
-    "Esta es una prueba unitaria";
+    println("Esta es una prueba unitaria");
 
     let a = 3;
     assert(a > 0, "a debería ser un entero positivo");
 
-    "unittest1 pasado.";
+    println("unittest1 pasado.");
 }
 ```
 

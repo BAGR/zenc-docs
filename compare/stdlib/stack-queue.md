@@ -19,7 +19,7 @@ fn main() {
     s.push(2);
     s.push(3);
 
-    println "stack size: {s.len}";
+    println(f"stack size: {s.len}");
 }
 ```
 

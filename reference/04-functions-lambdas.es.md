@@ -26,7 +26,7 @@ Los argumentos de las funciones pueden marcarse como `const` para imponer una se
 ```zc
 fn print_val(v: const int) {
     // v = 10; // Error: No se puede asignar a una variable const
-    println "{v}";
+    println(f"{v}");
 }
 ```
 
@@ -34,6 +34,7 @@ fn print_val(v: const int) {
 Las funciones pueden definir valores por defecto para los argumentos finales. Estos pueden ser literales, expresiones o código válido de Zen C (como constructores de structs).
 ```zc
 // Valor por defecto simple
+import "std/io.zc"
 fn incrementar(val: int, cantidad: int = 1) -> int {
     return val + cantidad;
 }
@@ -46,7 +47,7 @@ fn offset(val: int, pad: int = 10 * 2) -> int {
 // Valor por defecto de tipo struct
 struct Config { debug: bool; }
 fn init(cfg: Config = Config { debug: true }) {
-    if cfg.debug { println "Modo Debug"; }
+    if cfg.debug { println("Modo Debug"); }
 }
 
 fn main() {

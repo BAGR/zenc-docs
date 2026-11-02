@@ -5,8 +5,8 @@ weight = 15
 
 # Printing & String Interpolation
 
-Print macros, string interpolation with `{}`, raw strings,
-multiline strings, and input prompts.
+The print functions of `std/io.zc`, string interpolation with `f"..."`,
+raw strings, multiline strings, and reading input.
 
 ## Zen C
 
@@ -17,25 +17,28 @@ fn main() {
     let name = "Zen";
     let count = 3;
 
-    println "Hello, {name}!";
-    println "Count: {count}";
+    println(f"Hello, {name}!");
+    println(f"Count: {count}");
 
-    println "JSON: {{key: value}}";
+    println(f"JSON: {{key: value}}");
 
     let path = r"C:\Users\{name}\docs";
-    println "raw path: {path}";
+    println(f"raw path: {path}");
 
-    let story = """
+    let story = f"""
     Once upon a time,
     in the land of {name},
     there were {count} warriors.
     """;
-    println "{story}";
+    println(f"{story}");
 
-    println "--- user input ---";
-    print "What is your name? ";
-    let user_name = ? ">>> ";
-    println "Hello, {user_name}!";
+    println("--- user input ---");
+    print("What is your name? ");
+    let user_name = readln();
+    if user_name != NULL {
+        println(f"Hello, {user_name}!");
+        free(user_name);
+    }
 }
 ```
 
@@ -74,12 +77,12 @@ int main(void) {
 
 ## Key Differences
 
-- String interpolation: `"Hello, {name}!"` vs `printf("Hello, %s!", name)`
-- Brace escaping: `{{` and `}}` for literal braces
+- `print`, `println`, `eprint` and `eprintln` are functions of `std/io.zc` that take one string
+- String interpolation: `f"Hello, {name}!"` vs `printf("Hello, %s!", name)`; a plain `"..."` does not interpolate
+- Brace escaping: `{{` and `}}` for literal braces inside `f"..."`
 - Raw strings: `r"no \\ escape {interpolation}"`
-- Multiline strings: `"""..."""` blocks with implicit interpolation
-- Shorthand printing: bare `"msg"` = `println "msg"`
-- Input: `? "prompt"` reads a line; `? "prompt" (var)` scans typed input
+- Multiline strings: `"""..."""` blocks; `f"""..."""` interpolates
+- Input: `readln()` reads a line without the newline; the caller frees it
 - C needs `printf` with format specifiers, `fgets` for input, `strcspn` for newline cleanup
 
 ## Output

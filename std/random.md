@@ -6,6 +6,7 @@ The `std/random` module provides an idiomatic, object-oriented pseudo-random num
 
 ```zc
 import "std/random.zc"
+import "std/io.zc"
 
 fn main() {
     // Automatically seeds the generator with the current time
@@ -14,7 +15,7 @@ fn main() {
     // Generate random integers
     let bounded = rng.next_int_range(1, 100); // 1 to 100 inclusive
     
-    println "Rolled: {bounded}";
+    println(f"Rolled: {bounded}");
 }
 ```
 

@@ -13,6 +13,7 @@ Das Modul `std/json` bietet eine DOM-artige JSON-Parser- und Builder-Implementie
 
 ```zc
 import "std/json.zc"
+import "std/io.zc"
 
 fn main() {
     // JSON aufbauen
@@ -23,16 +24,16 @@ fn main() {
     
     // Serialisierung
     let json_str = obj.to_string();
-    println "Serialisiert: {json_str}";
+    println(f"Serialisiert: {json_str}");
     
     // Parsen
     let input = "{\"score\": 100}";
     match JsonValue::parse(input) {
         Ok(parsed) => {
-            println "Punktzahl: {parsed.get(\"score\").unwrap().as_int().unwrap()}";
+            println(f"Punktzahl: {parsed.get(\"score\").unwrap().as_int().unwrap()}");
             // parsed wird am Ende dieses Blocks automatisch freigegeben
         }
-        Err(e) => println "Fehler: {e}"
+        Err(e) => println(f"Fehler: {e}")
     }
 } // obj wird hier automatisch freigegeben
 ```

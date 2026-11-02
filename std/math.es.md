@@ -13,11 +13,12 @@ El módulo `Math` proporciona un conjunto básico de constantes y funciones mate
 
 ```zc
 import "std/math.zc"
+import "std/io.zc"
 
 fn main() {
     let radio = 5.0;
     let area = Math::PI() * Math::pow(radio, 2.0);
-    println "Área del círculo: {area}";
+    println(f"Área del círculo: {area}");
 }
 ```
 

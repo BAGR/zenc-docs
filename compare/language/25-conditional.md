@@ -17,7 +17,7 @@ import "std/io.zc"
 
 @cfg(DEBUG)
 fn debug_log(msg: string) {
-    eprintln "[DEBUG] {msg}";
+    eprintln(f"[DEBUG] {msg}");
 }
 
 @cfg(not(DEBUG))
@@ -31,12 +31,12 @@ struct Vec3 {
 }
 
 fn main() {
-    println "buffer size: {MAX_BUFFER}";
+    println(f"buffer size: {MAX_BUFFER}");
     debug_log("running in debug mode");
 
     let v1 = Vec3 { x: 1.0, y: 2.0, z: 3.0 };
     let v2 = v1;
-    println "v2: ({v2.x}, {v2.y}, {v2.z})";
+    println(f"v2: ({v2.x}, {v2.y}, {v2.z})");
 }
 ```
 

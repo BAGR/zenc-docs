@@ -13,6 +13,7 @@
 
 ```zc
 import "std/process.zc"
+import "std/io.zc"
 
 fn main() {
     // Базовое выполнение команды
@@ -21,10 +22,10 @@ fn main() {
         .output();
         
     if (output.exit_code == 0) {
-        println "Захвачено: {output.std_out}";
+        println(f"Захвачено: {output.std_out}");
         // output.std_out является String, освобождается автоматически
     } else {
-        println "Команда завершилась с кодом {output.exit_code}";
+        println(f"Команда завершилась с кодом {output.exit_code}");
     }
 }
 ```

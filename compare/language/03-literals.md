@@ -23,14 +23,14 @@ fn main() {
     let sci: f64 = 1.5e10;
     let rune_val: rune = 'Z';
 
-    println "decimal: {decimal}";
-    println "hex:     {hex}";
-    println "octal:   {octal}";
-    println "binary:  {binary}";
-    println "large:   {large}";
-    println "pi:      {pi:.7}";
-    println "sci:     {sci:.1e}";
-    println "rune:    {rune_val}";
+    println(f"decimal: {decimal}");
+    println(f"hex:     {hex}");
+    println(f"octal:   {octal}");
+    println(f"binary:  {binary}");
+    println(f"large:   {large}");
+    println(f"pi:      {pi:.7}");
+    println(f"sci:     {sci:.1e}");
+    println(f"rune:    {rune_val}");
 }
 ```
 

@@ -12,6 +12,7 @@
 
 ```zc
 import "std/env.zc"
+import "std/io.zc"
 
 fn main() {
     // 设置环境变量
@@ -19,17 +20,17 @@ fn main() {
 
     // 获取（借用型）
     match Env::get("MY_APP_MODE") {
-        Some(val) => println "模式: {val}",
-        None => println "未设置模式"
+        Some(val) => println(f"模式: {val}"),
+        None => println("未设置模式")
     }
 
     // 获取（拥有的 String，用于 RAII）
     match Env::get_dup("HOME") {
         Some(home) => {
-             println "主目录: {home}";
+             println(f"主目录: {home}");
              // home 会被自动释放
         }
-        None => println "未找到 HOME"
+        None => println("未找到 HOME")
     }
 }
 ```

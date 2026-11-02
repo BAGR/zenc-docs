@@ -34,13 +34,13 @@ fn describe(n: int) -> string {
 }
 
 fn main() {
-    println "color: {color_name(Color::Red)}";
-    println "color: {color_name(Color::Green)}";
+    println(f"color: {color_name(Color::Red)}");
+    println(f"color: {color_name(Color::Green)}");
 
-    println "1: {describe(1)}";
-    println "5: {describe(5)}";
-    println "50: {describe(50)}";
-    println "200: {describe(200)}";
+    println(f"1: {describe(1)}");
+    println(f"5: {describe(5)}");
+    println(f"50: {describe(50)}");
+    println(f"200: {describe(200)}");
 }
 ```
 

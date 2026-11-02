@@ -33,18 +33,18 @@ impl Clone for Buffer {
 }
 
 fn process_buf(b: Buffer) {
-    println "processing buffer of size {b.size}";
+    println(f"processing buffer of size {b.size}");
 }
 
 fn main() {
     let buf1 = Buffer { data: malloc(64), size: 64 };
-    println "buf1 size: {buf1.size}";
+    println(f"buf1 size: {buf1.size}");
 
     let buf2 = buf1.clone();
-    println "cloned size: {buf2.size}";
+    println(f"cloned size: {buf2.size}");
 
     process_buf(buf2);
-    println "buf2 moved into process_buf";
+    println("buf2 moved into process_buf");
 }
 ```
 

@@ -5,48 +5,40 @@ weight = 7
 
 # 7. Ausgabe und String-Interpolation {#7-ausgabe-und-string-interpolation}
 
+`print`, `println`, `eprint` und `eprintln` sind Funktionen aus `std/io.zc`; ein Programm, das etwas ausgibt, importiert dieses Modul. Jede nimmt genau einen String.
 
-Zen C bietet vielseitige Optionen zur Konsolenausgabe, einschließlich Schlüsselwörtern und kurzen Schreibweisen.
-
-#### Schlüsselwörter
-
-| Schlüsselwort | Beschreibung |
+| Funktion | Beschreibung |
 |:---|:---|
-| `print "..."` | Gibt auf `stdout` aus ohne nachgestellten Zeilenumbruch. |
-| `println "..."` | Gibt auf `stdout` aus **mit** nachgestelltem Zeilenumbruch. |
-| `eprint "..."` | Gibt auf `stderr` aus ohne nachgestellten Zeilenumbruch. |
-| `eprintln "..."` | Gibt auf `stderr` aus **mit** nachgestelltem Zeilenumbruch. |
+| `print(s)` | Gibt auf `stdout` aus ohne nachgestellten Zeilenumbruch. |
+| `println(s)` | Gibt auf `stdout` aus **mit** nachgestelltem Zeilenumbruch. |
+| `eprint(s)` | Gibt auf `stderr` aus ohne nachgestellten Zeilenumbruch. |
+| `eprintln(s)` | Gibt auf `stderr` aus **mit** nachgestelltem Zeilenumbruch. |
 
-#### Kurze Schreibweisen
+```zc
+import "std/io.zc"
 
-Zen C erlaubt, String-Literale direkt als Anweisungen zu verwenden:
-
-| Syntax | Entspricht | Beschreibung |
-|:---|:---|:---|
-| `"Hz"` | `println "Hz"` | Gibt auf `stdout` aus, mit Zeilenumbruch. |
-| `"Hz"..` | `print "Hz"` | Gibt auf `stdout` aus, ohne Zeilenumbruch. |
-| `!"Err"` | `eprintln "Err"` | Gibt auf `stderr` aus, mit Zeilenumbruch. |
-| `!"Err"..` | `eprint "Err"` | Gibt auf `stderr` aus, ohne Zeilenumbruch. |
+fn main() {
+    print("Loading... ");
+    println("done");
+    eprintln("warning: no config file");
+}
+```
 
 #### String-Interpolation
 
-Ausdrücke können direkt in String-Literalen mit `{}` eingebettet werden.  
-Dies funktioniert für alle Druckmethoden und String-Kurzschreibweisen.
-
-Die Interpolation in Zen C ist **implizit**: enthält ein String `{...}`, wird es automatisch als interpolierter String geparst. Du kannst auch explizit mit `f` prefixen (z. B. `f"..."`), um Interpolation zu erzwingen.
+Nur Strings mit dem Präfix `f` werden interpoliert: In `f"..."` wird jeder Ausdruck zwischen `{}` durch seinen Wert ersetzt. In einem normalen `"..."` ist `{expr}` ein Kompilierfehler, der auf `f"..."` verweist.
 
 ```zc
 let x = 42;
 let name = "Zen";
-println "Wert: {x}, Name: {name}";
-"Wert: {x}, Name: {name}"; // Kurzschreibweise für println
+println(f"Value: {x}, Name: {name}");
 ```
 
-**Escape für geschweifte Klammern**:  `{{` erzeugt `{`, `}}` erzeugt `}`:
+**Klammern escapen**: Innerhalb von `f"..."` erzeugt `{{` ein wörtliches `{` und `}}` ein wörtliches `}`:
 
 ```zc
-let json = "JSON: {{\"key\": \"value\"}}";
-// Ausgabe: JSON: {"key": "value"}
+let json = f"JSON: {{\"key\": \"value\"}}";
+// Output: JSON: {"key": "value"}
 ```
 
 **Raw-Strings**: Strings, bei denen Interpolation und Escape-Sequenzen komplett ignoriert werden, werden mit `r` prefixiert (z. B. `r"..."`):
@@ -60,38 +52,42 @@ let raw_json = r'{"key": "value"}'; // Kein Escapen von Klammern nötig
 
 Zen C unterstützt rohe mehrzeilige Strings mit `"""`-Delimiter. Sehr nützlich für eingebettete Sprachen (GLSL, HTML) oder zum Generieren von C-Code in `comptime`-Blöcken ohne manuelles Escapen.
 
-Wie normale Strings unterstützen mehrzeilige Strings **implizite Interpolation**. Man kann auch explizit prefixen:  
-- `f"""..."""`: explizit interpolierter Stringblock  
-- `r"""..."""`: explizit roher Stringblock (keine Interpolation, keine Escape-Sequenzen)
+Mehrzeilige Strings folgen denselben Regeln wie normale Strings: Ein `"""..."""`-Block ohne Präfix interpoliert nicht, und ein `{expr}` darin ist ein Fehler. Ein Präfix ändert das:
+- `f"""..."""`: interpoliert `{expr}` wie `f"..."`.
+- `r"""..."""`: ein Raw-Block (ohne Escape-Sequenzen).
 
 ```zc
 let prompt = """
-  Bitte geben Sie Ihren Namen ein:
-  Tippen Sie "exit", um abzubrechen.
+  Please enter your name:
+  Type "exit" to cancel.
 """;
 
-let welt = "Welt";
-let script = """
-  fn hallo() {
-      println "Hallo, {welt}!";
-  }
+let world = "world";
+let script = f"""
+  fn hello() {{
+      println("hello, {world}!");
+  }}
 """;
 
-let nur_raw = r"""
-  Hier sind {klammern} einfach Text, und \n ist buchstäblich Slash-n.
+let pure_raw = r"""
+  Here {braces} are just text, and \n is literally slash-n.
 """;
 ```
 
-#### Eingabeaufforderungen (`?`)
+#### Eingabe lesen
 
-Zen C unterstützt eine Kurzschreibweise für Benutzereingaben mit dem `?`-Präfix.
-
-- `? "Prompt-Text"`: Gibt die Eingabeaufforderung aus (ohne Zeilenumbruch) und wartet auf Eingabe (liest eine Zeile).  
-- `? "Alter eingeben: " (alter)`: Gibt Prompt aus und speichert die Eingabe in der Variablen `alter`.  
-    - Format-Spezifizierer werden automatisch anhand des Variablentyps bestimmt.
+`readln()` aus `std/io.zc` liest eine Zeile von `stdin`, ohne den Zeilenumbruch. Am Ende der Eingabe gibt es `NULL` zurück; der Aufrufer gibt die Zeile frei.
 
 ```zc
-let alter: int;
-? "Wie alt bist du? " (alter);
-println "Du bist {alter} Jahre alt.";
+import "std/io.zc"
+
+fn main() {
+    print("How old are you? ");
+    let line = readln();
+    if line != NULL {
+        let age = atoi(line);
+        println(f"You are {age} years old.");
+        free(line);
+    }
+}
 ```

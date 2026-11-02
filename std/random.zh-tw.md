@@ -6,6 +6,7 @@
 
 ```zc
 import "std/random.zc"
+import "std/io.zc"
 
 fn main() {
     // 使用目前時間自動為生成器設置種子（seed）
@@ -14,7 +15,7 @@ fn main() {
     // Generate random integers
     let bounded = rng.next_int_range(1, 100); // 1 到 100（含）
     
-    println "隨機結果: {bounded}";
+    println(f"隨機結果: {bounded}");
 }
 ```
 

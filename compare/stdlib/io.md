@@ -14,9 +14,12 @@ format strings.
 import "std/io.zc"
 
 fn main() {
-    print "Enter your name: ";
-    let name = ? "> ";
-    println "Hello, {name}!";
+    print("Enter your name: ");
+    let name = readln();
+    if name != NULL {
+        println(f"Hello, {name}!");
+        free(name);
+    }
 }
 ```
 
@@ -39,8 +42,8 @@ int main(void) {
 
 ## Key Differences
 
-- `print` / `println` with string interpolation: `"Hello, {name}!"`
-- `? "prompt"`: read line from stdin
+- `print` / `println` take one string; `f"Hello, {name}!"` interpolates
+- `readln()`: reads a line from stdin, without the newline (the caller frees it)
 - `eprint` / `eprintln`: stderr output
 - C: `printf` with format specifiers (`%s`, `%d`)
 - C: `fgets` + `strcspn` for input and newline stripping

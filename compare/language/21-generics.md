@@ -23,7 +23,7 @@ fn main() {
     let x = 1;
     let y = 2;
     swap(&x, &y);
-    println "swapped: x={x}, y={y}";
+    println(f"swapped: x={x}, y={y}");
 }
 ```
 

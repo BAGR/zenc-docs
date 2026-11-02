@@ -13,6 +13,7 @@
 
 ```zc
 import "std/arena.zc"
+import "std/io.zc"
 
 struct Node {
     val: int;
@@ -29,7 +30,7 @@ fn main() {
     // Дублирование строки в память арены
     let s = a.dup_str("Hello World");
     
-    println "Использовано арены: {a.bytes_used()} байт";
+    println(f"Использовано арены: {a.bytes_used()} байт");
     
     // Всё освобождается автоматически, когда 'a' выходит за пределы области видимости
 }

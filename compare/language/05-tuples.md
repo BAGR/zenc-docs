@@ -23,13 +23,13 @@ fn compute(a: int, b: int) -> (int, int, int) {
 
 fn main() {
     let pair: (int, string) = (42, "Zen");
-    println "pair: {pair.0}, {pair.1}";
+    println(f"pair: {pair.0}, {pair.1}");
 
     let (q, r) = divide(10, 3);
-    println "quotient: {q}, remainder: {r}";
+    println(f"quotient: {q}, remainder: {r}");
 
     let (sum: int, diff, prod) = compute(10, 3);
-    println "sum: {sum}, diff: {diff}, prod: {prod}";
+    println(f"sum: {sum}, diff: {diff}, prod: {prod}");
 }
 ```
 

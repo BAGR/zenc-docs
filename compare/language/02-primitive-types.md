@@ -24,15 +24,15 @@ fn main() {
     let h: usize = 4096;
     let rune_val: rune = 'Z';
 
-    println "int:     {a} ({sizeof(a)} bytes)";
-    println "u8:      {b} ({sizeof(b)} bytes)";
-    println "i64:     {c} ({sizeof(c)} bytes)";
-    println "f64:     {d:.10}";
-    println "bool:    {e}";
-    println "char:    {f}";
-    println "isize:   {g}";
-    println "usize:   {h}";
-    println "rune:    {rune_val}";
+    println(f"int:     {a} ({sizeof(a)} bytes)");
+    println(f"u8:      {b} ({sizeof(b)} bytes)");
+    println(f"i64:     {c} ({sizeof(c)} bytes)");
+    println(f"f64:     {d:.10}");
+    println(f"bool:    {e}");
+    println(f"char:    {f}");
+    println(f"isize:   {g}");
+    println(f"usize:   {h}");
+    println(f"rune:    {rune_val}");
 }
 ```
 

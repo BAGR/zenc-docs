@@ -17,7 +17,7 @@ fn main() {
     let re = regex::compile("[a-z]+@[a-z]+\\.[a-z]+");
 
     let test_email = "hello@world.com";
-    println "is match: {re.is_match(test_email)}";
+    println(f"is match: {re.is_match(test_email)}");
 }
 ```
 

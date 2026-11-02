@@ -45,22 +45,23 @@ Zen C 通過 `rune` 類型提供對 Unicode 標量值的一等支持。一個 `r
 
 ```zc
 import "std.zc"
+import "std/io.zc"
 
 fn main() {
     let c = 'a';
-    println "字符 '{c}' 的 ASCII/Unicode 編碼為 {(int)c}";
+    println(f"字符 '{c}' 的 ASCII/Unicode 編碼為 {(int)c}");
 
     let code = 97;
-    println "編碼 {code} 對應的字符為 {(char)code}";
+    println(f"編碼 {code} 對應的字符為 {(char)code}");
 
     let r: rune = '🚀';
-    println "Rune '{r}' 的 Unicode 編碼為 {(uint)r}";
+    println(f"Rune '{r}' 的 Unicode 編碼為 {(uint)r}");
     
     let r_code: uint = 128640;
-    println "編碼 {r_code} 對應的 Rune 為 '{(rune)r_code}'";
+    println(f"編碼 {r_code} 對應的 Rune 為 '{(rune)r_code}'");
 
     let r_esc: rune = '\u{2764}';
-    println "Rune '{r_esc}' 的編碼為 {(uint)r_esc} (0x{(uint)r_esc:X})";
+    println(f"Rune '{r_esc}' 的編碼為 {(uint)r_esc} (0x{(uint)r_esc:X})");
 }
 ```
 

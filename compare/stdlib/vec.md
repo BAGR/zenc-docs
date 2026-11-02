@@ -20,19 +20,19 @@ fn main() {
     v.push(20);
     v.push(30);
 
-    println "len: {v.len}, cap: {v.cap}";
+    println(f"len: {v.len}, cap: {v.cap}");
 
     for val in v {
-        println "value: {val}";
+        println(f"value: {val}");
     }
 
-    println "v[1]: {v[1]}";
+    println(f"v[1]: {v[1]}");
 
     v.remove(1);
-    println "after remove, len: {v.len}";
+    println(f"after remove, len: {v.len}");
 
     v.clear();
-    println "after clear, len: {v.len}";
+    println(f"after clear, len: {v.len}");
 }
 ```
 

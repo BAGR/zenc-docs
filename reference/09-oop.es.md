@@ -72,6 +72,7 @@ Implementa `Iterable<T>` para habilitar bucles `for-in` para tus tipos personali
 
 ```zc
 import "std/iter.zc"
+import "std/io.zc"
 
 // Define un Iterador
 struct MiIter {
@@ -98,7 +99,7 @@ impl MiRango {
 
 // Uso en un Bucle
 for i in mi_rango {
-    println "{i}";
+    println(f"{i}");
 }
 ```
 

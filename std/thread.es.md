@@ -13,9 +13,10 @@ El módulo `std/thread` proporciona primitivas de alto nivel para crear y gestio
 
 ```zc
 import "std/thread.zc"
+import "std/io.zc"
 
 fn trabajador(id: int) {
-    println "Hola desde el trabajador {id}";
+    println(f"Hola desde el trabajador {id}");
 }
 
 fn main() {

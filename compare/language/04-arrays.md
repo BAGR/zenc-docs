@@ -23,9 +23,9 @@ fn main() {
     arr1[0] = 10;
     arr1[1] = 20;
 
-    println "arr1[0]: {arr1[0]}, arr1[1]: {arr1[1]}";
-    println "arr2 sum: {arr2[0] + arr2[1] + arr2[2] + arr2[3] + arr2[4]}";
-    println "matrix[1][2]: {matrix[1][2]}";
+    println(f"arr1[0]: {arr1[0]}, arr1[1]: {arr1[1]}");
+    println(f"arr2 sum: {arr2[0] + arr2[1] + arr2[2] + arr2[3] + arr2[4]}");
+    println(f"matrix[1][2]: {matrix[1][2]}");
 }
 ```
 

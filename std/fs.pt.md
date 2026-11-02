@@ -13,12 +13,13 @@ O módulo `std/fs` fornece uma API abrangente para interagir com o sistema de fi
 
 ```zc
 import "std/fs.zc"
+import "std/io.zc"
 
 fn main() {
     // Leitura básica de ficheiro usando RAII
     match File::read_all("config.txt") {
-        Ok(content) => println "Config: {content}",
-        Err(e) => println "Erro ao ler config: {e}"
+        Ok(content) => println(f"Config: {content}"),
+        Err(e) => println(f"Erro ao ler config: {e}")
     }
     
     // Manipulador de ficheiro explícito com fecho automático
@@ -27,7 +28,7 @@ fn main() {
             file.write_string("Log entry\n");
             // file é fechado automaticamente aqui
         }
-        Err(e) => println "Falha ao abrir log: {e}"
+        Err(e) => println(f"Falha ao abrir log: {e}")
     }
 }
 ```

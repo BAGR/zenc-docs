@@ -19,12 +19,6 @@ defer fclose(f);
 為了防止未定義行為，`defer` 塊內不允許使用控制流語句（`return`, `break`, `continue`, `goto`）。
 {% end %}
 
-#### Autofree
-在作用域退出時自動釋放變量。
-```zc
-autofree let types = malloc(1024);
-```
-
 #### 資源語義 (默認移動)
 Zen C 將帶有析構函數（如 `File`, `Vec`, 或 malloc 的指針）的類型視為 **資源**。為了防止雙重釋放錯誤，資源不能被隱式複製。
 

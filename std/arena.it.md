@@ -13,6 +13,7 @@ Il modulo `std/arena` fornisce un allocatore "bump" veloce per allocazioni di me
 
 ```zc
 import "std/arena.zc"
+import "std/io.zc"
 
 struct Node {
     val: int;
@@ -29,7 +30,7 @@ fn main() {
     // Duplica una stringa nella memoria dell'arena
     let s = a.dup_str("Hello World");
     
-    println "Memoria arena usata: {a.bytes_used()} byte";
+    println(f"Memoria arena usata: {a.bytes_used()} byte");
     
     // Tutto viene liberato automaticamente quando 'a' esce dallo scope
 }

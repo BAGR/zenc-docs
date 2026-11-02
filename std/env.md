@@ -12,6 +12,7 @@ The `std/env` module provides cross-platform access to process environment varia
 
 ```zc
 import "std/env.zc"
+import "std/io.zc"
 
 fn main() {
     // Setting an environment variable
@@ -19,17 +20,17 @@ fn main() {
 
     // Retrieving (Borrowed)
     match Env::get("MY_APP_MODE") {
-        Some(val) => { println "Mode: {val}"; },
-        None => { println "Mode not set"; }
+        Some(val) => { println(f"Mode: {val}"); },
+        None => { println("Mode not set"); }
     }
 
     // Retrieving (Owned String for RAII)
     match Env::get_dup("HOME") {
         Some(home) => {
-             println "Home: {home}";
+             println(f"Home: {home}");
              // home is freed automatically
         }
-        None => { println "HOME not found"; }
+        None => { println("HOME not found"); }
     }
 }
 ```
