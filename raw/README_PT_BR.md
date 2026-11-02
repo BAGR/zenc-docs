@@ -60,7 +60,7 @@ O projeto Zen C consiste em vários repositórios. Abaixo você pode encontrar o
 | **[docs](https://github.com/zenc-lang-ce/zenc-docs)** | A documentação técnica oficial e a especificação da linguagem. | Ativo |
 | **[rfcs](https://github.com/zenc-lang-ce/zenc-rfcs)** | O repositório de Pedido de Comentários (RFC). Molde o futuro da linguagem. | Ativo |
 | **[vscode-zenc](https://github.com/zenc-lang-ce/zenc-vscode)** | Extensão oficial do VS Code (Destaque de sintaxe, Snippets). | Alpha |
-| **[www](https://github.com/zenc-lang-ce/zenc-web)** | Código fonte de `zenc-lang.org`. | Ativo |
+| **[www](https://github.com/zenc-lang-ce/zenc-lang-ce.github.io)** | Código fonte de `zenc-lang-ce.github.io`. | Ativo |
 | **[awesome-zenc](https://github.com/zenc-lang-ce/awesome-zenc)** | Uma lista curada de exemplos fantásticos de Zen C. | Em crescimento |
 
 ## Vitrine

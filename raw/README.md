@@ -60,7 +60,7 @@ The Zen C project consists of several repositories. Below you can find the prima
 | **[docs](https://github.com/zenc-lang-ce/zenc-docs)** | The official documentation and language specification. | Active |
 | **[rfcs](https://github.com/zenc-lang-ce/zenc-rfcs)** | The Request for Comments (RFC) repository. Shape the future of the language. | Active |
 | **[vscode-zenc](https://github.com/zenc-lang-ce/zenc-vscode)** | Official VS Code extension (Syntax Highlighting, Snippets). | Alpha |
-| **[www](https://github.com/zenc-lang-ce/zenc-web)** | Source code for `zenc-lang.org`. | Active |
+| **[www](https://github.com/zenc-lang-ce/zenc-lang-ce.github.io)** | Source code for `zenc-lang-ce.github.io`. | Active |
 | **[awesome-zenc](https://github.com/zenc-lang-ce/awesome-zenc)** | A curated list of awesome Zen C examples | Growing |
 | **[zenc.vim](https://github.com/zenc-lang-ce/zenc-vim)** | Official Vim/Neovim plugin (Syntax, Indentation). | Active |
 

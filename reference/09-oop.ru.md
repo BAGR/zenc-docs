@@ -123,7 +123,7 @@ impl Drop for Resource {
 ```
 
 {% alert(type="note") %}
-Если переменная перемещена, `drop` не вызывается для оригинала. Подробнее в [семантике ресурсов](@/tour/08-memory-management.ru.md#semantika-resursov-move-po-umolchaniiu).
+Если переменная перемещена, `drop` не вызывается для оригинала. Подробнее в [семантике ресурсов](@/docs/tour/08-memory-management.ru.md#semantika-resursov-move-po-umolchaniiu).
 {% end %}
 
 **Copy**

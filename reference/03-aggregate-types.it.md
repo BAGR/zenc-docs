@@ -68,7 +68,7 @@ struct Flags {
 ```
 
 {% alert(type="note") %}
-Gli struct usano le [Semantiche di Spostamento](@/tour/08-memory-management.it.md#semantiche-delle-risorse-muovi-di-default) di default. I campi di uno struct possono essere acceduti via `.` anche sui puntatori (Dereferenza-Automatica).
+Gli struct usano le [Semantiche di Spostamento](@/docs/tour/08-memory-management.it.md#semantiche-delle-risorse-muovi-di-default) di default. I campi di uno struct possono essere acceduti via `.` anche sui puntatori (Dereferenza-Automatica).
 {% end %}
 
 #### Struct Opachi
