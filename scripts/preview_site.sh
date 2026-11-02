@@ -30,16 +30,32 @@ export PATH="$preview/venv/bin:$PATH"
 echo "Syncing the documentation..."
 "$docs/scripts/sync_to_site.sh" "$preview/site"
 
-# Sync again whenever a file of this checkout changes
+# The parts of sync_to_site.sh that a changed file of this checkout belongs to
+parts_of() {
+    case ${1#"$docs"/} in
+    raw/* | reference/* | scripts/split_reference.py) echo tour ;;
+    std/*) echo std ;;
+    migrations/*) echo migrations ;;
+    rosetta/*) echo rosetta ;;
+    site/templates/shortcodes/*) echo shortcodes ;;
+    scripts/sync_to_site.sh) echo shortcodes std tour pages migrations rosetta ;;
+    *.md) echo pages ;;
+    esac
+}
+
+# Sync again whenever a file of this checkout changes: only the parts it belongs to
 stamp=$preview/synced
 touch "$stamp"
 (
     while sleep 2; do
         changed=$(find "$docs" \( -path "$preview" -o -path "$docs/.git" \) -prune -o \
-            -type f -newer "$stamp" -print -quit)
-        if [ -n "$changed" ]; then
-            touch "$stamp"
-            "$docs/scripts/sync_to_site.sh" "$preview/site" && echo "Synced $(date +%H:%M:%S)"
+            -type f -newer "$stamp" -print)
+        [ -n "$changed" ] || continue
+        touch "$stamp"
+        parts=$(while read -r file; do parts_of "$file"; done <<< "$changed" | tr ' ' '\n' | sort -u | tr '\n' ' ')
+        if [ -n "${parts// /}" ]; then
+            # shellcheck disable=SC2086 # one argument per part
+            "$docs/scripts/sync_to_site.sh" "$preview/site" $parts && echo "Synced $parts$(date +%H:%M:%S)"
         fi
     done
 ) &
