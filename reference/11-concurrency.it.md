@@ -1,27 +1,25 @@
 +++
-title = "11. Generici"
+title = "11. Concorrenza"
 weight = 11
 +++
 
-# 11. Generici {#11-generici}
+# 11. Concorrenza {#11-concorrenza}
 
 
-Template type-safe per struct e funzioni.
+I thread vengono da `std/thread.zc`, basato su pthreads. `Thread::spawn` esegue una funzione o una closure in un nuovo thread, e `join` attende che finisca.
 
 ```zc
-// Struct Generico
-struct Scatola<T> {
-    oggetto: T;
+import "std/thread.zc"
+import "std/io.zc"
+
+fn fetch_data(id: int) {
+    println(f"Worker {id} running in the background");
 }
 
-// Funzione Generica
-fn identità<T>(valore: T) -> T {
-    return valore;
-}
-
-// Generici Multi-parametro
-struct Paio<K, V> {
-    chiavi: K;
-    valore: V;
+fn main() {
+    let t = Thread::spawn(fn() {
+        fetch_data(1);
+    }).unwrap();
+    t.join();
 }
 ```

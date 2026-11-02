@@ -4,7 +4,7 @@
 
 ## 概覽
 
-- **格式化輸出**：提供 `print` 和 `println`，支援 C 風格的格式說明符（`%s`、`%d` 等）。
+- **輸出**：`print`、`println`、`eprint` 和 `eprintln` 將一個字串寫入標準輸出或標準錯誤；用 `f"..."` 和 `format()` 建構格式化字串。
 - **字串格式化**：多種選項用於格式化到靜態、使用者提供或堆分配（heap-allocated）的緩衝區中。
 - **支援 Unicode**：包含 `read_rune`，用於從標準輸入讀取單個 UTF-8 字符。
 - **轉換工具**：簡單的方法用於將整數和符文（runes）轉換為字串。
@@ -16,14 +16,15 @@ import "std/io.zc"
 
 fn main() {
     // 基本列印
-    println("你好，%s！", "Zen-C");
+    println("你好，Zen-C！");
     
     // 讀取一行輸入
     print("輸入您的姓名：");
-    autofree let name = readln();
+    let name = readln();
     
     if name != NULL {
-        println("問候，%s", name);
+        println(f"問候，{name}");
+        free(name);
     }
 }
 ```
@@ -34,8 +35,10 @@ fn main() {
 
 | 方法 | 簽名 | 說明 |
 | :--- | :--- | :--- |
-| **print** | `print(fmt: char*, ...) -> int` | 向標準輸出列印格式化內容。 |
-| **println** | `println(fmt: char*, ...) -> int` | 向標準輸出列印格式化內容，後跟換行符。 |
+| **print** | `print(s: const char*)` | 向標準輸出列印 `s`。 |
+| **println** | `println(s: const char*)` | 向標準輸出列印 `s`，後跟換行符。 |
+| **eprint** | `eprint(s: const char*)` | 向標準錯誤列印 `s`。 |
+| **eprintln** | `eprintln(s: const char*)` | 向標準錯誤列印 `s`，後跟換行符。 |
 
 ### 輸入
 

@@ -1,0 +1,27 @@
++++
+title = "10. Generici"
+weight = 10
++++
+
+# 10. Generici {#10-generici}
+
+
+Template type-safe per struct e funzioni.
+
+```zc
+// Struct Generico
+struct Scatola<T> {
+    oggetto: T;
+}
+
+// Funzione Generica
+fn identità<T>(valore: T) -> T {
+    return valore;
+}
+
+// Generici Multi-parametro
+struct Paio<K, V> {
+    chiavi: K;
+    valore: V;
+}
+```

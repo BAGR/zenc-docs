@@ -88,9 +88,6 @@ for wert in arr {
 // While-Schleife
 while x < 10 { ... }
 
-// Do-While-Schleife
-do { ... } while x < 10;
-
 // Endlosschleife mit Label
 äußerer: loop {
     if erledigt { break äußerer; }
@@ -98,13 +95,4 @@ do { ... } while x < 10;
 
 // Wiederholung N-mal
 for _ in 0..5 { ... }
-```
-
-#### Erweiterter Kontrollfluss
-```zc
-// Guard: else ausführen und zurückkehren, falls Bedingung falsch
-guard ptr != NULL else { return; }
-
-// Unless: Ausführen, falls Bedingung nicht wahr
-unless ist_gueltig { return; }
 ```

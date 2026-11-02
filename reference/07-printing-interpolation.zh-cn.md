@@ -5,47 +5,40 @@ weight = 7
 
 # 7. 打印与字符串插值 {#7-da-yin-yu-zi-fu-chuan-cha-zhi}
 
+`print`、`println`、`eprint` 和 `eprintln` 是 `std/io.zc` 中的函数，因此需要打印的程序要导入该模块。每个函数接受一个字符串。
 
-Zen C 提供了多种控制台打印选项，包括关键字和简洁的简写形式。
-
-#### 关键字
-
-| 关键字 | 描述 |
+| 函数 | 描述 |
 |:---|:---|
-| `print "text"` | 打印到 `stdout`，不带尾随换行符。 |
-| `println "text"` | 打印到 `stdout`，带尾随换行符。 |
-| `eprint "text"` | 打印到 `stderr`，不带尾随换行符。 |
-| `eprintln "text"` | 打印到 `stderr`，带尾随换行符。 |
+| `print(s)` | 打印到 `stdout`，不带尾随换行符。 |
+| `println(s)` | 打印到 `stdout`，带尾随换行符。 |
+| `eprint(s)` | 打印到 `stderr`，不带尾随换行符。 |
+| `eprintln(s)` | 打印到 `stderr`，带尾随换行符。 |
 
-#### 简写形式
+```zc
+import "std/io.zc"
 
-Zen C 允许直接将字符串字面量用作语句来进行快速打印：
-
-| 语法 | 等效项 | 描述 |
-|:---|:---|:---|
-| `"Hello World"` | `println "Hello World"` | 隐式添加换行符。 |
-| `"Hello World"..` | `print "Hello World"` | 不带尾随换行符。 |
-| `!"Error"` | `eprintln "Error"` | 输出到 stderr。 |
-| `!"Error"..` | `eprint "Error"` | 输出到 stderr，不带换行符。 |
+fn main() {
+    print("Loading... ");
+    println("done");
+    eprintln("warning: no config file");
+}
+```
 
 #### 字符串插值 (String Interpolation)
 
-你可以使用 `{}` 语法将表达式直接嵌入到字符串字面量中。这适用于所有打印方法和字符串简写。
-
-Zen C 中的字符串插值是**隐式**的：如果你的字符串包含 `{...}`，它将自动被解析为插值字符串。你也可以显式地使用 `f` 作为前缀（例如 `f"..."`），以强制执行插值语义。
+只有带 `f` 前缀的字符串才会插值：在 `f"..."` 中，`{}` 里的每个表达式都会被替换为它的值。在普通的 `"..."` 中，`{expr}` 是编译错误，并提示改用 `f"..."`。
 
 ```zc
 let x = 42;
 let name = "Zen";
-println(f"值: {x}, 名称: {name}");
-println(f"值: {x}, 名称: {name}"); // 简写形式的 println
+println(f"Value: {x}, Name: {name}");
 ```
 
-**转义花括号**：使用 `{{` 输出字面量 `{`，使用 `}}` 输出字面量 `}`：
+**转义花括号**：在 `f"..."` 中，使用 `{{` 表示字面量 `{`，使用 `}}` 表示字面量 `}`：
 
 ```zc
-let json = "JSON: {{\"键\": \"值\"}}";
-// 输出: JSON: {"键": "值"}
+let json = f"JSON: {{\"key\": \"value\"}}";
+// Output: JSON: {"key": "value"}
 ```
 
 **原始字符串 (Raw Strings)**：若要定义完全忽略插值与转义序列的字符串，请在其前加上 `r`（例如 `r"..."`）：
@@ -59,38 +52,42 @@ let raw_json = r'{"key": "value"}'; // 不需要转义大括号
 
 Zen C 使用 `"""` 分隔符支持原始多行字符串块。这对于编写嵌入式语言（如 GLSL、HTML）或在 `comptime` 块生成 C 代码非常有用，此时无需手动转义换行符与内部引号。
 
-与标准字符串一样，多行字符串支持**隐式插值**。您也可以显式地加上前缀：
-- `f"""..."""`: 显式标记为插值字符串块。
-- `r"""..."""`: 显式标记为原始字符串块（无插值，无转义序列）。
+多行字符串遵循与普通字符串相同的规则：不带前缀的 `"""..."""` 块不会插值，其中的 `{expr}` 是错误。加上前缀可以改变这一点：
+- `f"""..."""`：像 `f"..."` 一样插值 `{expr}`。
+- `r"""..."""`：原始块（不处理转义序列）。
 
 ```zc
 let prompt = """
-  请输入您的名字：
-  输入 "exit" 取消。
+  Please enter your name:
+  Type "exit" to cancel.
 """;
 
 let world = "world";
-let script = """
-  fn hello() {
-      println "hello, {world}!";
-  }
+let script = f"""
+  fn hello() {{
+      println("hello, {world}!");
+  }}
 """;
 
 let pure_raw = r"""
-  这里的 {braces} 只是纯文本，而 \n 就只是斜线和 n。
+  Here {braces} are just text, and \n is literally slash-n.
 """;
 ```
 
-#### 输入提示 (`?`)
+#### 读取输入
 
-Zen C 支持使用 `?` 前缀进行用户输入提示的简写。
-
-- `? "提示文本"`: 打印提示信息（不换行）并等待输入（读取一行）。
-- `? "输入年龄: " (age)`: 打印提示并扫描输入到变量 `age` 中。
-    - 格式说明符会根据变量类型自动推断。
+`std/io.zc` 中的 `readln()` 从 `stdin` 读取一行（不含换行符）。输入结束时返回 `NULL`；由调用者释放这一行。
 
 ```zc
-let age: int;
-? "你多大了？ " (age);
-println(f"你 {age} 岁了。");
+import "std/io.zc"
+
+fn main() {
+    print("How old are you? ");
+    let line = readln();
+    if line != NULL {
+        let age = atoi(line);
+        println(f"You are {age} years old.");
+        free(line);
+    }
+}
 ```

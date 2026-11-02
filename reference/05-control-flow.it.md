@@ -79,9 +79,6 @@ for i, val in 0..10 step 2 { ... } // i = 0, 1, 2, ...; val = 0, 2, 4, ...
 // While (lett. mentre)
 while x < 10 { ... }
 
-// Do-While
-do { ... } while x < 10;
-
 // Infinito con etichetta
 esterno: loop {
     if done { break esterno; }
@@ -89,13 +86,4 @@ esterno: loop {
 
 // Ripeti N volte
 for _ in 0..5 { ... }
-```
-
-#### Controllo Avanzato
-```zc
-// Guard (lett. 'guardia'): Esegue il caso 'else' e ritorna se la condizione è falsa
-guard ptr != NULL else { return; }
-
-// Unless (lett. 'a meno che'): Se non vero
-unless è_valido { return; }
 ```

@@ -86,9 +86,6 @@ for val in arr {
 // While 循環
 while x < 10 { ... }
 
-// Do-While
-do { ... } while x < 10;
-
 // 帶標籤的無限循環
 outer: loop {
     if done { break outer; }
@@ -96,13 +93,4 @@ outer: loop {
 
 // 重複 N 次
 for _ in 0..5 { ... }
-```
-
-#### 高級控制
-```zc
-// Guard: 如果條件為假，則執行 else 塊並返回
-guard ptr != NULL else { return; }
-
-// Unless: 除非為真（即如果為假）
-unless is_valid { return; }
 ```

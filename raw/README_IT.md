@@ -41,7 +41,7 @@
 
 ## Panoramica
 
-**Zen C** è un linguaggio di programmazione di sistemi moderno che genera codice `GNU C`/`C11`. Fornisce allo sviluppatore un ricco set di funzionalità, tra cui inferenza di tipo, pattern matching, generici, tratti, async/await, e gestione manuale della memoria con funzionalità RAII, mantenendo al contempo una compatibilità al 100% con l'ABI C
+**Zen C** è un linguaggio di programmazione di sistemi moderno che genera codice `GNU C`/`C11`. Fornisce allo sviluppatore un ricco set di funzionalità, tra cui inferenza di tipo, pattern matching, generici, tratti e gestione manuale della memoria con funzionalità RAII, mantenendo al contempo una compatibilità al 100% con l'ABI C
 
 ## Community
 
@@ -118,7 +118,7 @@ Dai un'occhiata a questi progetti creati con Zen C:
         <li><a href="#8-gestione-della-memoria">8. Gestione della memoria</a></li>
         <li><a href="#9-programmazione-orientata-a-oggetti">9. Programmazione Orientata a Oggetti</a></li>
         <li><a href="#10-generici">10. Generici</a></li>
-        <li><a href="#11-concorrenza-asincrona-asyncawait">11. Concorrenza</a></li>
+        <li><a href="#11-concorrenza">11. Concorrenza</a></li>
         <li><a href="#12-avanzate-e-metaprogrammazione">12. Avanzate e Metaprogrammazione</a>
           <ul>
             <li><a href="#121-metaprogrammazione">12.1 Metaprogrammazione</a></li>
@@ -641,9 +641,6 @@ for i, val in 0..10 step 2 { ... } // i = 0, 1, 2, ...; val = 0, 2, 4, ...
 // While (lett. mentre)
 while x < 10 { ... }
 
-// Do-While
-do { ... } while x < 10;
-
 // Infinito con etichetta
 esterno: loop {
     if done { break esterno; }
@@ -651,15 +648,6 @@ esterno: loop {
 
 // Ripeti N volte
 for _ in 0..5 { ... }
-```
-
-#### Controllo Avanzato
-```zc
-// Guard (lett. 'guardia'): Esegue il caso 'else' e ritorna se la condizione è falsa
-guard ptr != NULL else { return; }
-
-// Unless (lett. 'a meno che'): Se non vero
-unless è_valido { return; }
 ```
 
 ### 6. Operatori
@@ -732,46 +720,40 @@ Accesso ai campi da un puntatore (`puntatore.campo`) e chiamate ai metodi (`punt
 
 ### 7. Stampaggio e Interpolazione delle Stringhe
 
-Zen C fornisce opzioni versatili per stampare alla console, includendo keyword e scorciatoie coincise.
+`print`, `println`, `eprint` ed `eprintln` sono funzioni di `std/io.zc`, quindi un programma che stampa importa questo modulo. Ognuna riceve una sola stringa.
 
-#### Keyword
-
-| Keyword | Descrizione |
+| Funzione | Descrizione |
 |:---|:---|
-| `print "testo"` | Stampa a `stdout` senza aggiunzione di una newline automatica. |
-| `println "testo"` | Stampa a `stdout` aggiungendo una newline automatica. |
-| `eprint "testo"` | Stampa a `stderr` senza aggiunzione di una newline automatica. |
-| `eprintln "testo"` | Stampa a `stderr` aggiungendo una newline automatica. |
+| `print(s)` | Stampa a `stdout` senza aggiunzione di una newline automatica. |
+| `println(s)` | Stampa a `stdout` aggiungendo una newline automatica. |
+| `eprint(s)` | Stampa a `stderr` senza aggiunzione di una newline automatica. |
+| `eprintln(s)` | Stampa a `stderr` aggiungendo una newline automatica. |
 
-#### Scorciatoie
+```zc
+import "std/io.zc"
 
-Zen C ti permette di utilizzare stringhe letterali direttamente come istruzione di stampaggio veloce:
-
-| Sintassi | Equivalente | Descrizione |
-|:---|:---|:---|
-| `"Ciao!"` | `println "Ciao!"` | Aggiunge una newline implicitamente. |
-| `"Ciao!"..` | `print "Ciao!"` | Non aggiunge una newline. |
-| `!"Errore"` | `eprintln "Errore"` | Output a stderr. |
-| `!"Errore"..` | `eprint "Errore"` | Output a stderr, senza newline. |
+fn main() {
+    print("Loading... ");
+    println("done");
+    eprintln("warning: no config file");
+}
+```
 
 #### Interpolazione delle Stringhe
 
-Puoi incorporare espressioni direttamente all'interno di stringhe letterali utilizzando la sintassi `{}`. Questo funziona con tutti i metodi di stampaggio, incluse le scorciatoie.
-
-L'interpolazione di stringhe in Zen C è **implicita**: se la tua stringa contiene `{...}`, verrà analizzata automaticamente come una stringa interpolata. Puoi anche usare esplicitamente il prefisso `f` (es. `f"..."`) per forzare la semantica di interpolazione.
+Interpolano solo le stringhe con il prefisso `f`: in `f"..."`, ogni espressione tra `{}` viene sostituita dal suo valore. In una stringa normale `"..."`, un `{expr}` è un errore di compilazione che rimanda a `f"..."`.
 
 ```zc
 let x = 42;
-let nome = "Max";
-println(f"Valore: {x}, Nome: {name}");
-println(f"Valore: {x}, Nome: {name}"); // scorciatoia per println
+let name = "Zen";
+println(f"Value: {x}, Name: {name}");
 ```
 
-**Escape delle Parentesi Graffe**: Usa `{{` per produrre una parentesi graffa letterale `{` e `}}` per una `}` letterale:
+**Escape delle graffe**: dentro `f"..."`, usa `{{` per ottenere una `{` letterale e `}}` per una `}` letterale:
 
 ```zc
-let json = "JSON: {{\"chiave\": \"valore\"}}";
-// Output: JSON: {"chiave": "valore"}
+let json = f"JSON: {{\"key\": \"value\"}}";
+// Output: JSON: {"key": "value"}
 ```
 
 **Stringhe Grezze (Raw Strings)**: Per definire una stringa in cui le sequenze di interpolazione e di escape vengono completamente ignorate, inserici il prefisso `r` (es. `r"..."`):
@@ -785,40 +767,44 @@ let raw_json = r'{"chiave": "valore"}'; // Non è necessario l'escape delle pare
 
 Zen C supporta blocchi di stringhe multilinea grezzi utilizzando il delimitatore `"""`. Questo è estremamente utile per la scrittura di linguaggi incorporati (GLSL, HTML) o per la generazione di codice C all'interno di blocchi `comptime` senza il bisogno di inserire manualmente l'escape a capo ed alle virgolette all'interno.
 
-Come le stringhe standard, le stringhe multilinea supportano l'**interpolazione implicita**. Puoi aggiugere l'escape in maniera esplicita usando:
-- `f"""..."""`: Contrassegna in modo esplicito un blocco di stringa interpolato.
-- `r"""..."""`: Contrassegna in modo esplicito un blocco di stringa grezzo (nessuna interpolazione, nessuna sequenza di escape).
+Le stringhe multilinea seguono le stesse regole delle stringhe normali: un blocco `"""..."""` senza prefisso non interpola, e un `{expr}` al suo interno è un errore. Un prefisso lo cambia:
+- `f"""..."""`: interpola `{expr}`, come `f"..."`.
+- `r"""..."""`: un blocco raw (senza sequenze di escape).
 
 ```zc
 let prompt = """
-  Per favore, inserisci il tuo nome:
-  Digita "exit" per annullare.
+  Please enter your name:
+  Type "exit" to cancel.
 """;
 
-let mondo = "mondo";
-let script = """
-  fn ciao() {
-      println "ciao, {mondo}!";
-  }
+let world = "world";
+let script = f"""
+  fn hello() {{
+      println("hello, {world}!");
+  }}
 """;
 
 let pure_raw = r"""
-  Qui le {parentesi} sono solo testo, e \n e' letteralmente barra ed n.
+  Here {braces} are just text, and \n is literally slash-n.
 """;
 ```
 
-#### Prompt di Input (`?`)
+#### Leggere l'Input
 
-Zen C supporta una scorciatoia per richiedere input dall'utente utilizzando il prefisso `?`.
-
-- `? "Inserisci il tuo nome"`: Stampa il prompt (senza newline) e aspetta per dell'input (legge una linea).
-- `? "Inserisci la tua età: " (età)`: Stampa il prompt e memorizza l'input nella variabile `età`.
-    - Gli specificatori del formato vengono automaticamente inferiti in base al tipo della variabile.
+`readln()` di `std/io.zc` legge una riga da `stdin`, senza il carattere di a capo. Alla fine dell'input restituisce `NULL`; chi la chiama libera la riga.
 
 ```zc
-let età: int;
-? "Inserisci la tua età: " (età);
-println(f"Hai {età} anni.");
+import "std/io.zc"
+
+fn main() {
+    print("How old are you? ");
+    let line = readln();
+    if line != NULL {
+        let age = atoi(line);
+        println(f"You are {age} years old.");
+        free(line);
+    }
+}
 ```
 
 ### 8. Gestione della memoria
@@ -833,12 +819,6 @@ defer fclose(f);
 ```
 
 > Per prevenire comportamenti indefiniti, le istruzioni del controllo di flusso (`return`, `break`, `continue`, `goto`) **non sono ammesse** dentro un blocco `defer`.
-
-#### Liberazione automatica
-Libera automaticamente la memoria occupata dalla variabile quando l'ambito corrente termina.
-```zc
-autofree let tipi = malloc(1024);
-```
 
 #### Semantiche delle risorse (Muovi di Default)
 Zen C tratta i tipi con distruttori (come `File`, `Vec`, o puntatori allocati manualmente con `malloc`) come **Risorse**. Per prevenire errori di doppia-liberazione, le risorse non possono essere implicitamente duplicate.
@@ -1067,7 +1047,7 @@ struct Partita {
 }
 ```
 
-### 11. Generici
+### 10. Generici
 
 Template type-safe per struct e funzioni.
 
@@ -1089,19 +1069,23 @@ struct Paio<K, V> {
 }
 ```
 
-### 11. Concorrenza Asincrona (Async/Await)
+### 11. Concorrenza
 
-Costruito sui pthreads.
+I thread vengono da `std/thread.zc`, basato su pthreads. `Thread::spawn` esegue una funzione o una closure in un nuovo thread, e `join` attende che finisca.
 
 ```zc
-async fn ottieni_dati() -> string {
-    // Esegue in background
-    return "Dati";
+import "std/thread.zc"
+import "std/io.zc"
+
+fn fetch_data(id: int) {
+    println(f"Worker {id} running in the background");
 }
 
 fn main() {
-    let futuro    = ottieni_dati();
-    let risultato = await futuro; // (lett. 'aspetta')
+    let t = Thread::spawn(fn() {
+        fetch_data(1);
+    }).unwrap();
+    t.join();
 }
 ```
 
@@ -1433,17 +1417,17 @@ Le keyword che seguono sono riservate in Zen C.
 `alias`, `def`, `enum`, `fn`, `impl`, `import`, `let`, `module`, `opaque`, `struct`, `trait`, `union`, `use`
 
 #### Controllo del Flusso
-`async`, `await`, `break`, `catch`, `continue`, `defer`, `do`, `else`, `for`, `goto`, `guard`, `if`, `loop`, `match`, `return`, `try`, `unless`, `while`
+`break`, `catch`, `continue`, `defer`, `else`, `for`, `goto`, `if`, `loop`, `match`, `return`, `try`, `while`
 
 #### Speciali
-`asm`, `assert`, `autofree`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
+`asm`, `assert`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
 
 #### Costanti
 `true`, `false`, `null`
 
 #### Riservate del C
 Gli identifiers seguenti sono riservati poiché sono keyword nello standard C11:
-`auto`, `case`, `char`, `default`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
+`auto`, `case`, `char`, `default`, `do`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
 
 #### Operatori
 `and`, `or`

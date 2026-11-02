@@ -4,7 +4,7 @@ The `std/io` module provides standard input/output functionality, including form
 
 ## Overview
 
-- **Formatted Output**: Provides `print` and `println` with support for C-style format specifiers (`%s`, `%d`, etc.).
+- **Output**: `print`, `println`, `eprint` and `eprintln` write one string to stdout or stderr; `f"..."` and `format()` build formatted strings for them.
 - **String Formatting**: Multiple options for formatting into static, user-provided, or heap-allocated buffers.
 - **Unicode Aware**: Includes `read_rune` for reading individual UTF-8 characters from stdin.
 - **Conversion Utilities**: Simple methods for converting integers and runes to strings.
@@ -20,10 +20,11 @@ fn main() {
     
     // Reading a line of input
     print("Enter your name: ");
-    autofree let name = readln();
+    let name = readln();
     
-    if (name != NULL) {
+    if name != NULL {
         println(f"Greeting, {name}");
+        free(name);
     }
 }
 ```
@@ -34,8 +35,10 @@ fn main() {
 
 | Method | Signature | Description |
 | :--- | :--- | :--- |
-| **print** | `print(fmt: char*, ...) -> int` | Prints formatted output to stdout. |
-| **println** | `println(fmt: char*, ...) -> int` | Prints formatted output to stdout followed by a newline. |
+| **print** | `print(s: const char*)` | Prints `s` to stdout. |
+| **println** | `println(s: const char*)` | Prints `s` to stdout followed by a newline. |
+| **eprint** | `eprint(s: const char*)` | Prints `s` to stderr. |
+| **eprintln** | `eprintln(s: const char*)` | Prints `s` to stderr followed by a newline. |
 
 ### Input
 

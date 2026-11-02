@@ -5,46 +5,39 @@ weight = 7
 
 # 7. Printing and String Interpolation {#7-printing-and-string-interpolation}
 
+`print`, `println`, `eprint` and `eprintln` are functions of `std/io.zc`, so a program that prints imports it. Each one takes a single string.
 
-Zen C provides versatile options for printing to the console, including keywords and concise shorthands.
-
-#### Keywords
-
-| Keyword | Description |
+| Function | Description |
 |:---|:---|
-| `print "..."` | Prints to `stdout` without a trailing newline. |
-| `println "..."` | Prints to `stdout` **with** a trailing newline. |
-| `eprint "..."` | Prints to `stderr` without a trailing newline. |
-| `eprintln "..."` | Prints to `stderr` **with** a trailing newline. |
+| `print(s)` | Prints to `stdout` without a trailing newline. |
+| `println(s)` | Prints to `stdout` **with** a trailing newline. |
+| `eprint(s)` | Prints to `stderr` without a trailing newline. |
+| `eprintln(s)` | Prints to `stderr` **with** a trailing newline. |
 
-#### Shorthands
+```zc
+import "std/io.zc"
 
-Zen C allows you to use string literals directly as statements for quick printing:
-
-| Syntax | Equivalent | Description |
-|:---|:---|:---|
-| `"Hz"` | `println "Hz"` | Prints to `stdout` with newline. |
-| `"Hz"..` | `print "Hz"` | Prints to `stdout` without newline. |
-| `!"Err"` | `eprintln "Err"` | Prints to `stderr` with newline. |
-| `!"Err"..` | `eprint "Err"` | Prints to `stderr` without newline. |
+fn main() {
+    print("Loading... ");
+    println("done");
+    eprintln("warning: no config file");
+}
+```
 
 #### String Interpolation
 
-You can embed expressions directly into string literals using `{}` syntax. This works with all printing methods and string shorthands.
-
-String interpolation in Zen C is **implicit**: if your string contains `{...}`, it will automatically be parsed as an interpolated string. You can also explicitly prefix a string with `f` (e.g., `f"..."`) to force interpolation semantics.
+Only strings prefixed with `f` interpolate: in `f"..."`, each expression between `{}` is replaced by its value. In a plain `"..."`, a `{expr}` is a compile error that points to `f"..."`.
 
 ```zc
 let x = 42;
 let name = "Zen";
 println(f"Value: {x}, Name: {name}");
-println(f"Value: {x}, Name: {name}"); // shorthand println
 ```
 
-**Escaping Braces**: Use `{{` to produce a literal `{` and `}}` for a literal `}`:
+**Escaping Braces**: inside `f"..."`, use `{{` to produce a literal `{` and `}}` for a literal `}`:
 
 ```zc
-let json = "JSON: {{\"key\": \"value\"}}";
+let json = f"JSON: {{\"key\": \"value\"}}";
 // Output: JSON: {"key": "value"}
 ```
 
@@ -59,9 +52,9 @@ let raw_json = r'{"key": "value"}'; // No brace escaping needed
 
 Zen C supports raw multiline string blocks using the `"""` delimiter. This is extremely useful for writing embedded languages (GLSL, HTML) or generating C-code in `comptime` blocks without manually escaping newlines and interior quotes.
 
-Like standard strings, multiline strings support **implicit interpolation**. You can also explicitly prefix them:
-- `f"""..."""`: Explicitly marks it as an interpolated string block.
-- `r"""..."""`: Explicitly marks it as a raw string block (no interpolation, no escape sequences).
+Multiline strings follow the same rules as standard strings: a plain `"""..."""` block does not interpolate, and a `{expr}` in it is an error. A prefix changes that:
+- `f"""..."""`: interpolates `{expr}`, like `f"..."`.
+- `r"""..."""`: a raw block (no escape sequences).
 
 ```zc
 let prompt = """
@@ -70,10 +63,10 @@ let prompt = """
 """;
 
 let world = "world";
-let script = """
-  fn hello() {
-      println "hello, {world}!";
-  }
+let script = f"""
+  fn hello() {{
+      println("hello, {world}!");
+  }}
 """;
 
 let pure_raw = r"""
@@ -81,16 +74,20 @@ let pure_raw = r"""
 """;
 ```
 
-#### Input Prompts (`?`)
+#### Reading Input
 
-Zen C supports a shorthand for prompting user input using the `?` prefix.
-
-- `? "Prompt text"`: Prints the prompt (without newline) and waits for input (reads a line).
-- `? "Enter age: " (age)`: Prints prompt and scans input into the variable `age`.
-    - Format specifiers are automatically inferred based on variable type.
+`readln()` from `std/io.zc` reads a line from `stdin`, without the newline. It returns `NULL` at the end of the input, and the caller frees the line.
 
 ```zc
-let age: int;
-? "How old are you? " (age);
-println(f"You are {age} years old.");
+import "std/io.zc"
+
+fn main() {
+    print("How old are you? ");
+    let line = readln();
+    if line != NULL {
+        let age = atoi(line);
+        println(f"You are {age} years old.");
+        free(line);
+    }
+}
 ```

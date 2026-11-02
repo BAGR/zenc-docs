@@ -88,9 +88,6 @@ for val in arr {
 // While
 while x < 10 { ... }
 
-// Do-While
-do { ... } while x < 10;
-
 // Infinito com label
 outer: loop {
     if done { break outer; }
@@ -98,13 +95,4 @@ outer: loop {
 
 // Repita N vezes
 for _ in 0..5 { ... }
-```
-
-#### Controle Avançado
-```zc
-// Guard: Executa else e return se a condição for falsa
-guard ptr != NULL else { return; }
-
-// Unless: Se não for verdadeiro
-unless is_valid { return; }
 ```

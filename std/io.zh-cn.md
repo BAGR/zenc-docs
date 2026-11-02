@@ -4,7 +4,7 @@
 
 ## 概览
 
-- **格式化输出**：提供 `print` 和 `println`，支持 C 风格的格式说明符（`%s`、`%d` 等）。
+- **输出**：`print`、`println`、`eprint` 和 `eprintln` 将一个字符串写入 stdout 或 stderr；用 `f"..."` 和 `format()` 构造格式化字符串。
 - **字符串格式化**：提供多种选项，可格式化到静态缓冲区、用户指定的缓冲区或堆分配的缓冲区。
 - **Unicode 感知**：包含 `read_rune`，用于从 stdin 读取单个 UTF-8 字符。
 - **转换工具**：提供将整数和符文 (rune) 转换为字符串的简单方法。
@@ -16,14 +16,15 @@ import "std/io.zc"
 
 fn main() {
     // 基本打印
-    println("Hello, %s!", "Zen-C");
+    println("Hello, Zen-C!");
     
     // 读取一行输入
     print("请输入您的名字: ");
-    autofree let name = readln();
+    let name = readln();
     
     if name != NULL {
-        println("问候, %s", name);
+        println(f"问候, {name}");
+        free(name);
     }
 }
 ```
@@ -34,8 +35,10 @@ fn main() {
 
 | 方法 | 签名 | 说明 |
 | :--- | :--- | :--- |
-| **print** | `print(fmt: char*, ...) -> int` | 向 stdout 打印格式化输出。 |
-| **println** | `println(fmt: char*, ...) -> int` | 向 stdout 打印格式化输出，并换行。 |
+| **print** | `print(s: const char*)` | 向 stdout 打印 `s`。 |
+| **println** | `println(s: const char*)` | 向 stdout 打印 `s`，并换行。 |
+| **eprint** | `eprint(s: const char*)` | 向 stderr 打印 `s`。 |
+| **eprintln** | `eprintln(s: const char*)` | 向 stderr 打印 `s`，并换行。 |
 
 ### 输入
 

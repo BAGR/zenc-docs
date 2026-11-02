@@ -1,12 +1,12 @@
 +++
-title = "Defer & Autofree"
+title = "Defer"
 weight = 16
 +++
 
-# Defer & Autofree
+# Defer
 
-Deferred cleanup at scope exit (LIFO order) and automatic memory
-freeing for heap allocations.
+Deferred cleanup at scope exit (LIFO order), for files and for heap
+allocations.
 
 ## Zen C
 
@@ -22,7 +22,8 @@ fn process_file(path: char*) {
 }
 
 fn allocate_buffer() {
-    autofree let buf = malloc(1024);
+    let buf = malloc(1024);
+    defer free(buf);
     println("buffer allocated");
 }
 
@@ -32,7 +33,7 @@ fn main() {
 
     allocate_buffer();
     println("---");
-    println("buffer automatically freed");
+    println("buffer freed by defer");
 }
 ```
 
@@ -74,9 +75,9 @@ int main(void) {
 - `defer fclose(f)` schedules cleanup at scope exit
 - Multiple defers execute in LIFO (last-in, first-out) order
 - No control-flow allowed inside defer (no return/break/continue)
-- `autofree let buf = malloc(N)` auto-frees at scope exit
+- `defer free(buf)` right after `malloc` frees the buffer on every exit path
 - C requires manual cleanup at every exit point (goto cleanup pattern)
-- Combined with `guard`, creates clean early-return-with-cleanup
+- Combined with an early `return`, cleanup still runs
 
 ## Output
 
@@ -86,3 +87,10 @@ int main(void) {
 
 
 
+
+processing test.txt...
+done
+---
+buffer allocated
+---
+buffer freed by defer

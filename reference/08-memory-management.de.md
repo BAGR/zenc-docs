@@ -20,13 +20,6 @@ defer fclose(f);
 Um undefiniertes Verhalten zu vermeiden, sind Kontrollfluss-Anweisungen (`return`, `break`, `continue`, `goto`) **nicht erlaubt** innerhalb eines `defer`-Blocks.
 {% end %}
 
-#### Autofree
-Gibt die Variable automatisch frei, wenn der Scope endet.
-
-```zc
-autofree let types = malloc(1024);
-```
-
 #### Ressourcen-Semantik (Move by Default)
 Zen C behandelt Typen mit Destruktoren (wie `File`, `Vec` oder malloc'd Pointer) als **Ressourcen**.  
 Um Double-Free-Fehler zu vermeiden, können Ressourcen nicht implizit dupliziert werden.

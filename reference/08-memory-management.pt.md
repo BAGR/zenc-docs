@@ -19,12 +19,6 @@ defer fclose(f);
 Para prevenir comportamento indefinido, declarações de fluxo de controle (`return`, `break`, `continue`, `goto`) **não são permitidas** dentro de um bloco `defer`.
 {% end %}
 
-#### Autofree
-Libera automaticamente a variável quando sair do escopo.
-```zc
-autofree let types = malloc(1024);
-```
-
 #### Semântica de Recursos (Move by Default)
 Zen C trata tipos com destrutores (como `File`, `Vec`, ou ponteiros mallocados) como **Recursos**. Para prevenir erros de double-free, recursos não podem ser implicitamente duplicados.
 

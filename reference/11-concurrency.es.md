@@ -1,21 +1,24 @@
 +++
-title = "11. Concurrencia (Async/Await)"
+title = "11. Concurrencia"
 weight = 11
 +++
 
-# 11. Concurrencia (Async/Await) {#11-concurrencia-asyncawait}
+# 11. Concurrencia {#11-concurrencia}
 
-
-Construido sobre pthreads.
+Los hilos los proporciona `std/thread.zc`, construido sobre pthreads. `Thread::spawn` ejecuta una función o un closure en un hilo nuevo, y `join` espera a que termine.
 
 ```zc
-async fn obtener_datos() -> string {
-    // Se ejecuta en segundo plano
-    return "Datos";
+import "std/thread.zc"
+import "std/io.zc"
+
+fn fetch_data(id: int) {
+    println(f"Worker {id} running in the background");
 }
 
 fn main() {
-    let futuro = obtener_datos();
-    let resultado = await futuro;
+    let t = Thread::spawn(fn() {
+        fetch_data(1);
+    }).unwrap();
+    t.join();
 }
 ```

@@ -3,11 +3,10 @@ title = "Concurrency"
 weight = 22
 +++
 
-# Concurrency (Async/Await)
+# Concurrency
 <!-- zc-check: skip-file: concurrency example output ordering is non-deterministic -->
 
-Stackless async functions, await for result retrieval, and
-background task launching.
+Threads from `std/thread.zc`: spawning closures and joining them.
 
 ## Zen C
 

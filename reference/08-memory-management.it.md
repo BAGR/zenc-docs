@@ -17,12 +17,6 @@ defer fclose(f);
 
 > Per prevenire comportamenti indefiniti, le istruzioni del controllo di flusso (`return`, `break`, `continue`, `goto`) **non sono ammesse** dentro un blocco `defer`.
 
-#### Liberazione automatica
-Libera automaticamente la memoria occupata dalla variabile quando l'ambito corrente termina.
-```zc
-autofree let tipi = malloc(1024);
-```
-
 #### Semantiche delle risorse (Muovi di Default)
 Zen C tratta i tipi con distruttori (come `File`, `Vec`, o puntatori allocati manualmente con `malloc`) come **Risorse**. Per prevenire errori di doppia-liberazione, le risorse non possono essere implicitamente duplicate.
 

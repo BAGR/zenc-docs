@@ -4,7 +4,7 @@ O módulo `std/io` fornece funcionalidade de entrada/saída padrão, incluindo i
 
 ## Visão Geral
 
-- **Saída Formatada**: Fornece `print` e `println` com suporte para especificadores de formato estilo C (`%s`, `%d`, etc.).
+- **Saída**: `print`, `println`, `eprint` e `eprintln` escrevem uma string em stdout ou stderr; `f"..."` e `format()` constroem as strings formatadas.
 - **Formatação de Strings**: Múltiplas opções para formatar em buffers estáticos, fornecidos pelo utilizador ou alocados no heap.
 - **Consciente de Unicode**: Inclui `read_rune` para ler caracteres UTF-8 individuais de stdin.
 - **Utilitários de Conversão**: Métodos simples para converter inteiros e runes em strings.
@@ -16,14 +16,15 @@ import "std/io.zc"
 
 fn main() {
     // Impressão básica
-    println("Olá, %s!", "Zen-C");
+    println("Olá, Zen-C!");
     
     // Ler uma linha de entrada
     print("Introduza o seu nome: ");
-    autofree let name = readln();
+    let name = readln();
     
     if name != NULL {
-        println("Saudações, %s", name);
+        println(f"Saudações, {name}");
+        free(name);
     }
 }
 ```
@@ -34,8 +35,10 @@ fn main() {
 
 | Método | Assinatura | Descrição |
 | :--- | :--- | :--- |
-| **print** | `print(fmt: char*, ...) -> int` | Imprime a saída formatada para stdout. |
-| **println** | `println(fmt: char*, ...) -> int` | Imprime a saída formatada para stdout seguida por uma nova linha. |
+| **print** | `print(s: const char*)` | Imprime `s` em stdout. |
+| **println** | `println(s: const char*)` | Imprime `s` em stdout seguida por uma nova linha. |
+| **eprint** | `eprint(s: const char*)` | Imprime `s` em stderr. |
+| **eprintln** | `eprintln(s: const char*)` | Imprime `s` em stderr seguida por uma nova linha. |
 
 ### Entrada
 

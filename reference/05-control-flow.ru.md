@@ -94,12 +94,3 @@ outer: loop {
 // Повторить N раз
 for _ in 0..5 { ... }
 ```
-
-#### Продвинутое управление
-```zc
-// Guard: выполнить else и вернуться, если условие ложно
-guard ptr != NULL else { return; }
-
-// Unless: если не верно
-unless is_valid { return; }
-```

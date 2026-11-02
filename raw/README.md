@@ -41,7 +41,7 @@
 
 ## Overview
 
-**Zen C** is a modern systems programming language that compiles to human-readable `GNU C`/`C11`. It provides a rich feature set including type inference, pattern matching, generics, traits, async/await, and manual memory management with RAII capabilities, all while maintaining 100% C ABI compatibility.
+**Zen C** is a modern systems programming language that compiles to human-readable `GNU C`/`C11`. It provides a rich feature set including type inference, pattern matching, generics, traits, and manual memory management with RAII capabilities, all while maintaining 100% C ABI compatibility.
 
 ## Community
 
@@ -118,7 +118,7 @@ Check out these projects built with Zen C:
         <li><a href="#8-memory-management">8. Memory Management</a></li>
         <li><a href="#9-object-oriented-programming">9. Object Oriented Programming</a></li>
         <li><a href="#10-generics">10. Generics</a></li>
-        <li><a href="#11-concurrency-asyncawait">11. Concurrency</a></li>
+        <li><a href="#11-concurrency">11. Concurrency</a></li>
         <li><a href="#12-advanced--metaprogramming">12. Advanced & Metaprogramming</a>
           <ul>
             <li><a href="#121-metaprogramming">12.1 Metaprogramming</a></li>
@@ -646,9 +646,6 @@ for val in arr {
 // While
 while x < 10 { ... }
 
-// Do-While
-do { ... } while x < 10;
-
 // Infinite with label
 outer: loop {
     if done { break outer; }
@@ -656,15 +653,6 @@ outer: loop {
 
 // Repeat N times
 for _ in 0..5 { ... }
-```
-
-#### Advanced Control
-```zc
-// Guard: Execute else and return if condition is false
-guard ptr != NULL else { return; }
-
-// Unless: If not true
-unless is_valid { return; }
 ```
 
 ### 6. Operators
@@ -736,45 +724,39 @@ Pointer field access (`ptr.field`) and method calls (`ptr.method()`) automatical
 
 ### 7. Printing and String Interpolation
 
-Zen C provides versatile options for printing to the console, including keywords and concise shorthands.
+`print`, `println`, `eprint` and `eprintln` are functions of `std/io.zc`, so a program that prints imports it. Each one takes a single string.
 
-#### Keywords
-
-| Keyword | Description |
+| Function | Description |
 |:---|:---|
-| `print "..."` | Prints to `stdout` without a trailing newline. |
-| `println "..."` | Prints to `stdout` **with** a trailing newline. |
-| `eprint "..."` | Prints to `stderr` without a trailing newline. |
-| `eprintln "..."` | Prints to `stderr` **with** a trailing newline. |
+| `print(s)` | Prints to `stdout` without a trailing newline. |
+| `println(s)` | Prints to `stdout` **with** a trailing newline. |
+| `eprint(s)` | Prints to `stderr` without a trailing newline. |
+| `eprintln(s)` | Prints to `stderr` **with** a trailing newline. |
 
-#### Shorthands
+```zc
+import "std/io.zc"
 
-Zen C allows you to use string literals directly as statements for quick printing:
-
-| Syntax | Equivalent | Description |
-|:---|:---|:---|
-| `"Hz"` | `println "Hz"` | Prints to `stdout` with newline. |
-| `"Hz"..` | `print "Hz"` | Prints to `stdout` without newline. |
-| `!"Err"` | `eprintln "Err"` | Prints to `stderr` with newline. |
-| `!"Err"..` | `eprint "Err"` | Prints to `stderr` without newline. |
+fn main() {
+    print("Loading... ");
+    println("done");
+    eprintln("warning: no config file");
+}
+```
 
 #### String Interpolation
 
-You can embed expressions directly into string literals using `{}` syntax. This works with all printing methods and string shorthands.
-
-String interpolation in Zen C is **implicit**: if your string contains `{...}`, it will automatically be parsed as an interpolated string. You can also explicitly prefix a string with `f` (e.g., `f"..."`) to force interpolation semantics.
+Only strings prefixed with `f` interpolate: in `f"..."`, each expression between `{}` is replaced by its value. In a plain `"..."`, a `{expr}` is a compile error that points to `f"..."`.
 
 ```zc
 let x = 42;
 let name = "Zen";
 println(f"Value: {x}, Name: {name}");
-println(f"Value: {x}, Name: {name}"); // shorthand println
 ```
 
-**Escaping Braces**: Use `{{` to produce a literal `{` and `}}` for a literal `}`:
+**Escaping Braces**: inside `f"..."`, use `{{` to produce a literal `{` and `}}` for a literal `}`:
 
 ```zc
-let json = "JSON: {{\"key\": \"value\"}}";
+let json = f"JSON: {{\"key\": \"value\"}}";
 // Output: JSON: {"key": "value"}
 ```
 
@@ -789,9 +771,9 @@ let raw_json = r'{"key": "value"}'; // No brace escaping needed
 
 Zen C supports raw multiline string blocks using the `"""` delimiter. This is extremely useful for writing embedded languages (GLSL, HTML) or generating C-code in `comptime` blocks without manually escaping newlines and interior quotes.
 
-Like standard strings, multiline strings support **implicit interpolation**. You can also explicitly prefix them:
-- `f"""..."""`: Explicitly marks it as an interpolated string block.
-- `r"""..."""`: Explicitly marks it as a raw string block (no interpolation, no escape sequences).
+Multiline strings follow the same rules as standard strings: a plain `"""..."""` block does not interpolate, and a `{expr}` in it is an error. A prefix changes that:
+- `f"""..."""`: interpolates `{expr}`, like `f"..."`.
+- `r"""..."""`: a raw block (no escape sequences).
 
 ```zc
 let prompt = """
@@ -800,10 +782,10 @@ let prompt = """
 """;
 
 let world = "world";
-let script = """
-  fn hello() {
-      println "hello, {world}!";
-  }
+let script = f"""
+  fn hello() {{
+      println("hello, {world}!");
+  }}
 """;
 
 let pure_raw = r"""
@@ -811,18 +793,22 @@ let pure_raw = r"""
 """;
 ```
 
-#### Input Prompts (`?`)
+#### Reading Input
 
-Zen C supports a shorthand for prompting user input using the `?` prefix.
-
-- `? "Prompt text"`: Prints the prompt (without newline) and waits for input (reads a line).
-- `? "Enter age: " (age)`: Prints prompt and scans input into the variable `age`.
-    - Format specifiers are automatically inferred based on variable type.
+`readln()` from `std/io.zc` reads a line from `stdin`, without the newline. It returns `NULL` at the end of the input, and the caller frees the line.
 
 ```zc
-let age: int;
-? "How old are you? " (age);
-println(f"You are {age} years old.");
+import "std/io.zc"
+
+fn main() {
+    print("How old are you? ");
+    let line = readln();
+    if line != NULL {
+        let age = atoi(line);
+        println(f"You are {age} years old.");
+        free(line);
+    }
+}
 ```
 
 ### 8. Memory Management
@@ -838,12 +824,6 @@ defer fclose(f);
 
 > [!WARNING]
 > To prevent undefined behavior, control flow statements (`return`, `break`, `continue`, `goto`) are **not allowed** inside a `defer` block.
-
-#### Autofree
-Automatically free the variable when scope exits.
-```zc
-autofree let types = malloc(1024);
-```
 
 #### Resource Semantics (Move by Default)
 Zen C treats types with destructors (like `File`, `Vec`, or malloc'd pointers) as **Resources**. To prevent double-free errors, resources cannot be implicitly duplicated.
@@ -1096,19 +1076,23 @@ struct Pair<K, V> {
 }
 ```
 
-### 11. Concurrency (Async/Await)
+### 11. Concurrency
 
-Built on pthreads.
+Threads come from `std/thread.zc`, built on pthreads. `Thread::spawn` runs a function or a closure in a new thread, and `join` waits for it to finish.
 
 ```zc
-async fn fetch_data() -> string {
-    // Runs in background
-    return "Data";
+import "std/thread.zc"
+import "std/io.zc"
+
+fn fetch_data(id: int) {
+    println(f"Worker {id} running in the background");
 }
 
 fn main() {
-    let future = fetch_data();
-    let result = await future;
+    let t = Thread::spawn(fn() {
+        fetch_data(1);
+    }).unwrap();
+    t.join();
 }
 ```
 
@@ -1441,17 +1425,17 @@ The following keywords are reserved in Zen C.
 `alias`, `def`, `enum`, `fn`, `impl`, `import`, `let`, `module`, `opaque`, `struct`, `trait`, `union`, `use`
 
 #### Control Flow
-`async`, `await`, `break`, `catch`, `continue`, `defer`, `do`, `else`, `for`, `goto`, `guard`, `if`, `loop`, `match`, `return`, `try`, `unless`, `while`
+`break`, `catch`, `continue`, `defer`, `else`, `for`, `goto`, `if`, `loop`, `match`, `return`, `try`, `while`
 
 #### Special
-`asm`, `assert`, `autofree`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
+`asm`, `assert`, `comptime`, `const`, `embed`, `launch`, `ref`, `sizeof`, `static`, `test`, `volatile`
 
 #### Constants
 `true`, `false`, `null`
 
 #### C Reserved
 The following identifiers are reserved because they are keywords in C11:
-`auto`, `case`, `char`, `default`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
+`auto`, `case`, `char`, `default`, `do`, `double`, `extern`, `float`, `inline`, `int`, `long`, `register`, `restrict`, `short`, `signed`, `switch`, `typedef`, `unsigned`, `void`, `_Atomic`, `_Bool`, `_Complex`, `_Generic`, `_Imaginary`, `_Noreturn`, `_Static_assert`, `_Thread_local`
 
 #### Operators
 `and`, `or`

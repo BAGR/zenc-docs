@@ -47,10 +47,13 @@ fn main() {
 
     println("--- do-while ---");
     let j = 0;
-    do {
+    loop {
         println(f"j: {j}");
         j += 1;
-    } while j < 2;
+        if j >= 2 {
+            break;
+        }
+    }
 
     println("--- classify ---");
     println(f"50: {classify(50)}");
@@ -113,6 +116,7 @@ int main(void) {
 - Range step: `0..10 step 2`
 - Iterator loops: `for item in vec` on any Iterable type
 - Enumerated: `for i, val in arr`
+- No `do ... while`: a `loop` that ends with `if !cond { break; }` runs its body at least once
 - C needs manual bounds with `i = 0; i < N; i++`
 
 ## Output

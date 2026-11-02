@@ -5,47 +5,40 @@ weight = 7
 
 # 7. Stampaggio e Interpolazione delle Stringhe {#7-stampaggio-e-interpolazione-delle-stringhe}
 
+`print`, `println`, `eprint` ed `eprintln` sono funzioni di `std/io.zc`, quindi un programma che stampa importa questo modulo. Ognuna riceve una sola stringa.
 
-Zen C fornisce opzioni versatili per stampare alla console, includendo keyword e scorciatoie coincise.
-
-#### Keyword
-
-| Keyword | Descrizione |
+| Funzione | Descrizione |
 |:---|:---|
-| `print "testo"` | Stampa a `stdout` senza aggiunzione di una newline automatica. |
-| `println "testo"` | Stampa a `stdout` aggiungendo una newline automatica. |
-| `eprint "testo"` | Stampa a `stderr` senza aggiunzione di una newline automatica. |
-| `eprintln "testo"` | Stampa a `stderr` aggiungendo una newline automatica. |
+| `print(s)` | Stampa a `stdout` senza aggiunzione di una newline automatica. |
+| `println(s)` | Stampa a `stdout` aggiungendo una newline automatica. |
+| `eprint(s)` | Stampa a `stderr` senza aggiunzione di una newline automatica. |
+| `eprintln(s)` | Stampa a `stderr` aggiungendo una newline automatica. |
 
-#### Scorciatoie
+```zc
+import "std/io.zc"
 
-Zen C ti permette di utilizzare stringhe letterali direttamente come istruzione di stampaggio veloce:
-
-| Sintassi | Equivalente | Descrizione |
-|:---|:---|:---|
-| `"Ciao!"` | `println "Ciao!"` | Aggiunge una newline implicitamente. |
-| `"Ciao!"..` | `print "Ciao!"` | Non aggiunge una newline. |
-| `!"Errore"` | `eprintln "Errore"` | Output a stderr. |
-| `!"Errore"..` | `eprint "Errore"` | Output a stderr, senza newline. |
+fn main() {
+    print("Loading... ");
+    println("done");
+    eprintln("warning: no config file");
+}
+```
 
 #### Interpolazione delle Stringhe
 
-Puoi incorporare espressioni direttamente all'interno di stringhe letterali utilizzando la sintassi `{}`. Questo funziona con tutti i metodi di stampaggio, incluse le scorciatoie.
-
-L'interpolazione di stringhe in Zen C è **implicita**: se la tua stringa contiene `{...}`, verrà analizzata automaticamente come una stringa interpolata. Puoi anche usare esplicitamente il prefisso `f` (es. `f"..."`) per forzare la semantica di interpolazione.
+Interpolano solo le stringhe con il prefisso `f`: in `f"..."`, ogni espressione tra `{}` viene sostituita dal suo valore. In una stringa normale `"..."`, un `{expr}` è un errore di compilazione che rimanda a `f"..."`.
 
 ```zc
 let x = 42;
-let nome = "Max";
-println(f"Valore: {x}, Nome: {name}");
-println(f"Valore: {x}, Nome: {name}"); // scorciatoia per println
+let name = "Zen";
+println(f"Value: {x}, Name: {name}");
 ```
 
-**Escape delle Parentesi Graffe**: Usa `{{` per produrre una parentesi graffa letterale `{` e `}}` per una `}` letterale:
+**Escape delle graffe**: dentro `f"..."`, usa `{{` per ottenere una `{` letterale e `}}` per una `}` letterale:
 
 ```zc
-let json = "JSON: {{\"chiave\": \"valore\"}}";
-// Output: JSON: {"chiave": "valore"}
+let json = f"JSON: {{\"key\": \"value\"}}";
+// Output: JSON: {"key": "value"}
 ```
 
 **Stringhe Grezze (Raw Strings)**: Per definire una stringa in cui le sequenze di interpolazione e di escape vengono completamente ignorate, inserici il prefisso `r` (es. `r"..."`):
@@ -59,38 +52,42 @@ let raw_json = r'{"chiave": "valore"}'; // Non è necessario l'escape delle pare
 
 Zen C supporta blocchi di stringhe multilinea grezzi utilizzando il delimitatore `"""`. Questo è estremamente utile per la scrittura di linguaggi incorporati (GLSL, HTML) o per la generazione di codice C all'interno di blocchi `comptime` senza il bisogno di inserire manualmente l'escape a capo ed alle virgolette all'interno.
 
-Come le stringhe standard, le stringhe multilinea supportano l'**interpolazione implicita**. Puoi aggiugere l'escape in maniera esplicita usando:
-- `f"""..."""`: Contrassegna in modo esplicito un blocco di stringa interpolato.
-- `r"""..."""`: Contrassegna in modo esplicito un blocco di stringa grezzo (nessuna interpolazione, nessuna sequenza di escape).
+Le stringhe multilinea seguono le stesse regole delle stringhe normali: un blocco `"""..."""` senza prefisso non interpola, e un `{expr}` al suo interno è un errore. Un prefisso lo cambia:
+- `f"""..."""`: interpola `{expr}`, come `f"..."`.
+- `r"""..."""`: un blocco raw (senza sequenze di escape).
 
 ```zc
 let prompt = """
-  Per favore, inserisci il tuo nome:
-  Digita "exit" per annullare.
+  Please enter your name:
+  Type "exit" to cancel.
 """;
 
-let mondo = "mondo";
-let script = """
-  fn ciao() {
-      println "ciao, {mondo}!";
-  }
+let world = "world";
+let script = f"""
+  fn hello() {{
+      println("hello, {world}!");
+  }}
 """;
 
 let pure_raw = r"""
-  Qui le {parentesi} sono solo testo, e \n e' letteralmente barra ed n.
+  Here {braces} are just text, and \n is literally slash-n.
 """;
 ```
 
-#### Prompt di Input (`?`)
+#### Leggere l'Input
 
-Zen C supporta una scorciatoia per richiedere input dall'utente utilizzando il prefisso `?`.
-
-- `? "Inserisci il tuo nome"`: Stampa il prompt (senza newline) e aspetta per dell'input (legge una linea).
-- `? "Inserisci la tua età: " (età)`: Stampa il prompt e memorizza l'input nella variabile `età`.
-    - Gli specificatori del formato vengono automaticamente inferiti in base al tipo della variabile.
+`readln()` di `std/io.zc` legge una riga da `stdin`, senza il carattere di a capo. Alla fine dell'input restituisce `NULL`; chi la chiama libera la riga.
 
 ```zc
-let età: int;
-? "Inserisci la tua età: " (età);
-println(f"Hai {età} anni.");
+import "std/io.zc"
+
+fn main() {
+    print("How old are you? ");
+    let line = readln();
+    if line != NULL {
+        let age = atoi(line);
+        println(f"You are {age} years old.");
+        free(line);
+    }
+}
 ```

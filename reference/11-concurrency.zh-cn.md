@@ -1,21 +1,24 @@
 +++
-title = "11. 并发 (Async/Await)"
+title = "11. 并发"
 weight = 11
 +++
 
-# 11. 并发 (Async/Await) {#11-bing-fa-asyncawait}
+# 11. 并发 {#11-bing-fa}
 
-
-基于 pthreads 构建。
+线程由 `std/thread.zc` 提供，基于 pthreads。`Thread::spawn` 在新线程中运行一个函数或闭包，`join` 等待它结束。
 
 ```zc
-async fn fetch_data() -> string {
-    // 在后台运行
-    return "Data";
+import "std/thread.zc"
+import "std/io.zc"
+
+fn fetch_data(id: int) {
+    println(f"Worker {id} running in the background");
 }
 
 fn main() {
-    let future = fetch_data();
-    let result = await future;
+    let t = Thread::spawn(fn() {
+        fetch_data(1);
+    }).unwrap();
+    t.join();
 }
 ```
