@@ -55,9 +55,11 @@ jobs:
           rsync -avz --delete --exclude='_index.md' docs-repo/reference/ website/docs.zenc-lang.org/content/docs/tour/
           
           # Sync the Getting Started pages (English only), with the template that shows them as plain documents
+          # and their GitHub alerts (> [!WARNING]) turned into the site's alert shortcode, as in the tour
           for name in install changelog; do
             TITLE=$(grep -m 1 "^# " "docs-repo/$name.md" | sed 's/^# //')
-            { printf '+++\ntitle = "%s"\ntemplate = "plain.html"\n+++\n\n' "$TITLE"; cat "docs-repo/$name.md"; } \
+            { printf '+++\ntitle = "%s"\ntemplate = "plain.html"\n+++\n\n' "$TITLE"
+              python3 -c 'import sys; sys.path.insert(0, "docs-repo/scripts"); from split_reference import convert_alerts; sys.stdout.write(convert_alerts(open(sys.argv[1]).read()))' "docs-repo/$name.md"; } \
               > "website/docs.zenc-lang.org/content/docs/$name.md"
           done
 
