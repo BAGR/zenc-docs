@@ -1195,13 +1195,13 @@ println(f"Running on: {PLATFORM}");
 #### Embed
 Embed files as specified types.
 ```zc
-// Default (Slice_char)
+// Default ([char])
 let data = embed "assets/logo.png";
 
 // Typed Embed
 let text = embed "shader.glsl" as string;    // Embbed as C-string
 let rom  = embed "bios.bin" as u8[1024];     // Embed as fixed array
-let wav  = embed "sound.wav" as u8[];        // Embed as Slice_u8
+let wav  = embed "sound.wav" as u8[];        // Embed as [u8]
 ```
 
 #### Plugins

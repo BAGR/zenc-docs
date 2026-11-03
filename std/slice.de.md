@@ -6,8 +6,9 @@
 
 - **Kein Besitz**: Slices kopieren oder besitzen die zugrunde liegenden Daten nicht; sie zeigen lediglich darauf.
 - **Iterationsunterstützung**: Implementiert die Methode `iterator()`, wodurch Slices direkt in `for-in`-Schleifen verwendet werden können.
-- **Automatische Konvertierung**: Der Zen-C-Compiler konvertiert Arrays fester Größe automatisch in Slices bei Iterationen oder wenn sie an Funktionen übergeben werden, die Slices erwarten.
-- **Sicherer Zugriff**: Bietet grenzgeprüfte `get()`- und `at()`-Methoden, die `Option<T>` zurückgeben.
+- **Automatische Konvertierung**: Ein Array fester Größe oder ein Array-Literal wird überall dort als Slice betrachtet, wo eines erwartet wird: `let s: [int] = [1, 2, 3];`, `sum(arr)`, `sum([1, 2])`, ein Struct-Feld. Auch die Iteration über ein Array fester Größe verwendet ein Slice.
+- **Sicherer Zugriff**: `s[i]` liefert das Element, mit Grenzprüfung; `get()` und `at()` geben `Option<T>` zurück.
+- **Kein Rückgabewert für Stack-Daten**: Eine Funktion, die ein Slice zurückgibt, kann weder ein Array-Literal noch ein lokales Array zurückgeben: Ihre Elemente liegen auf dem Stack der Funktion, der nach der Rückkehr nicht mehr existiert. Gib stattdessen ein Array fester Größe oder einen `Vec<T>` zurück.
 
 ## Verwendung
 
@@ -34,6 +35,8 @@ fn main() {
 ```
 
 ## Struktur-Definition
+
+`Slice<T>` ist in den Compiler eingebaut: `[T]` und `T[]` sind derselbe Typ (`[int]` ist `Slice<int>`). `std/slice.zc` fügt die folgenden Methoden hinzu.
 
 ```zc
 struct Slice<T> {
@@ -68,5 +71,5 @@ struct Slice<T> {
 
 ## Hinweise
 
-- **Auto-Import**: `std/slice.zc` wird vom Compiler automatisch importiert, wenn eine `for-in`-Iteration auf Arrays fester Größe durchgeführt wird.
+- **Auto-Import**: `std/slice.zc` wird vom Compiler automatisch importiert, wenn eine `for-in`-Iteration auf Arrays fester Größe und Slices durchgeführt wird.
 - **Sicherheit**: Obwohl `data` ein roher Zeiger ist, ermutigt die `Slice`-Struktur zur Verwendung der längenbewussten `get()`-Methode für einen sicheren Zugriff.

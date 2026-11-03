@@ -106,13 +106,13 @@ Usa raw strings (`r"..."`) en comptime para evitar escapar llaves: `code(r"fn te
 #### Embed
 Embebe archivos como los tipos especificados.
 ```zc
-// Por defecto (Slice_char)
+// Por defecto ([char])
 let datos = embed "assets/logo.png";
 
 // Embed tipado
 let texto = embed "shader.glsl" as string;    // Embebe como C-string
 let rom   = embed "bios.bin" as u8[1024];     // Embebe como array fijo
-let wav   = embed "sound.wav" as u8[];        // Embebe como Slice_u8
+let wav   = embed "sound.wav" as u8[];        // Embebe como [u8]
 ```
 
 #### Plugins

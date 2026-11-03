@@ -61,7 +61,7 @@ C compilers have no plugin system. Alternatives:
 - Lex/yacc for custom language extensions (complex setup)
 
 Key Differences:
-- `embed "file"` as `Slice_char` (default), `as string`, `as u8[N]`, `as u8[]`
+- `embed "file"` as `[char]` (default), `as string`, `as u8[N]`, `as u8[]`
 - `import plugin "..." as name` loads compiler extensions
 - `name! { ... }` invokes plugin with custom syntax
 - Plugins have LSP hover support for documentation

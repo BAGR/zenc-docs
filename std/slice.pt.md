@@ -6,8 +6,9 @@
 
 - **Sem propriedade**: As fatias não copiam nem possuem os dados subjacentes; elas apenas apontam para eles.
 - **Suporte à Iteração**: Implementa o método `iterator()`, permitindo que as fatias sejam usadas diretamente em loops `for-in`.
-- **Conversão Automática**: O compilador Zen-C converte automaticamente arrays de tamanho fixo em fatias ao realizar a iteração ou passar para funções que esperam fatias.
-- **Acesso Seguro**: Fornece os métodos `get()` e `at()` com verificação de limites, retornando `Option<T>`.
+- **Conversão Automática**: Um array de tamanho fixo ou um literal de array é visto como uma fatia onde quer que se espere uma: `let s: [int] = [1, 2, 3];`, `sum(arr)`, `sum([1, 2])`, um campo de uma estrutura. Iterar sobre um array de tamanho fixo também usa uma fatia.
+- **Acesso Seguro**: `s[i]` devolve o elemento, com verificação de limites; `get()` e `at()` retornam `Option<T>`.
+- **Não Serve para Retornar Dados da Pilha**: Uma função que retorna uma fatia não pode retornar um literal de array nem um array local: seus elementos vivem na pilha da função, que deixa de existir após o retorno. Retorne em vez disso um array de tamanho fixo ou um `Vec<T>`.
 
 ## Uso
 
@@ -34,6 +35,8 @@ fn main() {
 ```
 
 ## Definição da Estrutura
+
+`Slice<T>` é integrado ao compilador: `[T]` e `T[]` são o mesmo tipo (`[int]` é `Slice<int>`). `std/slice.zc` adiciona os métodos abaixo.
 
 ```zc
 struct Slice<T> {
@@ -68,5 +71,5 @@ struct Slice<T> {
 
 ## Notas
 
-- **Importação Automática**: `std/slice.zc` é importado automaticamente pelo compilador ao realizar a iteração `for-in` em arrays de tamanho fixo.
+- **Importação Automática**: `std/slice.zc` é importado automaticamente pelo compilador ao realizar a iteração `for-in` em arrays de tamanho fixo e fatias.
 - **Segurança**: Embora `data` seja um ponteiro bruto, a estrutura `Slice` incentiva o uso do método `get()`, que reconhece o comprimento, para um acesso seguro.

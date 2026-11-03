@@ -6,8 +6,9 @@
 
 - **Senza Proprietà**: Gli slice non copiano né possiedono i dati sottostanti; puntano semplicemente ad essi.
 - **Supporto all'Iterazione**: Implementa il metodo `iterator()`, consentendo agli slice di essere utilizzati direttamente nei cicli `for-in`.
-- **Conversione Automatica**: Il compilatore Zen-C converte automaticamente gli array a dimensione fissa in slice durante l'esecuzione dell'iterazione o il passaggio a funzioni che richiedono uno slice.
-- **Accesso Sicuro**: Fornisce i metodi `get()` e `at()`, con controllo dei limiti, che restituiscono un `Option<T>`.
+- **Conversione Automatica**: Un array a dimensione fissa o un letterale di array viene visto come uno slice ovunque ne sia atteso uno: `let s: [int] = [1, 2, 3];`, `sum(arr)`, `sum([1, 2])`, un campo di una struct. Anche l'iterazione su un array a dimensione fissa usa uno slice.
+- **Accesso Sicuro**: `s[i]` restituisce l'elemento, con controllo dei limiti; `get()` e `at()` restituiscono un `Option<T>`.
+- **Non per Restituire Dati dello Stack**: Una funzione che restituisce uno slice non può restituire un letterale di array né un array locale: i loro elementi vivono sullo stack della funzione, che scompare dopo il ritorno. Restituisci invece un array a dimensione fissa o un `Vec<T>`.
 
 ## Utilizzo
 
@@ -34,6 +35,8 @@ fn main() {
 ```
 
 ## Definizione Struct
+
+`Slice<T>` è integrato nel compilatore: `[T]` e `T[]` sono lo stesso tipo (`[int]` è `Slice<int>`). `std/slice.zc` aggiunge i metodi qui sotto.
 
 ```zc
 struct Slice<T> {
@@ -68,5 +71,5 @@ struct Slice<T> {
 
 ## Note
 
-- **Auto-import**: `std/slice.zc` viene importato automaticamente dal compilatore quando si esegue l'iterazione `for-in` su array a dimensione fissa.
+- **Auto-import**: `std/slice.zc` viene importato automaticamente dal compilatore quando si esegue l'iterazione `for-in` su array a dimensione fissa e slice.
 - **Sicurezza**: Sebbene `data` sia un puntatore grezzo, la struct `Slice` incoraggia l'uso del metodo `get()`, consapevole della lunghezza, per un accesso sicuro.
