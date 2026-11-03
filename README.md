@@ -73,3 +73,14 @@ The legacy subcommands `zc lsp`, `zc repl`, `zc doc`, and `zc format` still work
 ## Contributing to Docs
 
 Documentation is a community effort. If you find a typo, outdated information, or want to contribute a new guide, please open a documentation issue or pull request.
+
+### Preview the website locally
+
+The website ([zenc-lang-ce.github.io](https://github.com/zenc-lang-ce/zenc-lang-ce.github.io)) publishes these pages through `scripts/sync_to_site.sh`. To see your changes as they will look there, clone the website next to this repository and run:
+
+```bash
+make serve                          # WEB=../zenc-lang-ce.github.io by default
+make serve WEB=../path/to/website   # if it is somewhere else
+```
+
+It serves the site at http://localhost:1111/docs/ and updates it about half a minute after you save a file. It needs Python 3, `rsync`, and Zola 0.18.0 or Docker. `make clean` removes the copy it works on (`.preview/`).

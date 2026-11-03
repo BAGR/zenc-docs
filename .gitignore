@@ -1,1 +1,4 @@
 __pycache__/
+
+# make serve: the website copy and its Python environment
+.preview/
