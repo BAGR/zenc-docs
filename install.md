@@ -26,15 +26,17 @@ The [releases page](https://github.com/zenc-lang-ce/zenc/releases) has every ver
 
 ### Native binaries
 
-`zenc-<version>-<os>-<arch>.zip` holds the native programs of one system: Linux (`x86_64`, `arm64`), macOS (`x86_64`, `arm64`) or Windows (`x86_64`). Each zip has `zc`, the four tools, the standard library (`std.zc` and `std/`) and the license, in one directory.
+Each archive holds the native programs of one system: `zenc-<version>-linux-<arch>.tar.gz` for Linux (`x86_64`, `arm64`), and `zenc-<version>-macos-<arch>.zip` or `zenc-<version>-windows-x86_64.zip` for macOS (`x86_64`, `arm64`) and Windows. Each one has `zc`, the four tools, the standard library (`std.zc` and `std/`) and the license, in one directory.
 
 Unpack it anywhere and add that directory to your `PATH`. `zc` finds the standard library next to itself, so keep the files together:
 
 ```bash
-unzip zenc-0.5.1-linux-x86_64.zip
+tar -xzf zenc-0.5.1-linux-x86_64.tar.gz
 export PATH="$PWD/zenc-0.5.1-linux-x86_64:$PATH"
 zc --version
 ```
+
+On macOS, `unzip zenc-0.5.1-macos-arm64.zip` instead; on Windows, extract the zip and add its directory to the `Path` environment variable.
 
 There is nothing else to set up. If you run `zc` through a symbolic link in another directory instead (`ln -s …/zc ~/bin/zc`), set `ZC_ROOT` to the unpacked directory: on macOS, `zc` does not follow the link to find its standard library.
 

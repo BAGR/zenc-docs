@@ -9,7 +9,7 @@ Every change in each release of Zen C. The [CHANGELOG.md](https://github.com/zen
   - `zc.com` finds its standard library in any directory, and `ZC_ROOT` works again;
   - `zc-boot.com` installs the `zc.com` of this release;
   - the tools come as portable executables too: `zc-lsp.com`, `zc-repl.com`, `zc-format.com` and `zc-doc.com`;
-  - native binaries for Linux, macOS and Windows: `zenc-<version>-<os>-<arch>.zip`.
+  - native binaries for Linux (`zenc-<version>-linux-<arch>.tar.gz`), macOS and Windows (`zenc-<version>-<os>-<arch>.zip`).
 - The language server no longer crashes when two files declare the same enum, one with a payload on a variant and one without, and calling a variant constructor without its payload is an error instead of a crash ([#110](https://github.com/zenc-lang-ce/zenc/issues/110), [PR #111](https://github.com/zenc-lang-ce/zenc/pull/111)).
 
 ## 0.5.0
