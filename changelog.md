@@ -4,8 +4,6 @@ Every change in each release of Zen C. The [CHANGELOG.md](https://github.com/zen
 
 ## 0.5.1
 
-Issues and pull requests are in [zenc-lang-ce/zenc](https://github.com/zenc-lang-ce/zenc).
-
 ### Fixed
 - Release downloads ([#109](https://github.com/zenc-lang-ce/zenc/issues/109), [PR #112](https://github.com/zenc-lang-ce/zenc/pull/112), [PR #113](https://github.com/zenc-lang-ce/zenc/pull/113)):
   - `zc.com` finds its standard library in any directory, and `ZC_ROOT` works again;
