@@ -51,12 +51,15 @@ The native binaries are built without the REPL JIT. To get it, build from source
 
 ### Portable executables (APE)
 
-`zc.com`, `zc-lsp.com`, `zc-repl.com`, `zc-format.com` and `zc-doc.com` are [Actually Portable Executables](https://github.com/jart/cosmopolitan): the same file runs on all those systems and has the standard library inside.
+`zc.com`, `zc-lsp.com`, `zc-repl.com`, `zc-format.com` and `zc-doc.com` are [Actually Portable Executables](https://github.com/jart/cosmopolitan): the same file runs on all those systems and has the standard library inside. The release has `zc.com` on its own, for the compiler alone, and `zenc-<version>-ape.zip` with `zc.com` and the four tools:
 
 ```bash
-chmod +x zc.com
+unzip zenc-0.5.1-ape.zip -d zenc-ape
+cd zenc-ape
 ./zc.com run hello.zc
 ```
+
+If you download `zc.com` on its own on Linux or macOS, make it executable first: `chmod +x zc.com`.
 
 > [!WARNING]
 > On Windows, rename them to `zc.exe`, `zc-lsp.exe`, `zc-repl.exe`, `zc-format.exe` and `zc-doc.exe` before running them.
