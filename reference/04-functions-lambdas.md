@@ -58,11 +58,12 @@ fn main() {
 ```
 
 #### Lambdas (Closures)
-Anonymous functions that can capture their environment.
+Anonymous functions that can capture their environment. In the block syntax the return type (`-> T`) can be left out: it is then the type of the `return` values when they all have the same one, and `void` otherwise. The arrow syntax always infers it.
 ```zc
 let factor = 2;
 let doubler = x => x * factor;  // Arrow syntax
 let full = fn(x: int) -> int { return x * factor; }; // Block syntax
+let inferred = fn(x: int) { return x * factor; };    // Block syntax, return type inferred
 
 // Capture by Reference (Block Syntax)
 let val = 10;

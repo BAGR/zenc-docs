@@ -89,7 +89,7 @@ int main(void) {
 ## Key Differences
 
 - Arrow syntax: `x => x * 2` for single-expression lambdas
-- Block syntax: `fn(x: int) -> int { ... }` for multi-line
+- Block syntax: `fn(x: int) -> int { ... }` for multi-line; `-> int` can be left out, and the return type is inferred from the `return` values
 - Capture by value (implicit in arrows): captures outer variables
 - Capture by reference: `fn[&]() { val += 1 }`
 - Explicit value capture: `fn[=]() { ... }`

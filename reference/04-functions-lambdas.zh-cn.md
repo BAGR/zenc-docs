@@ -58,11 +58,12 @@ fn main() {
 ```
 
 #### Lambda (闭包)
-可以捕获环境的匿名函数。
+可以捕获环境的匿名函数。在块语法中可以省略返回类型（`-> T`）：此时，若所有 `return` 的值类型相同，则取该类型，否则为 `void`。箭头语法总是自动推断返回类型。
 ```zc
 let factor = 2;
 let doubler = x => x * factor;  // 箭头语法
 let full = fn(x: int) -> int { return x * factor; }; // 块语法
+let inferred = fn(x: int) { return x * factor; };    // 块语法，自动推断返回类型
 
 // 引用捕获（块语法）
 let val = 10;

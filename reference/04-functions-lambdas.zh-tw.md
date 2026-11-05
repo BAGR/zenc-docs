@@ -58,11 +58,12 @@ fn main() {
 ```
 
 #### Lambda (閉包)
-可以捕獲環境的匿名函數。
+可以捕獲環境的匿名函數。在區塊語法中可以省略回傳型別（`-> T`）：此時，若所有 `return` 的值型別相同，則取該型別，否則為 `void`。箭頭語法總是自動推斷回傳型別。
 ```zc
 let factor = 2;
 let doubler = x => x * factor;  // 箭頭語法
 let full = fn(x: int) -> int { return x * factor; }; // 區塊語法
+let inferred = fn(x: int) { return x * factor; };    // 區塊語法，自動推斷回傳型別
 
 // 引用捕獲（區塊語法）
 let val = 10;
