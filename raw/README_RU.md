@@ -1134,13 +1134,13 @@ println(f"Запуск на: {PLATFORM}");
 #### Embed
 Встраивайте файлы как указанные типы.
 ```zc
-// По умолчанию (Slice_char)
+// По умолчанию ([char])
 let data = embed "assets/logo.png";
 
 // Типизированное встраивание
 let text = embed "shader.glsl" as string;    // Встроить как C-строку
 let rom  = embed "bios.bin" as u8[1024];     // Встроить как фиксированный массив
-let wav  = embed "sound.wav" as u8[];        // Встроить как Slice_u8
+let wav  = embed "sound.wav" as u8[];        // Встроить как [u8]
 ```
 
 #### Плагины

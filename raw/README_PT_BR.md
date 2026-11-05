@@ -1153,13 +1153,13 @@ println(f"Executando em: {PLATFORM}");
 #### Embed
 Incorpore arquivos como tipos especificados.
 ```zc
-// Padrão (Slice_char)
+// Padrão ([char])
 let data = embed "assets/logo.png";
 
 // Embed Tipado
 let text = embed "shader.glsl" as string;    // Incorporado como C-string
 let rom  = embed "bios.bin" as u8[1024];     // Incorporado como array fixa
-let wav  = embed "sound.wav" as u8[];        // Incorporado como Slice_u8
+let wav  = embed "sound.wav" as u8[];        // Incorporado como [u8]
 ```
 
 #### Plugins

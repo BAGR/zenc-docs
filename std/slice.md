@@ -6,8 +6,9 @@
 
 - **Non-owning**: Slices do not copy or own the underlying data; they merely point to it.
 - **Iteration Support**: Implements the `iterator()` method, allowing slices to be used directly in `for-in` loops.
-- **Automatic Conversion**: The Zen-C compiler automatically converts fixed-size arrays to slices when performing iteration or passing to slice-expecting functions.
-- **Safe Access**: Provides bounds-checked `get()` and `at()` methods returning `Option<T>`.
+- **Automatic Conversion**: A fixed-size array or an array literal is viewed as a slice wherever one is expected: `let s: [int] = [1, 2, 3];`, `sum(arr)`, `sum([1, 2])`, a struct field. Iterating over a fixed-size array uses a slice too.
+- **Safe Access**: `s[i]` gives the element, with a bounds check; `get()` and `at()` return `Option<T>`.
+- **Not a Return Value for Stack Data**: A function that returns a slice cannot return an array literal or a local array: their elements live on the function's stack, which is gone after the return. Return a fixed-size array or a `Vec<T>` instead.
 
 ## Usage
 
@@ -34,6 +35,8 @@ fn main() {
 ```
 
 ## Struct Definition
+
+`Slice<T>` is built into the compiler: `[T]` and `T[]` are the same type (`[int]` is `Slice<int>`). `std/slice.zc` adds the methods below.
 
 ```zc
 struct Slice<T> {
@@ -68,5 +71,5 @@ struct Slice<T> {
 
 ## Notes
 
-- **Auto-import**: `std/slice.zc` is automatically imported by the compiler when performing `for-in` iteration on fixed-size arrays.
+- **Auto-import**: `std/slice.zc` is automatically imported by the compiler when performing `for-in` iteration on fixed-size arrays and slices.
 - **Safety**: While `data` is a raw pointer, the `Slice` struct encourages using the length-aware `get()` method for safe access.

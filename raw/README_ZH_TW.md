@@ -1154,13 +1154,13 @@ println(f"運行於: {PLATFORM}");
 #### Embed
 將文件嵌入為指定類型。
 ```zc
-// 默認 (Slice_char)
+// 默認 ([char])
 let data = embed "assets/logo.png";
 
 // 類型化嵌入
 let text = embed "shader.glsl" as string;    // 嵌入為 C-string
 let rom  = embed "bios.bin" as u8[1024];     // 嵌入為固定數組
-let wav  = embed "sound.wav" as u8[];        // 嵌入為 Slice_u8
+let wav  = embed "sound.wav" as u8[];        // 嵌入為 [u8]
 ```
 
 #### 插件 (Plugins)
