@@ -17,10 +17,10 @@ import "std/io.zc"
 fn main() {
     let x: u32 = 0x80000001;
 
-    let left = bits::rotl32(x, 1);
+    let left = Bits::rotl32(x, 1);
     println(f"rotl(0x{x:08x}, 1) = 0x{left:08x}");
 
-    let right = bits::rotr32(x, 1);
+    let right = Bits::rotr32(x, 1);
     println(f"rotr(0x{x:08x}, 1) = 0x{right:08x}");
 }
 ```
@@ -53,8 +53,8 @@ int main(void) {
 
 ## Key Differences
 
-- `bits::rotl32`, `bits::rotr32` etc. for type-specific bit rotation
-- `bits::rotl8`, `bits::rotl16`, `bits::rotl64` for different widths
+- `Bits::rotl32`, `Bits::rotr32` etc. for type-specific bit rotation
+- `Bits::rotl8`, `Bits::rotl16`, `Bits::rotl64` for different widths
 - C: manual `(x << n) | (x >> (32 - n))` pattern
 
 ## Output

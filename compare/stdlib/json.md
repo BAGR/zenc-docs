@@ -15,7 +15,7 @@ import "std/io.zc"
 
 fn main() {
     let data = r'{"name": "Zen", "value": 42}';
-    let doc = json::parse(data);
+    let doc = JsonValue::parse(data);
     println("parsed ok");
 }
 ```
@@ -42,7 +42,7 @@ int main(void) {
 
 ## Key Differences
 
-- `json::parse(str)?` parses a JSON string, returning a DOM document
+- `JsonValue::parse(str)?` parses a JSON string, returning a DOM document
 - Raw string `r"..."` avoids escape clutter for JSON literals
 - `as_string()`, `as_int()`, `as_bool()`, `as_float()` for type-safe access
 - C: no standard library JSON support, needs external library (cJSON, jansson)

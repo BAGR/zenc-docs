@@ -14,7 +14,7 @@ import "std/regex.zc"
 import "std/io.zc"
 
 fn main() {
-    let re = regex::compile("[a-z]+@[a-z]+\\.[a-z]+");
+    let re = Regex::compile("[a-z]+@[a-z]+\\.[a-z]+");
 
     let test_email = "hello@world.com";
     println(f"is match: {re.is_match(test_email)}");
@@ -52,7 +52,7 @@ int main(void) {
 
 ## Key Differences
 
-- `regex::compile(pattern)?` compiles a regex
+- `Regex::compile(pattern)?` compiles a regex
 - `re.find_all(text)` returns all matches as strings
 - `re.find(text)` returns first match
 - `re.is_match(text)` for boolean check
