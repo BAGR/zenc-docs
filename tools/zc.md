@@ -6,7 +6,7 @@
 zc <command> [options] <file> [<files>...] [<args>...]
 ```
 
-The command goes first, then the options, in any order with the files. `zc --help` lists the most used options, and `zc help <command>` explains one command.
+The options go after the command, in any order with the files, or before it: `zc -O2 build app.zc`. `zc --help` lists the most used options, and `zc help <command>` explains one command.
 
 ## Commands
 
@@ -16,6 +16,8 @@ The command goes first, then the options, in any order with the files. `zc --hel
 | `zc run app.zc [args]` | Builds the program, runs it with `args` and deletes the executable. `zc` exits with the program's exit code. |
 | `zc check app.zc` | Checks the program, types included, without writing C or building it. |
 | `zc transpile app.zc` | Writes the C of the program to `app.c`, without building it. |
+| `zc debug app.zc [args]` | Like `zc run`, with debug information (`-g`). |
+| `zc cache c-headers` | Reads the system's C headers again (see [The C header cache](#the-c-header-cache)). |
 | `zc --version` | Prints the version. |
 | `zc --paths` | Prints the directories where `zc` looks for imports. |
 
@@ -40,6 +42,7 @@ zc build main.zc parser.zc vendor/sqlite3.c -o app
 | `--emit-c` | Keeps the C file next to the executable. Without it, `zc build` and `zc run` delete it. |
 | `-q`, `--quiet` | Prints only errors, and passes `-w` to the C compiler. |
 | `-v`, `--verbose` | Prints each phase of the compilation. |
+| `--prune-unused` | Leaves out of the C the functions that nothing calls, and prints how many; with `-v`, which ones. It works when `zc` builds an executable from the C it writes alone: not with C files or objects of your own, `-shared`, `-S`, `-E`, `--misra` or `--cuda`. |
 | `--json` | Prints diagnostics as JSON, one object per line: `{"file":"app.zc","line":3,"col":18,"level":"error","message":"..."}`. |
 
 ## The C compiler
@@ -49,8 +52,9 @@ zc build main.zc parser.zc vendor/sqlite3.c -o app
 | Option | What it does |
 | :--- | :--- |
 | `--cc <compiler>` | The C compiler: `clang`, `tcc`, `zig` (runs `zig cc`), a path... |
-| `-O<level>`, `-O <level>` | The optimization level of the C compiler. |
-| `--release` | `-O3`, and no `#line` directives in the C. |
+| `-O<level>` | The optimization level of the C compiler: `-O0` to `-O3`, `-Os`... |
+| `--release` | `-O3`, without debug information or `#line` directives. |
+| `-g`, `-g0` | With or without debug information (`-g` for the C compiler, and `#line` directives in the C). |
 | `-I <dir>` | Looks for imports and C headers in `dir`. |
 | `-L <dir>`, `-l <library>` | Library search path and library to link. |
 | `-D <name>[=<value>]` | Defines a macro for the C compiler, and the name for [`@cfg`](https://zenc-lang-ce.github.io/docs/tour/12-advanced/). |
@@ -63,10 +67,10 @@ A program can also set these in its source, with build directives: `//> link: -l
 
 ### Debugging
 
-The generated C carries `#line` directives, so a debugger shows your `.zc` files. To build with debug information, give the C compiler `-g3` and turn optimizations off:
+The generated C carries `#line` directives, so a debugger shows your `.zc` files. Build with debug information and without optimizations:
 
 ```bash
-zc build app.zc -o app -g3 -O0
+zc build app.zc -o app -g -O0
 ```
 
 [Editors](https://zenc-lang-ce.github.io/docs/editors/#debugging) explains how to debug from VS Code.
@@ -121,8 +125,13 @@ zc transpile app.zc --backend json --json-pretty    # writes app.json
 }
 ```
 
+## The C header cache
+
+To know what the C headers of the standard library declare, `zc` reads them with the C compiler once, and keeps what it found in a cache: `$XDG_CACHE_HOME/zenc`, or `~/Library/Caches/zenc` on macOS, `~/.cache/zenc` on Linux and `%LOCALAPPDATA%\zenc` on Windows. It reads them again when one of them changes on disk. After installing another C compiler or SDK, `zc cache c-headers` (with the same `--cc` and `-I` as your builds) reads them again.
+
 ## Environment
 
 | Variable | What it does |
 | :--- | :--- |
 | `ZC_ROOT` | Where the standard library is, instead of looking for it next to `zc`. |
+| `XDG_CACHE_HOME` | Where the [C header cache](#the-c-header-cache) goes. |
